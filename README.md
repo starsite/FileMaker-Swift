@@ -2,6 +2,12 @@ This is a brand new repo (Sep 12) and will be updated. Probably a lot. 🚀
 
 - - -
 
+### Data API + Swift (walkthrough)
+Step by step, through the Data-API-ViewController
+https://github.com/starsite/FileMaker-Swift/blob/master/Data%20API%20%2B%20Swift%20(walkthrough).md
+
+- - -
+
 ### Data-API-ViewController.swift
 FileMaker 17 Data API session and token management in Swift, with a query example
 * https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-ViewController.swift
