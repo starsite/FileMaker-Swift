@@ -83,12 +83,12 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     }
  
  
-    /* return foreground active -> this is a FIAS delegate function and not part of UIKit */
+    // return foreground active -> this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active!")
  
-        /* firing a script requires the 'fmurlscript' extended privilege in your .fmp12 file */
+        // firing a script requires the 'fmurlscript' extended privilege in your .fmp12 file */
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
@@ -128,8 +128,10 @@ launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
 applicationDelegateClass = _TtC4MyProject10SwiftAppDel
 ```
- 
-Run (Command-R)
+
+- - -
+
+### Run (Command-R)
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
