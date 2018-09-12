@@ -21,7 +21,7 @@
 * Get an object reference for our App Delegate using `otool`
 * Assign object reference in `configFile.txt`
 * Build and run app
-* Profit! (lol)
+* Profit!
  
 - - -
  
@@ -30,7 +30,7 @@
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
 <pre>cd /Applications/iOSAppSDKPackage_17.0.2</pre>
 
-Create a project.
+Create a project. Leading dot, yo.
 <pre>./makeprojdir MyDirectory MyProject com.domain.MyProject</pre>
 
 After FIAS returns a prompt, you can open the project with:
