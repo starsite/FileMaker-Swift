@@ -62,7 +62,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-```swift
+```
 import Foundation
  
  
