@@ -65,10 +65,9 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
 ```swift
-import Foundation   // already present
+import Foundation
  
  
-// type the following (auto-complete is your friend)
 class SwiftAppDel: UIResponder, UIApplicationDelegate {
    
     var window: UIWindow?
@@ -77,13 +76,14 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     // did finish launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        
-        print("swift app delegate!)   // disco!
+        // disco!
+        print("swift app delegate!)
  
         return true
     }
  
  
-    // return foreground active -- this is a FIAS delegate function (not part of UIKit)
+    // return foreground active -> this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active!")
