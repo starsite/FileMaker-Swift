@@ -10,4 +10,10 @@ Create and use a Swift `AppDelegate` in a FileMaker iOS App SDK project. Shows a
 
 - - -
 
+## URL schemes for FileMaker Go, FIAS, and iOS
+
+* https://github.com/starsite/FileMaker-Swift/blob/master/URL%20schemes%20for%20FileMaker%20Go%2C%20FIAS%2C%20and%20iOS.md
+
+- - -
+
 This is a new repo (Sep 12) and will be updated. Probably a lot.
