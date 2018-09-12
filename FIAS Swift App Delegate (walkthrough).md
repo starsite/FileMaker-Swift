@@ -10,16 +10,16 @@
 * A tutorial on Terminal
  
 ### Requirements
-* iOS App SDK 17+  // 17.0.2 as of this writing
-* Xcode 9+         //  9.4.1 as of this writing
+* iOS App SDK 17+ /comment
+* Xcode 9+
  
 ### Here's What We're Going To Do
 * Navigate to FIAS directory and create a project
 * Add a Swift App Delegate class
-* Edit Bridging-Header.h
+* Edit `Bridging-Header.h`
 * Finish the App Delegate class
 * Build (test)
-* Navigate to ../DerivedData/../MyProject.app
+* Navigate to `../DerivedData/../MyProject.app`
 * Get an object reference for our App Delegate using `otool`
 * Assign object reference in `configFile.txt`
 * Build and run app
@@ -53,8 +53,8 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
 <pre>
-#import "UIKit/UIKit.h"   // bridges NSString, NSDictionary, and bool types from FMX_Exports.h
-#import "FMX_Exports.h"   // fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
+#import "UIKit/UIKit.h"   / bridges NSString, NSDictionary, and bool types from FMX_Exports.h
+#import "FMX_Exports.h"   / fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
 </pre>
 
 Build the project (Command-B) and watch for errors. You shouldn't have any.
@@ -65,7 +65,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
 <pre>
-import Foundation   // already present
+import Foundation   / already present
  
  
 // type the following (auto-complete is your friend)
