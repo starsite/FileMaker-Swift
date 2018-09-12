@@ -73,7 +73,7 @@ YouTube         – youtube://
 - - -
 
 ### FileMaker
-```html
+```
 fmp://<hostName>/<fileName>   // .fmp12 not required
 fmp://<user>:<pass>@<hostName>/<fileName>   // user:pass
 fmp://<hostName>/<fileName>?script=<scriptName>&param=<parameter>     // parameter
