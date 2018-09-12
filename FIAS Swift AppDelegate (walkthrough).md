@@ -64,7 +64,8 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-<pre><code>import Foundation   // already present
+```swift
+import Foundation   // already present
  
  
 // type the following (auto-complete is your friend)
@@ -91,7 +92,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
-</code></pre>
+```
  
  
  
@@ -153,7 +154,7 @@ Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how
  
 My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
  
-<pre>
+```swift
 #ifndef FMX_Exports_h
 #define FMX_Exports_h
  
@@ -180,4 +181,4 @@ enum
 extern bool FMX_Queue_Script(NSString *fileName, NSString *scriptName, FMX_ScriptControl control, NSString *scriptParam, NSDictionary<NSString *, NSString *> *variables);
  
 #endif /* FMX_Exports_h */
-</pre>
+```
