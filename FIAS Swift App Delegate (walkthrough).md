@@ -1,29 +1,29 @@
 # FIAS Swift App Delegate
 
 #### What You'll Learn
-How to build a simple FIAS project in Xcode with a Swift App Delegate.
-How to trigger a script from the App Delegate.
+* How to build a simple FIAS project in Xcode with a Swift App Delegate.
+* How to trigger a script from the App Delegate.
  
 #### What This Post Is /Not/
-A tutorial on Xcode
-A tutorial on Swift
-A tutorial on Terminal
+* A tutorial on Xcode
+* A tutorial on Swift
+* A tutorial on Terminal
  
 #### Requirements
-iOS App SDK 17+  // 17.0.2 as of this writing
-Xcode 9+         //  9.4.1 as of this writing
+* iOS App SDK 17+  // 17.0.2 as of this writing
+* Xcode 9+         //  9.4.1 as of this writing
  
 #### Here's What We're Going To Do
-Navigate to FIAS directory and create a project
-Add a Swift App Delegate class
-Edit Bridging-Header.h
-Finish the App Delegate class
-Build (test)
-Navigate to ../DerivedData/../MyProject.app
-Get an object reference for our App Delegate using `otool`
-Assign object reference in `configFile.txt`
-Build and run app
-Profit! (lol)
+* Navigate to FIAS directory and create a project
+* Add a Swift App Delegate class
+* Edit Bridging-Header.h
+* Finish the App Delegate class
+* Build (test)
+* Navigate to ../DerivedData/../MyProject.app
+* Get an object reference for our App Delegate using `otool`
+* Assign object reference in `configFile.txt`
+* Build and run app
+* Profit! (lol)
  
  
  
