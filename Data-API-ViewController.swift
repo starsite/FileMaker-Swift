@@ -107,12 +107,12 @@ class ViewController: UIViewController {
         // request
         switch isActiveToken() {  
         case true:
-            print("with active token - expiry: \(self.expiry)")
+            print("active token - expiry: \(self.expiry)")
             findRequest(with: self.token!, layout: "Bands", payload: self.payload)
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
-                print("with new token")
+                print("new token - expiry: \(newExpiry)")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
         }
