@@ -81,7 +81,7 @@ Refresh an expired token. The @escaping marker allows the `token` and `expiry` t
  - - -
  
 #### Find request
-This example shows an "or" request. Set the payload from a `UITextField` (or hardcode one, like this) and pass that as a parameter.
+This example shows an "or" request. Set the payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
 
 ```swift
     // query
@@ -125,7 +125,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
  - - -
  
 #### `viewDidLoad` with query
-Here we're checking for an active token (self.token) and giving it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
+Here we check for an active token (self.token) and give it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
  
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
 
@@ -142,7 +142,7 @@ If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a vi
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in    // async
-                print("fetch with new token - expiry: \(newExpiry)")
+                print("with new token")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
         }
