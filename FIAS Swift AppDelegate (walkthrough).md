@@ -77,7 +77,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     // did finish launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        
-        print("\n\n*** swift app delegate! \n\n")   // disco!
+        print("swift app delegate!)   // disco!
  
         return true
     }
@@ -86,7 +86,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     // return foreground active -- this is a FIAS delegate function (not part of UIKit)
     func completedReturnToForegroundActive() {
  
-        print("\n\n*** return foreground active! \n\n")
+        print("return foreground active!")
  
         // firing a script requires the 'fmurlscript' extended privilege in your .fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
@@ -123,11 +123,11 @@ This outputs metadata for the `MyProject` Unix executable inside of `MyProject.a
 
 Return to Xcode, open `configFile.txt` from the Project Navigator, and update these settings:
 
-<pre>
+```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
 applicationDelegateClass = _TtC4MyProject10SwiftAppDel
-</pre>
+```
  
 Run (Command-R)
 
