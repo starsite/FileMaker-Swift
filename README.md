@@ -16,7 +16,7 @@ A FileMaker 17 Data API session with token management and a query example
 
 ### FIAS Swift App Delegate (walkthrough)
 Create and use a Swift `App Delegate` in a FileMaker iOS App SDK project (v17). Also shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` delegate method.
-* https://github.com/starsite/FileMaker-Swift/blob/master/FIAS%20Swift%20AppDelegate%20(walkthrough).md
+https://github.com/starsite/FileMaker-Swift/blob/master/FIAS%20Swift%20App%20Delegate%20(walkthrough).md
 
 - - -
 
