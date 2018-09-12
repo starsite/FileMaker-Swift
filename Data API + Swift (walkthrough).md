@@ -71,8 +71,8 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
             }
            
             // prefs
-            self.token  = token
-            self.expiry = expiry
+            UserDefaults.standard.set(token, forKey: "fm-token")
+            UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
            
             completion(token, expiry)   // out^
            
