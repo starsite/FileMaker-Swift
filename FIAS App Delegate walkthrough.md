@@ -54,6 +54,7 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 #import "UIKit/UIKit.h"   // bridges NSString, NSDictionary, and bool types from FMX_Exports.h
 #import "FMX_Exports.h"   // fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
 </pre>
+
 Build the project (Command-B) and watch for errors. You shouldn't have any.
  
  
@@ -103,7 +104,8 @@ Take care of any errors or typos before proceeding.
 Terminal: Navigate To DerivedData/...
 
 DerivedData is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
-> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/
+<pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
+
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
  
  
@@ -120,6 +122,7 @@ This outputs metadata for the `MyProject` Unix executable inside of `MyProject.a
 Xcode: Update FIAS Config File
 
 Return to Xcode, open `configFile.txt` from the Project Navigator, and update these settings:
+
 <pre>
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
