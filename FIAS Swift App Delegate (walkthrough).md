@@ -4,7 +4,7 @@
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
 * How to trigger a script from the App Delegate.
  
-### What This Post Is __Not__
+### What This Post Is **Not**
 * A tutorial on Xcode
 * A tutorial on Swift
 * A tutorial on Terminal
@@ -32,11 +32,11 @@
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
 <pre>> cd /Applications/iOSAppSDKPackage_17.0.2</pre>
 
-Create a project. Don't forget the leading dot, and mind your spaces
+Create a project.
 <pre>> ./makeprojdir MyDirectory MyProject com.domain.MyProject</pre>
 
 After FIAS returns a prompt, you can open the project with:
-<pre>> open MyDirectory/MyProject.xcodeproj   // or open it via the Finder</pre>
+<pre>> open MyDirectory/MyProject.xcodeproj
  
  
  
@@ -53,8 +53,8 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
 <pre>
-#import "UIKit/UIKit.h"   / bridges NSString, NSDictionary, and bool types from FMX_Exports.h
-#import "FMX_Exports.h"   / fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
+#import "UIKit/UIKit.h"
+#import "FMX_Exports.h"
 </pre>
 
 Build the project (Command-B) and watch for errors. You shouldn't have any.
@@ -65,7 +65,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
 <pre>
-import Foundation   / already present
+import Foundation   // already present
  
  
 // type the following (auto-complete is your friend)
