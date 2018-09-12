@@ -64,8 +64,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-<pre><code>
-import Foundation   // already present
+<pre><code>import Foundation   // already present
  
  
 // type the following (auto-complete is your friend)
