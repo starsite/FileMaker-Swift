@@ -1,4 +1,4 @@
-This is a new repo (Sep 12) and will be updated. Probably a lot.
+This is a brand new repo (Sep 12) and will be updated. Probably a lot.
 
 - - -
 
