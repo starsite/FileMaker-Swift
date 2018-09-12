@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0) 
     // ...
     
-    
 
 
     // active token?
@@ -23,7 +22,6 @@ class ViewController: UIViewController {
             return false
         }
     }
-
 
 
     
@@ -59,8 +57,7 @@ class ViewController: UIViewController {
            
         }.resume()
     }
-    
-    
+       
     
     
     // "or" query
@@ -68,8 +65,7 @@ class ViewController: UIViewController {
         ["bandName": "Daniel Markham"],
         ["bandName": "Sudie"]
     ]]
- 
- 
+  
     
     
     // find request
@@ -101,7 +97,6 @@ class ViewController: UIViewController {
            
         }.resume()
     }
-
 
 
     
