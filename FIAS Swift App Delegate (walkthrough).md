@@ -1,19 +1,19 @@
 # FIAS Swift App Delegate
 
-### What You'll Learn
+#### What You'll Learn
 How to build a simple FIAS project in Xcode with a Swift App Delegate.
 How to trigger a script from the App Delegate.
  
-### What This Post Is /Not/
+#### What This Post Is /Not/
 A tutorial on Xcode
 A tutorial on Swift
 A tutorial on Terminal
  
-### Requirements
+#### Requirements
 iOS App SDK 17+  // 17.0.2 as of this writing
 Xcode 9+         //  9.4.1 as of this writing
  
-### Here's What We're Going To Do
+#### Here's What We're Going To Do
 Navigate to FIAS directory and create a project
 Add a Swift App Delegate class
 Edit Bridging-Header.h
@@ -151,7 +151,7 @@ Happy Coding!
  
  
  
-*** Extra Credit ***
+#### *** Extra Credit ***
 Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
  
 My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed [String: String], instead of the more common [String: Any] you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
