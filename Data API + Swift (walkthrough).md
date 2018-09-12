@@ -4,8 +4,7 @@ For testing, you can hardcode `baseURL` and `auth` as below, but best practice i
  
  - - -
  
-#### 1. Class vars and lets.
-A `let` is a constant, in Swift.
+#### Class vars and lets. A `let` is a constant, in Swift.
  
 ```swift
 import UIKit
@@ -27,7 +26,7 @@ class ViewController: UIViewController {
  - - -
  
 #### Active Token
-2. A simple Bool check to see if there's an existing token in `UserDefaults`, and whether or not it's expired. The _ means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
+A simple Bool check to see if there's an existing token in `UserDefaults`, and whether or not it's expired. The _ means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
     // active token?
@@ -43,7 +42,7 @@ class ViewController: UIViewController {
  - - -
 
 #### Refresh Token
-3. Refresh an expired token. The @escaping marker allows the `token` and `expiry` types to be passed sometime later (they're permitted to "escape" or "outlive" the function). Typical for async calls in Swift. We'll fire this later, in `viewDidLoad()`
+Refresh an expired token. The @escaping marker allows the `token` and `expiry` types to be passed sometime later (they're permitted to "escape" or "outlive" the function). Typical for async calls in Swift. We'll fire this later, in `viewDidLoad()`
 
 ```swift
     // refresh token
@@ -83,7 +82,7 @@ class ViewController: UIViewController {
  - - -
  
 #### Find Request
-4. This example shows an "or" request. Set the payload from a `UITextField` (or hardcode one, like this) and pass that as a parameter.
+This example shows an "or" request. Set the payload from a `UITextField` (or hardcode one, like this) and pass that as a parameter.
 
 ```swift
     // query
@@ -127,7 +126,7 @@ class ViewController: UIViewController {
  - - -
  
 #### viewDidLoad
-5. Here we're checking for an active token (self.token) and giving it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
+Here we're checking for an active token (self.token) and giving it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
  
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
 
