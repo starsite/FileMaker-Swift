@@ -112,7 +112,7 @@ class ViewController: UIViewController {
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
-                print("with new token - expiry: \(newExpiry)")
+                print("with new token")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
         }
