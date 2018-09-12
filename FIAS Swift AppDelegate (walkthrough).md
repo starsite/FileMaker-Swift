@@ -52,10 +52,10 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
-<pre>
+```objective-c
 #import "UIKit/UIKit.h"
 #import "FMX_Exports.h"
-</pre>
+```
 
 Build the project (Command-B) and watch for errors. You shouldn't have any.
  
@@ -154,7 +154,7 @@ Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how
  
 My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
  
-```swift
+```objective-c
 #ifndef FMX_Exports_h
 #define FMX_Exports_h
  
