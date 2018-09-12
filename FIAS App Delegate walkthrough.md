@@ -26,16 +26,20 @@ Profit! (lol)
  
  
 Ok, Let's Make A Project!
+
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
 > cd /Applications/iOSAppSDKPackage_17.0.2
+
 Create a project. Don't forget the leading dot, and mind your spaces
 > ./makeprojdir MyDirectory MyProject com.domain.MyProject
+
 After FIAS returns a prompt, you can open the project with:
 > open MyDirectory/MyProject.xcodeproj   // or open it via the Finder
  
  
  
 Xcode: Create SwiftAppDel File
+
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our Swift App Delegate class. Choose `Swift File`, name it `SwiftAppDel`, and click Create. Xcode will ask you about adding a bridging header. Choose `Create Bridging Header`.
  
 This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet, we'll come back in a minute.
@@ -43,6 +47,7 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
  
  
 Edit Bridging-Header.h
+
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 #import "UIKit/UIKit.h"   // bridges NSString, NSDictionary, and bool types from FMX_Exports.h
 #import "FMX_Exports.h"   // fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
@@ -52,6 +57,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
  
 SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
+
 import Foundation   // already present
  
  
@@ -84,11 +90,13 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
  
  
 Build Project (Command-B)
+
 Take care of any errors or typos before proceeding.
  
  
  
 Terminal: Navigate To DerivedData/...
+
 DerivedData is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
 > cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
@@ -96,13 +104,16 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
  
  
 Get Object Reference To SwiftAppDel
+
 When you've successfully landed in `MyProject.app`, do this:
 > otool -o MyProject
+
 This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`. Check the output for a reference like `_TtC4MyProject10SwiftAppDel`. Copy this value to the clipboard. Include the leading underscore.
  
  
  
 Xcode: Update FIAS Config File
+
 Return to Xcode, open `configFile.txt` from the Project Navigator, and update these settings:
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
@@ -110,6 +121,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel
  
  
 Run (Command-R)
+
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
 Now press your device Home button and re-launch the app (from the device). This time, completedReturnToForegroundActive() should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), that will fire as well.
@@ -117,6 +129,7 @@ Now press your device Home button and re-launch the app (from the device). This 
  
  
 Further Reading
+
 There are lots of app lifecycle (delegate) methods. You can read more about them here:
 UIApplicationDelegate - UIKit | Apple Developer Documentation
  
