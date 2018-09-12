@@ -4,7 +4,8 @@ For testing, you can hardcode `baseURL` and `auth` as below, but best practice i
  
  - - -
  
-#### Class vars and lets. A `let` is a constant, in Swift
+#### Class vars and lets.
+A `let` is a constant, in Swift
  
 ```swift
 import UIKit
