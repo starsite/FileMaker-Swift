@@ -43,7 +43,7 @@ A simple Bool check to see if there's an existing token in `UserDefaults`, and w
  - - -
 
 #### Refresh Token
-Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be passed later (they're permitted to "escape" or "outlive" the function). That's typical for async calls in Swift. We'll use this later, in `viewDidLoad()`
+Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be passed later (they're permitted to "escape" or "outlive" the function). That's typical for async calls in Swift. We'll call this function later, in `viewDidLoad()`
 
 ```swift
     // refresh token
@@ -127,7 +127,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
  - - -
  
 #### `viewDidLoad` With Query
-Here we check for an active token (self.token) and give it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
+Here we check for an active token (`self.token`) and give it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
  
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
 
