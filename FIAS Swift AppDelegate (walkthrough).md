@@ -83,7 +83,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     }
     
  
-    /// return foreground active -> this is a FIAS delegate function and not part of UIKit
+    //return foreground active -> this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active!")
