@@ -28,13 +28,13 @@ Profit! (lol)
 Ok, Let's Make A Project!
 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
-<pre> cd /Applications/iOSAppSDKPackage_17.0.2</pre>
+<pre>> cd /Applications/iOSAppSDKPackage_17.0.2</pre>
 
 Create a project. Don't forget the leading dot, and mind your spaces
-> ./makeprojdir MyDirectory MyProject com.domain.MyProject
+<pre>> ./makeprojdir MyDirectory MyProject com.domain.MyProject</pre>
 
 After FIAS returns a prompt, you can open the project with:
-> open MyDirectory/MyProject.xcodeproj   // or open it via the Finder
+<pre>> open MyDirectory/MyProject.xcodeproj   // or open it via the Finder</pre>
  
  
  
@@ -49,8 +49,11 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
 Edit Bridging-Header.h
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
+
+<pre>
 #import "UIKit/UIKit.h"   // bridges NSString, NSDictionary, and bool types from FMX_Exports.h
 #import "FMX_Exports.h"   // fias class for queueing/firing scripts, I have no idea why FMI named this 'Exports'
+</pre>
 Build the project (Command-B) and watch for errors. You shouldn't have any.
  
  
@@ -58,6 +61,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
+<pre>
 import Foundation   // already present
  
  
@@ -85,6 +89,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
+</pre>
  
  
  
@@ -106,7 +111,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
 Get Object Reference To SwiftAppDel
 
 When you've successfully landed in `MyProject.app`, do this:
-> otool -o MyProject
+<pre>> otool -o MyProject</pre>
 
 This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`. Check the output for a reference like `_TtC4MyProject10SwiftAppDel`. Copy this value to the clipboard. Include the leading underscore.
  
@@ -115,10 +120,11 @@ This outputs metadata for the `MyProject` Unix executable inside of `MyProject.a
 Xcode: Update FIAS Config File
 
 Return to Xcode, open `configFile.txt` from the Project Navigator, and update these settings:
+<pre>
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
 applicationDelegateClass = _TtC4MyProject10SwiftAppDel
- 
+</pre>
  
 Run (Command-R)
 
@@ -145,6 +151,7 @@ Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how
  
 My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed [String: String], instead of the more common [String: Any] you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
  
+<pre>
 #ifndef FMX_Exports_h
 #define FMX_Exports_h
  
@@ -171,4 +178,4 @@ enum
 extern bool FMX_Queue_Script(NSString *fileName, NSString *scriptName, FMX_ScriptControl control, NSString *scriptParam, NSDictionary<NSString *, NSString *> *variables);
  
 #endif /* FMX_Exports_h */
- 
+</pre>
