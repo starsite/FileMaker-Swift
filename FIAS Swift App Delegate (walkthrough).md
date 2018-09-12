@@ -1,19 +1,19 @@
 # FIAS Swift App Delegate
 
-#### What You'll Learn
+### What You'll Learn
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
 * How to trigger a script from the App Delegate.
  
-#### What This Post Is __Not__
+### What This Post Is __Not__
 * A tutorial on Xcode
 * A tutorial on Swift
 * A tutorial on Terminal
  
-#### Requirements
+### Requirements
 * iOS App SDK 17+  // 17.0.2 as of this writing
 * Xcode 9+         //  9.4.1 as of this writing
  
-#### Here's What We're Going To Do
+### Here's What We're Going To Do
 * Navigate to FIAS directory and create a project
 * Add a Swift App Delegate class
 * Edit Bridging-Header.h
@@ -27,7 +27,7 @@
  
  
  
-#### Ok, Let's Make A Project!
+### Ok, Let's Make A Project!
 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
 <pre>> cd /Applications/iOSAppSDKPackage_17.0.2</pre>
@@ -40,7 +40,7 @@ After FIAS returns a prompt, you can open the project with:
  
  
  
-#### Xcode: Create SwiftAppDel File
+### Xcode: Create SwiftAppDel File
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our Swift App Delegate class. Choose `Swift File`, name it `SwiftAppDel`, and click Create. Xcode will ask you about adding a bridging header. Choose `Create Bridging Header`.
  
@@ -48,7 +48,7 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
  
  
  
-#### Edit Bridging-Header.h
+### Edit Bridging-Header.h
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
@@ -61,7 +61,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
  
  
  
-#### SwiftAppDel Class
+### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
 <code>
@@ -101,7 +101,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
  
  
  
-#### Terminal: Navigate To DerivedData/...
+### Terminal: Navigate To DerivedData/...
 
 `/DerivedData` is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
@@ -110,7 +110,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
  
  
  
-#### Get Object Reference To SwiftAppDel
+### Get Object Reference To SwiftAppDel
 
 When you've successfully landed in `MyProject.app`, do this:
 <pre>> otool -o MyProject</pre>
@@ -119,7 +119,7 @@ This outputs metadata for the `MyProject` Unix executable inside of `MyProject.a
  
  
  
-#### Xcode: Update FIAS Config File
+### Xcode: Update FIAS Config File
 
 Return to Xcode, open `configFile.txt` from the Project Navigator, and update these settings:
 
@@ -137,7 +137,7 @@ Now press your device Home button and re-launch the app (from the device). This 
  
  
  
-#### Further Reading
+### Further Reading
 
 There are lots of app lifecycle (delegate) methods. You can read more about them here:
 UIApplicationDelegate - UIKit | Apple Developer Documentation
@@ -149,7 +149,7 @@ Happy Coding!
  
  
  
-#### *** Extra Credit ***
+### *** Extra Credit ***
 Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
  
 My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed [String: String], instead of the more common [String: Any] you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
