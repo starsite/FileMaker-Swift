@@ -133,7 +133,7 @@ Run (Command-R)
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
-Now press your device Home button and re-launch the app (from the device). This time, completedReturnToForegroundActive() should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), that will fire as well.
+Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), that will fire as well.
  
  
  
@@ -152,7 +152,7 @@ Happy Coding!
 ### Extra Credit
 Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
  
-My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed [String: String], instead of the more common [String: Any] you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
+My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
  
 <pre>
 #ifndef FMX_Exports_h
