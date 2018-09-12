@@ -1,5 +1,5 @@
 ## Data-API-ViewController.swift
-FileMaker 17 Data API session and token management, with an "or" query example
+FileMaker 17 Data API session and token management, with a query example
 * https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-ViewController.swift
 
 ## FIAS Swift AppDelegate (walkthrough)
