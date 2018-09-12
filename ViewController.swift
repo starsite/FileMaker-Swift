@@ -2,18 +2,18 @@ import UIKit
  
 class ViewController: UIViewController {
  
-//  let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better
-//  let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
+    //  let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better
+    //  let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
  
-    let baseURL = URL(string: "https: //<hostName>/fmi/data/v1/databases/<databaseName>")!
+    let baseURL = URL(string: "https://<hostName>/fmi/data/v1/databases/<databaseName>")!
     let auth    = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
  
     var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
- 
-    // ... (cont'd)
+    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0) 
     
-
+    // ...
+    
+    
 
 
     // active token?
@@ -27,11 +27,12 @@ class ViewController: UIViewController {
 
 
 
-
+    
     // refresh token
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
        
         let url = baseURL.appendingPathComponent("/sessions")
+        
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
        
         // request
@@ -64,19 +65,20 @@ class ViewController: UIViewController {
     
     
     
-    // query
-    var payload = ["query": [   // or ->[[p1],[p2]]   and ->[[p1,p2]]
+    // "or" query
+    var payload = ["query": [   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]
         ["bandName": "Daniel Markham"],
         ["bandName": "Sudie"]
     ]]
  
  
-    // data api find request
+    
+    
+    // find request
     func findRequest(with token: String, layout: String, payload: [String: Any]) {
        
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
  
-        // serialize             
         guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
        
         // request
@@ -103,20 +105,20 @@ class ViewController: UIViewController {
 
 
 
-
-
+    
     // did load
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        // apiRequest
-        switch isActiveToken() {   
+        // request
+        switch isActiveToken() {  
         case true:
             print("with active token - expiry: \(self.expiry)")
             findRequest(with: self.token!, layout: "Bands", payload: self.payload)
  
         case false:
-            refreshToken(for: auth, completion: { newToken, newExpiry in    // async
+            refreshToken(for: auth, completion: { newToken, newExpiry in
+                                                 
                 print("fetch with new token - expiry: \(newExpiry)")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
