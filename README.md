@@ -9,7 +9,7 @@ Step by step, through `Data-API-ViewController.swift`
 - - -
 
 ### Data-API-ViewController.swift
-FileMaker 17 Data API session and token management, with a query example
+A FileMaker 17 Data API session with token management and a query example
 * https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-ViewController.swift
 
 - - -
