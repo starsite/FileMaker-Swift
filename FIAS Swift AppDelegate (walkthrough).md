@@ -12,7 +12,7 @@
 * Xcode 9+
  
 ### This Is What We'll Do
-* Navigate to FIAS directory and create a project
+* Navigate to our FIAS directory and create a project
 * Add a Swift App Delegate class
 * Edit `Bridging-Header.h`
 * Finish the App Delegate class
@@ -55,22 +55,20 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 #import "FMX_Exports.h"
 ```
 
-Build the project (Command-B) and watch for errors. You shouldn't have any.
+Build the project (Command-B). You shouldn't have any errors.
  
 - - -
  
 ### SwiftAppDel Class
-Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
+Open `SwiftAppDel.swift` from the Project Navigator and finish it out like this:
 
 ```swift
 import Foundation
- 
- 
+
 class SwiftAppDel: UIResponder, UIApplicationDelegate {
    
     var window: UIWindow?
- 
- 
+    
     // did finish launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        
@@ -80,12 +78,11 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
- 
     // return foreground active -> this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active!")
- 
+        
         // firing a script requires the 'fmurlscript' extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
