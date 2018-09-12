@@ -1,4 +1,4 @@
-## Data API session, token management, and query
+## Data API session and query
 FileMaker 17 Data API token request and session management used with an "or" query example, in Swift
 
 ## FIAS Swift AppDelegate (walkthrough)
