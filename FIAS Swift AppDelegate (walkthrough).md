@@ -111,7 +111,9 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
 When you've successfully landed in `MyProject.app`, do this:
 <pre>> otool -o MyProject</pre>
 
-This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`. Check the output for a reference like `_TtC4MyProject10SwiftAppDel`. Copy this value to the clipboard. Include the leading underscore.
+This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`.
+
+Check the output for a reference like `_TtC4MyProject10SwiftAppDel`. Copy this value to the clipboard. Include the leading underscore.
  
 - - -
  
@@ -131,7 +133,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // yours may have a dif
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
-Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), it will fire.
+Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file - and enable fmurlscript - it will fire.
  
 - - -
  
