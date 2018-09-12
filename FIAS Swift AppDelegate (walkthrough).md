@@ -78,6 +78,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
     // return foreground active -> this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
@@ -121,7 +122,7 @@ Return to Xcode, open `configFile.txt` from the Project Navigator, and update th
 ```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
-applicationDelegateClass = _TtC4MyProject10SwiftAppDel
+applicationDelegateClass = _TtC4MyProject10SwiftAppDel  // yours may be named differently
 ```
 
 - - -
