@@ -43,7 +43,7 @@ A simple Bool check to see if there's an existing token in `UserDefaults`, and w
  - - -
 
 #### Refresh Token
-Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be passed later (they're permitted to "escape" or "outlive" the function). That's typical for async calls in Swift. We'll fire this later, in `viewDidLoad()`
+Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be passed later (they're permitted to "escape" or "outlive" the function). That's typical for async calls in Swift. We'll use this later, in `viewDidLoad()`
 
 ```swift
     // refresh token
