@@ -5,9 +5,9 @@ How to build a simple FIAS project in Xcode with a Swift App Delegate.
 How to trigger a script from the App Delegate.
  
 #### What This Post Is /Not/
-A tutorial on Xcode.
-A tutorial on Swift.
-A tutorial on Terminal.
+A tutorial on Xcode
+A tutorial on Swift
+A tutorial on Terminal
  
 #### Requirements
 iOS App SDK 17+  // 17.0.2 as of this writing
