@@ -25,7 +25,7 @@
 * Build and run app
 * Profit! (lol)
  
- 
+- - -
  
 ### Ok, Let's Make A Project!
 
@@ -38,7 +38,7 @@ Create a project.
 After FIAS returns a prompt, you can open the project with:
 <pre>> open MyDirectory/MyProject.xcodeproj</pre>
  
- 
+- - -
  
 ### Xcode: Create SwiftAppDel File
 
@@ -46,7 +46,7 @@ In the Project Navigator (left sidebar), right-click on the Custom Application R
  
 This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet, we'll come back in a minute.
  
- 
+- - -
  
 ### Edit Bridging-Header.h
 
@@ -59,12 +59,12 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 
 Build the project (Command-B) and watch for errors. You shouldn't have any.
  
- 
+- - -
  
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-<pre>
+<pre><code>
 import Foundation   // already present
  
  
@@ -92,14 +92,14 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
-</pre>
+</code></pre>
  
  
  
  
 Build Project (Command-B). Take care of any errors or typos before proceeding.
  
- 
+- - -
  
 ### Terminal: Navigate To DerivedData/...
 
@@ -108,7 +108,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
  
- 
+- - -
  
 ### Get Object Reference To SwiftAppDel
 
@@ -117,7 +117,7 @@ When you've successfully landed in `MyProject.app`, do this:
 
 This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`. Check the output for a reference like `_TtC4MyProject10SwiftAppDel`. Copy this value to the clipboard. Include the leading underscore.
  
- 
+- - -
  
 ### Xcode: Update FIAS Config File
 
@@ -135,7 +135,7 @@ Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly afte
  
 Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), that will fire as well.
  
- 
+- - -
  
 ### Further Reading
 
@@ -147,7 +147,7 @@ UIApplicationDelegate - UIKit | Apple Developer Documentation
  
 Happy Coding! 
  
- 
+- - -
  
 ### Extra Credit
 Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
