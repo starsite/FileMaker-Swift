@@ -7,31 +7,31 @@ How to use: In any FileMaker Go or FIAS app, add a URL scheme to a simple `Open 
 
 ### Apple
 ```
-Apple Music     music://geo.itunes.apple.com/us/albums/<albumID>
-                music://geo.itunes.apple.com/us/artists/<artistID>
+Apple Music     - music://geo.itunes.apple.com/us/albums/<albumID>
+                - music://geo.itunes.apple.com/us/artists/<artistID>
  
-Apple News      applenews://
-App Store       itms-apps://itunes.apple.com/app/<appID>
-Apple TV        videos://
-Calendar        calshow://
-Calendar (Add)  webcal://<calendarURL>
-Contacts        (no API or scheme available outside of Swift)
-iBooks          ibooks:// or itms-books://
-iTunes Remote   remote://
-Maps            map:// or maps://
-Mail            message:// or mailto://
+Apple News      - applenews://
+App Store       - itms-apps://itunes.apple.com/app/<appID>
+Apple TV        - videos://
+Calendar        - calshow://
+Calendar (Add)  - webcal://<calendarURL>
+Contacts        - (no API or scheme available outside of Swift)
+iBooks          - ibooks:// or itms-books://
+iTunes Remote   - remote://
+Maps            - map:// or maps://
+Mail            - message:// or mailto://
  
-Messages        sms://<1234567890>   (digits only, ex. sms://8885551212)
-                sms://<1234567890>&body=<hello>
+Messages        - sms://<1234567890>   (digits only, ex. sms://8885551212)
+                - sms://<1234567890>&body=<hello>
  
-Notes           mobilenotes://
-Phone           tel://<1234567890>   (digits only)
-Photos          photos-redirect://
-Reminders       x-apple-reminder://
-Safari          http:// or https://
-Safari (FTP)    ftp://
-Settings        App-prefs://   (case sensitive!)
-Wallet          shoebox://
+Notes           - mobilenotes://
+Phone           - tel://<1234567890>   (digits only)
+Photos          - photos-redirect://
+Reminders       - x-apple-reminder://
+Safari          - http:// or https://
+Safari (FTP)    - ftp://
+Settings        - App-prefs://   (case sensitive!)
+Wallet          - shoebox://
 ```
 - - -
 
