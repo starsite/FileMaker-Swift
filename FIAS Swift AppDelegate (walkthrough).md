@@ -46,7 +46,7 @@ This will drop you off in `SwiftAppDel.swift`. We can't do anything in here yet,
  
 - - -
  
-### Edit Bridging-Header.h
+### Xcode: Edit Bridging-Header.h
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
@@ -59,7 +59,7 @@ Build the project (Command-B). You shouldn't have any errors.
  
 - - -
  
-### SwiftAppDel Class
+### Xcode: SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and finish it out like this:
 
 ```swift
@@ -106,7 +106,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
  
 - - -
  
-### Get Object Reference To SwiftAppDel
+### Terminal: Get Object Reference To SwiftAppDel
 
 When you've successfully landed in `MyProject.app`, do this:
 <pre>> otool -o MyProject</pre>
@@ -129,7 +129,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // yours may have a dif
 
 - - -
 
-### Run (Command-R)
+### Xcode: Run (Command-R)
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
