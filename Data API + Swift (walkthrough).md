@@ -27,7 +27,7 @@ class ViewController: UIViewController {
  - - -
  
 #### Active Token?
-A simple Bool check to see if there's an existing token in `UserDefaults`, and whether or not it's expired. The `_` means we aren't using/don't care about the token value right now, we only care that there /is/ one.
+A simple Bool check to see if there's an existing token in `UserDefaults`, and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
     // active token?
