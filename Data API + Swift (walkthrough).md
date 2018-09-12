@@ -4,7 +4,7 @@ For testing, you can hardcode `baseURL` and `auth` as below, but best practice i
  
  - - -
  
-#### Class vars and lets. A `let` is a constant, in Swift.
+#### Class vars and lets. A `let` is a constant, in Swift
  
 ```swift
 import UIKit
@@ -125,7 +125,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
  
  - - -
  
-#### viewDidLoad
+#### `viewDidLoad` with Query
 Here we're checking for an active token (self.token) and giving it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
  
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
