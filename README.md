@@ -1,5 +1,5 @@
 ## Data API session and query
-FileMaker 17 Data API token request and session management used with an "or" query example, in Swift
+FileMaker 17 Data API session and efficient token management, used with an "or" query example
 
 ## FIAS Swift AppDelegate (walkthrough)
-In the FileMaker iOS App SDK project, create and assign a Swift AppDelegate. Includes an example of how to fire a FileMaker script from the AppDelegate
+Create and use a Swift `AppDelegate` in a FileMaker iOS App SDK project. Shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` FIAS delegate method.
