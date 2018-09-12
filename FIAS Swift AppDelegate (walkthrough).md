@@ -84,7 +84,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
  
         print("return foreground active!")
         
-        // firing a script requires the 'fmurlscript' extended privilege in your fmp12 file
+        // requires 'fmurlscript' extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
@@ -97,7 +97,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
  
 - - -
  
-### Terminal: Navigate To DerivedData/...
+### Terminal: Navigate To DerivedData
 
 `/DerivedData` is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
@@ -122,7 +122,7 @@ Return to Xcode, open `configFile.txt` from the Project Navigator, and update th
 ```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
-applicationDelegateClass = _TtC4MyProject10SwiftAppDel  // yours may be named differently
+applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // yours may have a different name
 ```
 
 - - -
@@ -131,7 +131,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel  // yours may be named di
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
-Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), that will fire as well.
+Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution file (and enable fmurlscript), it will fire.
  
 - - -
  
@@ -140,9 +140,7 @@ Now press your device Home button and re-launch the app (from the device). This 
 There are lots of app lifecycle (delegate) methods. You can read more about them here:
 
 https://developer.apple.com/documentation/uikit/uiapplicationdelegate
- 
-Happy Coding! 
- 
+  
 - - -
  
 ### Extra Credit
