@@ -3,7 +3,7 @@ This is a brand new repo (Sep 12) and will be updated. Probably a lot. 🚀
 - - -
 
 ### Data API + Swift (walkthrough)
-Step by step, through the Data-API-ViewController
+Step by step, through Data-API-ViewController.swift
 * https://github.com/starsite/FileMaker-Swift/blob/master/Data%20API%20%2B%20Swift%20(walkthrough).md
 
 - - -
