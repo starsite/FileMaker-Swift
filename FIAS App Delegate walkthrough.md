@@ -28,7 +28,7 @@ Profit! (lol)
 Ok, Let's Make A Project!
 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
-> cd /Applications/iOSAppSDKPackage_17.0.2
+<code> cd /Applications/iOSAppSDKPackage_17.0.2</code>
 
 Create a project. Don't forget the leading dot, and mind your spaces
 > ./makeprojdir MyDirectory MyProject com.domain.MyProject
