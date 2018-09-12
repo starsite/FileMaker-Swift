@@ -5,7 +5,7 @@ This walkthrough shows how to check status for an existing token, how to refresh
 #### Class Vars And Lets
 A `let` is a constant, in Swift.
 
-For testing, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote access kill-switch, if necessary.
+For testing the Data API, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote access kill-switch, if necessary.
  
 ```swift
 import UIKit
