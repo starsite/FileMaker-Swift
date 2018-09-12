@@ -143,11 +143,7 @@ Now press your device Home button and re-launch the app (from the device). This 
 
 There are lots of app lifecycle (delegate) methods. You can read more about them here:
 
-#### UIApplicationDelegate
 https://developer.apple.com/documentation/uikit/uiapplicationdelegate
- 
- 
- 
  
 Happy Coding! 
  
