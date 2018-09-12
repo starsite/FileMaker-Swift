@@ -142,7 +142,7 @@ Now press your device Home button and re-launch the app (from the device). This 
 ### Further Reading
 
 There are lots of app lifecycle (delegate) methods. You can read more about them here:
-UIApplicationDelegate - UIKit | Apple Developer Documentation
+UIApplicationDelegate - (https://developer.apple.com/documentation/uikit/uiapplicationdelegate)
  
  
  
@@ -152,9 +152,9 @@ Happy Coding!
 - - -
  
 ### Extra Credit
-Here's a look at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
+Here's a peek at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
  
-My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. Swift needs to cast `kFMXT_Resume` back to UInt8.
+My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables dictionary, respectively. The script parameter is typed as String. The dictionary is typed `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. This is because Swift is casting `kFMXT_Resume` back to UInt8.
  
 ```objective-c
 #ifndef FMX_Exports_h
