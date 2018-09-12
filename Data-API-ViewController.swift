@@ -50,8 +50,8 @@ class ViewController: UIViewController {
             }
            
             // prefs
-            self.token  = token
-            self.expiry = expiry
+            UserDefaults.standard.set(token, forKey: "fm-token")
+            UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
            
             completion(token, expiry)   // out^
            
