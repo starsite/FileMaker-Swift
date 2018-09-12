@@ -7,7 +7,7 @@ For testing, you can hardcode `baseURL` and `auth` as below, but best practice i
 #### 1. Class vars and lets.
 A `let` is a constant, in Swift.
  
-```swfit
+```swift
 import UIKit
  
 class ViewController: UIViewController {
