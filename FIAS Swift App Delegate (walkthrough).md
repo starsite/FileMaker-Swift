@@ -64,7 +64,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-<pre><code>
+<code>
 import Foundation   // already present
  
  
@@ -92,7 +92,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
-</code></pre>
+</pre>
  
  
  
@@ -103,7 +103,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
  
 ### Terminal: Navigate To DerivedData/...
 
-DerivedData is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
+`/DerivedData` is where Xcode stores project build data. To get FIAS to 'see' our Swift App Delegate, we need to use a command line tool called `otool`. First, cd to DerivedData/ all-the-way-to /MyProject.app (which is a directory):
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
