@@ -1,11 +1,8 @@
-This walkthrough shows how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 
-
-For testing, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote access kill-switch, if necessary.
- 
+This walkthrough shows how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy.
  - - -
  
 #### Class vars and lets
-A `let` is a constant, in Swift.
+A `let` is a constant, in Swift. For testing, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote access kill-switch, if necessary.
  
 ```swift
 import UIKit
