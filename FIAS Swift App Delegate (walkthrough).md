@@ -4,7 +4,7 @@
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
 * How to trigger a script from the App Delegate.
  
-#### What This Post Is /Not/
+#### What This Post Is __Not__
 * A tutorial on Xcode
 * A tutorial on Swift
 * A tutorial on Terminal
@@ -64,7 +64,7 @@ Build the project (Command-B) and watch for errors. You shouldn't have any.
 ### SwiftAppDel Class
 Open `SwiftAppDel.swift` from the Project Navigator and build it out like this:
 
-<pre>
+<pre><code>
 import Foundation   // already present
  
  
@@ -92,7 +92,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
-</pre>
+</code></pre>
  
  
  
