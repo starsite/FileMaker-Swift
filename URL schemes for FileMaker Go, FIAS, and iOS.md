@@ -75,9 +75,9 @@ YouTube         – youtube://
 ### FileMaker
 ```
 fmp://<hostName>/<fileName>   // .fmp12 not required
-fmp://<user>:<pass>@<hostName>/<fileName>   // user:pass
-fmp://<hostName>/<fileName>?script=<scriptName>&param=<parameter>     // parameter
-fmp://<hostName>/<fileName>?script=<scriptName>&variable=<variable>   // variable
+fmp://<user>:<pass>@<hostName>/<fileName>
+fmp://<hostName>/<fileName>?script=<scriptName>&param=<parameter>
+fmp://<hostName>/<fileName>?script=<scriptName>&variable=<variable>
 fmp://~/<fileName>   // an unopened file, from ~/Documents
 fmp://$/<fileName>   // currently open file
 ```
