@@ -1,4 +1,4 @@
-# FIAS Swift App Delegate
+# FIAS project with Swift AppDelegate
 
 ### What You'll Learn
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
@@ -10,10 +10,10 @@
 * A tutorial on Terminal
  
 ### Requirements
-* iOS App SDK 17+ /comment
+* iOS App SDK 17+
 * Xcode 9+
  
-### Here's What We're Going To Do
+### This Is What We'll Do
 * Navigate to FIAS directory and create a project
 * Add a Swift App Delegate class
 * Edit `Bridging-Header.h`
