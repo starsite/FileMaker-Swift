@@ -10,7 +10,6 @@ class ViewController: UIViewController {
  
     var token   = UserDefaults.standard.string(forKey: "fm-token")
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0) 
-    
     // ...
     
     
@@ -32,7 +31,6 @@ class ViewController: UIViewController {
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
        
         let url = baseURL.appendingPathComponent("/sessions")
-        
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
        
         // request
@@ -79,6 +77,7 @@ class ViewController: UIViewController {
        
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
  
+        // serialize
         guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
        
         // request
@@ -118,7 +117,6 @@ class ViewController: UIViewController {
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
-                                                 
                 print("fetch with new token - expiry: \(newExpiry)")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
