@@ -1,5 +1,3 @@
-# FIAS project with Swift AppDelegate
-
 ### What You'll Learn
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
 * How to trigger a script from the App Delegate.
