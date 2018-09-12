@@ -97,9 +97,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
  
  
  
-Build Project (Command-B)
-
-Take care of any errors or typos before proceeding.
+Build Project (Command-B). Take care of any errors or typos before proceeding.
  
  
  
