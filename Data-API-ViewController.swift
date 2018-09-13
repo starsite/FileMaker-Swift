@@ -24,7 +24,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     
-    // active token?
     func isActiveToken() -> Bool {
         if let _ = self.token, self.expiry > Date() {
             return true
