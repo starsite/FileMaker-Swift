@@ -72,8 +72,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     // "or" query
-    var payload = ["query": [   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
-        ["bandName": "Daniel Markham"],
+    var payload = ["query": [    
+        ["bandName": "Daniel Markham"],   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
         ["bandName": "Sudie"],
         ["bandName": "Pearl Earl"]
     ]]
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             // completion
             OperationQueue.main.addOperation {
-                self.contacts.sort { $0.bandName < $1.bandName }
+                self.bands.sort { $0.bandName < $1.bandName }
                 self.collectionView.reloadData()
             }
            
