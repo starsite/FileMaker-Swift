@@ -17,15 +17,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // ...
     
 
-    
-    // band
     struct Band {
         name: String
         bio: String
         // ...
     }
 
-    
     
     // active token?
     func isActiveToken() -> Bool {
@@ -41,13 +38,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // refresh token
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
        
-        // baseURL
         guard let baseURL = URL(string: self.baseURL) else { return }
         
         let url = baseURL.appendingPathComponent("/sessions")
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
        
-        // request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Basic \(auth)", forHTTPHeaderField: "Authorization")
@@ -78,7 +73,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     // "or" query
     var payload = ["query": [   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
-
         ["bandName": "Daniel Markham"],
         ["bandName": "Sudie"],
         ["bandName": "Pearl Earl"]
@@ -89,12 +83,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // find
     func findRequest(with token: String, layout: String, payload: [String: Any]) {
        
-        guard   let baseURL = URL(string: self.baseURL),
-                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
-        
+        guard   let body = try? JSONSerialization.data(withJSONObject: payload) else { return },
+                let baseURL = URL(string: self.baseURL) else { return }
+                
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
        
-        // request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -117,9 +110,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         let bandBio   = fieldData["bandBio"] as? String else { return }
                 
                 // make
-                let b = Band(name: bandName, bio: bandBio) 
-                
-                // append
+                let b = Band(name: bandName, bio: bandBio)                 
                 self.bands.append(b)
             }
             
