@@ -71,9 +71,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     // "or" query
     var payload = ["query": [    
-        ["bandName": "Daniel Markham"],   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
+        ["bandName": "Jacob Furr"],    // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
         ["bandName": "Sudie"],
-        ["bandName": "Pearl Earl"]
+        ["bandName": "Pinkish Black"]
     ]]
   
     
