@@ -20,7 +20,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     struct Band {
         name: String
         bio: String
-        // ...
     }
 
     
