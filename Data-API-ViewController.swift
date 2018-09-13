@@ -1,19 +1,32 @@
 import UIKit
  
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
  
-//  let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better
-//  let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
+//  let baseURL  = UserDefaults.standard.string(forKey: "fm-db-path")   // better
+//  let auth     = UserDefaults.standard.string(forKey: "fm-auth")      // better
  
-    let baseURL = URL(string: "https://<hostName>/fmi/data/v1/databases/<databaseName>")!
-    let auth    = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
+    let baseURL  = URL(string: "https://<hostName>/fmi/data/v1/databases/<databaseName>")!
+    let auth     = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
  
-    var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0) 
+    var token    = UserDefaults.standard.string(forKey: "fm-token")
+    var expiry   = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0) 
+    
+    var bands    = [Band]()    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     // ...
     
 
+    
+    // band
+    struct Band {
+        name: String
+        bio: String
+        // ...
+    }
 
+    
+    
     // active token?
     func isActiveToken() -> Bool {
         if let _ = self.token, self.expiry > Date() {
@@ -28,6 +41,9 @@ class ViewController: UIViewController {
     // refresh token
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
        
+        // baseURL
+        guard let baseURL = URL(string: self.baseURL) else { return }
+        
         let url = baseURL.appendingPathComponent("/sessions")
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
        
@@ -61,20 +77,22 @@ class ViewController: UIViewController {
     
     
     // "or" query
-    var payload = ["query": [   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]
+    var payload = ["query": [   // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
+
         ["bandName": "Daniel Markham"],
-        ["bandName": "Sudie"]
+        ["bandName": "Sudie"],
+        ["bandName": "Pearl Earl"]
     ]]
   
     
     
-    // find request
+    // find
     func findRequest(with token: String, layout: String, payload: [String: Any]) {
        
+        guard   let baseURL = URL(string: self.baseURL),
+                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
- 
-        // serialize
-        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
        
         // request
         var request = URLRequest(url: url)
@@ -86,14 +104,30 @@ class ViewController: UIViewController {
         // task
         URLSession.shared.dataTask(with: request) { data, _, error in
            
-            guard   let data = data, error == nil,
-                    let json = try? JSONSerialization.jsonObject(with: data) as! [String: Any]
-            else {
-                    print("api request sad")
-                    return
+            guard   let data     = data, error == nil,
+                    let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                    let response = json["response"] as? [String: Any],
+                    let records  = response["data"] as? [[String: Any]] else { return }
+            
+            // json array
+            for record in records  {
+
+                guard   let fieldData = record["fieldData"] as? [String: Any],
+                        let bandName  = fieldData["bandName"] as? String,
+                        let bandBio   = fieldData["bandBio"] as? String else { return }
+                
+                // make
+                let b = Band(name: bandName, bio: bandBio) 
+                
+                // append
+                self.bands.append(b)
             }
-           
-            print("\n\(json)")   // disco!
+            
+            // completion
+            OperationQueue.main.addOperation {
+                self.contacts.sort { $0.bandName < $1.bandName }
+                self.collectionView.reloadData()
+            }
            
         }.resume()
     }
