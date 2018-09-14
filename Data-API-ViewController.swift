@@ -69,14 +69,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
        
     
     
-    // "or" query
     var payload = ["query": [    
-        ["bandName": "Jacob Furr"],    // or ->[[pred1],[pred2]]   and ->[[pred1, pred2]]  
+        ["bandName": "Jacob Furr"],    // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]  
         ["bandName": "Sudie"],
         ["bandName": "Pinkish Black"]
+        // ...
     ]]
   
-    
     
     // find
     func findRequest(with token: String, layout: String, payload: [String: Any]) {
