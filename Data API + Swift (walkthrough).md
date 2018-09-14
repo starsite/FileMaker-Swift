@@ -26,7 +26,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     
-    // band
     struct Band {
         name: String
         bio: String
