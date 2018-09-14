@@ -131,7 +131,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         switch isActiveToken() {  
         case true:
             print("active token - expiry: \(self.expiry)")
-            findRequest(with: self.token!, layout: "Bands", payload: self.payload)
+            findRequest(with: token!, layout: "Bands", payload: self.payload)
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
