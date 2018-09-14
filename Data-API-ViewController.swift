@@ -130,7 +130,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.delegate = self
         collectionView.isPrefetchingEnabled = true
 
-   
         // request
         switch isActiveToken() {  
         case true:
@@ -145,7 +144,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
      
     }  // .did load
-
  
  
 // ...
