@@ -79,12 +79,12 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     }
     
     
-    // return foreground active -> this is a FIAS delegate function and not part of UIKit
+    // return foreground active.. this is a FIAS delegate function and not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active!")
         
-        // requires 'fmurlscript' extended privilege in your fmp12 file
+        // requires fmurlscript extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
