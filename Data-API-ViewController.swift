@@ -31,7 +31,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
 
-
     
     // refresh token
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
