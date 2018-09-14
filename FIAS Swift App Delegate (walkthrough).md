@@ -73,7 +73,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        
         // disco!
-        print("swift app delegate!)
+        print("swift app delegate!")
  
         return true
     }
