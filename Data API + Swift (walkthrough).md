@@ -93,7 +93,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
 ```swift
     // query
     var payload = ["query": [   
-        ["bandName": "Daniel Markham"],     // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
+        ["bandName": "Daniel Markham"],   // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
         ["bandName": "Sudie"]
     ]]
  
@@ -151,7 +151,6 @@ Here we check for an active token (`self.token`) and give it to our find request
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
 
 ```swift
-    // did load
     override func viewDidLoad() {
         super.viewDidLoad()
    
