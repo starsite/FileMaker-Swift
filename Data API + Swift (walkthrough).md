@@ -24,6 +24,14 @@ class ViewController: UIViewController {
     var bands   = [Band]()    
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    
+    // band
+    struct Band {
+        name: String
+        bio: String
+    }
+    
     // ...
 ```
  
