@@ -126,6 +126,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // did load
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPrefetchingEnabled = true
+
    
         // request
         switch isActiveToken() {  
