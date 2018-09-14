@@ -20,8 +20,11 @@ class ViewController: UIViewController {
  
     var token   = UserDefaults.standard.string(forKey: "fm-token")
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
- 
-    // ... (cont'd)
+    
+    var bands   = [Band]()    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    // ...
 ```
  
  - - -
@@ -48,6 +51,8 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
 ```swift
     // refresh token
     func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
+    
+        guard let baseURL = URL(string: self.baseURL) else { return }
        
         let url = baseURL.appendingPathComponent("/sessions")
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
@@ -87,20 +92,20 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
 
 ```swift
     // query
-    var payload = ["query": [   // or ->[[p1],[p2]]   and ->[[p1,p2]]
-        ["bandName": "Daniel Markham"],
+    var payload = ["query": [   
+        ["bandName": "Daniel Markham"],     // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
         ["bandName": "Sudie"]
     ]]
  
  
     /// data api find request
     func findRequest(with token: String, layout: String, payload: [String: Any]) {
-       
+    
+        guard   let body = try? JSONSerialization.data(withJSONObject: payload),
+                let baseURL = URL(string: self.baseURL) else { return }
+
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
- 
-        // serialize             
-        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
-       
+        
         // request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -111,14 +116,28 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
         // task
         URLSession.shared.dataTask(with: request) { data, _, error in
            
-            guard   let data = data, error == nil,
-                    let json = try? JSONSerialization.jsonObject(with: data) as! [String: Any]
-            else {
-                    print("api request sad")
-                    return
+            guard   let data     = data, error == nil,
+                    let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                    let response = json["response"] as? [String: Any],
+                    let records  = response["data"] as? [[String: Any]] else { return }
+            
+            // json array
+            for record in records  {
+
+                guard   let fieldData = record["fieldData"] as? [String: Any],
+                        let bandName  = fieldData["bandName"] as? String,
+                        let bandBio   = fieldData["bandBio"] as? String else { return }
+                
+                // make
+                let b = Band(name: bandName, bio: bandBio)                 
+                self.bands.append(b)
             }
-           
-            print("\n\(json)")   // disco!
+            
+            // completion
+            OperationQueue.main.addOperation {
+                self.bands.sort { $0.bandName < $1.bandName }
+                self.collectionView.reloadData()
+            }
            
         }.resume()
     }
@@ -136,19 +155,23 @@ If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a vi
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        // apiRequest
-        switch isActiveToken() {   
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPrefetchingEnabled = true
+   
+        // request
+        switch isActiveToken() {  
         case true:
             print("active token - expiry: \(self.expiry)")
-            findRequest(with: self.token!, layout: "Bands", payload: self.payload)
+            findRequest(with: token!, layout: "Bands", payload: self.payload)
  
         case false:
-            refreshToken(for: auth, completion: { newToken, newExpiry in    // async
+            refreshToken(for: auth, completion: { newToken, newExpiry in
                 print("new token - expiry: \(newExpiry)")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
         }
-        // ....
+        
  
     }  // .did load
 ```
