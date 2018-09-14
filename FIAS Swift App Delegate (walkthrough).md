@@ -129,7 +129,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // yours may have a dif
 
 - - -
 
-### Xcode: Run (Command-R)
+### Xcode: Run
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
  
