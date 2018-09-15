@@ -17,7 +17,7 @@
 * Edit `Bridging-Header.h`
 * Finish the App Delegate class
 * Build (test)
-* Navigate to `../DerivedData/../MyProject.app`
+* Navigate to `.../DerivedData/.../MyProject.app`
 * Get an object reference for our App Delegate using `otool`
 * Assign object reference in `configFile.txt`
 * Build and run app
