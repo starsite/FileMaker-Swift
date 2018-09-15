@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 //  let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better
 //  let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
  
-    let baseURL = URL(string: "https: //<hostName>/fmi/data/v1/databases/<databaseName>")!
+    let baseURL = URL(string: "https://<hostName>/fmi/data/v1/databases/<databaseName>")!
     let auth    = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
  
     var token   = UserDefaults.standard.string(forKey: "fm-token")
