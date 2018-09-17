@@ -109,7 +109,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
 ### Terminal: Get Object Reference To SwiftAppDel
 
 When you've successfully landed in `MyProject.app`, do this:
-<pre>> otool -o MyProject</pre>
+<pre>otool -o MyProject</pre>
 
 This outputs metadata for the `MyProject` Unix executable inside of `MyProject.app`.
 
