@@ -168,12 +168,12 @@ If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a vi
         // request
         switch isActiveToken() {  
         case true:
-            print("active token - expiry: \(self.expiry)")
+            print("active token - expiry \(self.expiry)")
             findRequest(with: token!, layout: "Bands", payload: self.payload)
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
-                print("new token - expiry: \(newExpiry)")
+                print("new token - expiry \(newExpiry)")
                 self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
             })
         }
