@@ -34,7 +34,7 @@ Create a project. Leading dot, yo.
 <pre>./makeprojdir ProjectDirectory MyProject com.domain.MyProject</pre>
 
 After FIAS returns a prompt, you can open the project with:
-<pre>open MyDirectory/MyProject.xcodeproj</pre>
+<pre>open ProjectDirectory/MyProject.xcodeproj</pre>
  
 - - -
  
