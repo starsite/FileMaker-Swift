@@ -200,7 +200,7 @@ class DataAPI {
                     let messages  = json["messages"] as? [[String: Any]],
                     let code      = messages[0]["code"] as? String else { return }
             
-            guard error == "0" else {
+            guard code == "0" else {
                 print(messages)
                 return
             }
@@ -240,7 +240,7 @@ class DataAPI {
                     let messages  = json["messages"] as? [[String: Any]],
                     let code      = messages[0]["code"] as? String else { return }
             
-            guard error == "0" else {
+            guard code == "0" else {
                 print(messages)
                 return
             }
