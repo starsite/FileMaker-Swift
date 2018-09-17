@@ -218,7 +218,7 @@ class DataAPI {
         
         //  payload = ["fieldData": [
         //      "firstName": "newValue",
-        //      "lastName": newValue"
+        //      "lastName": "newValue"
         //  ]]  
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
