@@ -1,7 +1,7 @@
 /////
 //
 //  DataAPI.swift
-//  Art Con
+//  A service class for Swift 4 to work with the FileMaker Data API
 //
 //  Created by Brian Hamm on 9/16/18.
 //  Copyright © 2018 Brian Hamm. All rights reserved.
