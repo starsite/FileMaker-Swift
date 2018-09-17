@@ -10,11 +10,12 @@ import Foundation
 
 class DataAPI {
     
-//  let auth = UserDefaults.standard.string(forKey: "fm-auth")     // set from CloudKit on launch, or...
-//  static let auth = "xxxxxadjfkla;dfj..."
+//  let auth = UserDefaults.standard.string(forKey: "fm-auth")     /* fetch/set from CloudKit at launch, or... */
+//  static let auth = "xxxxabcdefg1234567"
     
-//  let path = UserDefaults.standard.string(forKey: "fm-db-path")  // set from CloudKit on launch, or...
-//  static let path = "http://xxxxxjala;jk..."
+//  let path = UserDefaults.standard.string(forKey: "fm-db-path")  /* fetch/set from CloudKit at launch, or... */
+//  static let path = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
+
     
     
     
