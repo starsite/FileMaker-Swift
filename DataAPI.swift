@@ -1,7 +1,7 @@
 /////
 //
 //  DataAPI.swift
-//  A service class written for Swift 4.x, to work with the FileMaker Data API
+//  A service class written for Swift 4.x, to work with the FileMaker 17 Data API
 //
 //  Created by Brian Hamm on 9/16/18.
 //  Copyright © 2018 Brian Hamm. All rights reserved.
