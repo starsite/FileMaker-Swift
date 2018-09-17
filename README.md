@@ -3,7 +3,7 @@ This is a new repo and will be updated. Probably a lot. 🚀
 - - -
 ### DataAPI.swift
 A service class written for Swift 4.x, to work with the FileMaker 17 Data API
-https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift
+* https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift
 
 - - -
 
@@ -21,7 +21,7 @@ Step-by-step walkthrough of `Data-API-ViewController.swift`
 
 ### FIAS Swift App Delegate (walkthrough)
 Create and use a Swift `App Delegate` in a FileMaker iOS App SDK project (v17). Also shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` delegate method.
-https://github.com/starsite/FileMaker-Swift/blob/master/FIAS-Swift-AppDelegate-walkthrough.md
+* https://github.com/starsite/FileMaker-Swift/blob/master/FIAS-Swift-AppDelegate-walkthrough.md
 
 - - -
 
