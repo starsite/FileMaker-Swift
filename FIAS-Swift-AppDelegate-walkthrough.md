@@ -84,7 +84,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
  
         print("return foreground active!")
         
-        // requires fmurlscript extended privilege in your fmp12 file
+        // fire a script, requires fmurlscript extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
