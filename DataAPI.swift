@@ -8,12 +8,13 @@
 
 import Foundation
 
-class DataAPI {
+
+class DataAPI {    
     
-//  let auth = UserDefaults.standard.string(forKey: "fm-auth")      // fetch/set from CloudKit at launch, or...
-//  static let auth = "xxxxabcdefg1234567"
+    let auth = UserDefaults.standard.string(forKey: "fm-auth")      // fetch from CloudKit at launch, or...
+//  static let auth = "xxxxxabcdefg1234567"
     
-//  let path = UserDefaults.standard.string(forKey: "fm-db-path")   // fetch/set from CloudKit at launch, or...
+    let path = UserDefaults.standard.string(forKey: "fm-db-path")   // fetch from CloudKit at launch, or...
 //  static let path = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
 
     
@@ -256,7 +257,8 @@ class DataAPI {
     
     
     /*
-     
+    
+    0       Success                 Hooray!
     400     Bad request             Occurs when the server cannot process the request due to a client error.
     401     Unauthorized            Occurs when the client is not authorized to access the API. If this error occurs when attempting to log in to a database session, then there is a problem with the specified user account or password. If this error occurs with other calls, the access token is not specified or it is not valid.
     403     Forbidden               Occurs when the client is authorized, but the call attempts an action that is forbidden for a different reason.
