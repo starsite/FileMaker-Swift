@@ -54,7 +54,7 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard let token = response["token"] as? String else {
                 print(messages)
@@ -64,7 +64,7 @@ class DataAPI {
             UserDefaults.standard.set(token, forKey: "fm-token")
             UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
             
-            completion(token, expiry, error)
+            completion(token, expiry, code)
             
         }.resume()
     }
@@ -91,14 +91,14 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
                 print(messages)
                 return
             }
             
-            completion(records, error)
+            completion(records, code)
             
         }.resume()
     }
@@ -132,14 +132,14 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
                 print(messages)
                 return
             }
             
-            completion(records, error)
+            completion(records, code)
             
         }.resume()
     }
@@ -166,14 +166,14 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
                 print(messages)
                 return
             }
             
-            completion(records[0], error)
+            completion(records[0], code)
             
         }.resume()
     }
@@ -199,14 +199,14 @@ class DataAPI {
             guard   let data      = data, error == nil,
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard error == "0" else {
                 print(messages)
                 return
             }
             
-            completion(error)
+            completion(code)
             
         }.resume()
     }
@@ -239,14 +239,14 @@ class DataAPI {
             guard   let data      = data, error == nil,
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard error == "0" else {
                 print(messages)
                 return
             }
             
-            completion(error)
+            completion(code)
             
         }.resume()
     }
