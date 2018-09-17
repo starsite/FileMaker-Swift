@@ -71,7 +71,6 @@ class DataAPI {
     
     
     
-    
     // get records -> ([records], error)
     class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
         
@@ -106,8 +105,7 @@ class DataAPI {
     
     
     
-    
-    
+        
     // get record by id -> (record, error)
     class func getRecord(token: String, layout: String, recordId: Int, completion: @escaping ([String: Any], String) -> Void) {
         
@@ -214,7 +212,6 @@ class DataAPI {
 
         }.resume()
     }
-    
     
     
     
