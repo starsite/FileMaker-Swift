@@ -99,7 +99,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
 
 ```swift
     var payload = ["query": [   
-        ["bandName": "Pinkish Black"],   // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
+        ["bandName": "Pinkish Black"],  // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
         ["bandName": "Sudie"]
         // ...
     ]]
