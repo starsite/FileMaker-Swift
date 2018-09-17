@@ -11,8 +11,11 @@ import Foundation
 
 class DataAPI {
     
-//     let auth = UserDefaults.standard.string(forKey: "fm-auth")
-//     static let auth = "adjfkla;dfj..."
+//  let auth = UserDefaults.standard.string(forKey: "fm-auth")
+//  static let auth = "xxxxxadjfkla;dfj..."
+    
+//  let path = UserDefaults.standard.string(forKey: "fm-db-path")
+//  static let path = "http://xxxxxjala;jk..."
     
     
     
