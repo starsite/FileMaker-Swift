@@ -7,15 +7,15 @@ https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift
 
 - - -
 
-### Data API + Swift (walkthrough)
-Step by step, through `Data-API-ViewController.swift`
-* https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-Swift-walkthrough.md
-
-- - -
-
 ### Data-API-ViewController.swift
 A FileMaker 17 Data API session with token management and a query example
 * https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-ViewController.swift
+
+- - -
+
+### Data API + Swift (walkthrough)
+Step-by-step walkthrough of `Data-API-ViewController.swift`
+* https://github.com/starsite/FileMaker-Swift/blob/master/Data-API-Swift-walkthrough.md
 
 - - -
 
