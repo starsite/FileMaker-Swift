@@ -31,7 +31,7 @@ In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applic
 <pre>cd /Applications/iOSAppSDKPackage_17.0.2</pre>
 
 Create a project. Leading dot, yo.
-<pre>./makeprojdir MyDirectory MyProject com.domain.MyProject</pre>
+<pre>./makeprojdir ProjectDirectory MyProject com.domain.MyProject</pre>
 
 After FIAS returns a prompt, you can open the project with:
 <pre>open MyDirectory/MyProject.xcodeproj</pre>
