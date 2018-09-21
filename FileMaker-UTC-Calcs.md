@@ -17,6 +17,6 @@ GetAsNumber ( timestamp_fmp )
 ```
 - - -
 #### Xcode, Swift
-```
+```swift
 let dateInt = Int( Date().timeIntervalSince1970 )
 ```
