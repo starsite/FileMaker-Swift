@@ -26,7 +26,7 @@ How to create and use a Swift `App Delegate` in a FileMaker iOS App SDK project 
 - - -
 
 ### FileMaker-UTC
-Native FileMaker calcs to convert FileMaker timestamps to UTC, and back.
+Native FileMaker calcs to convert a FileMaker timestamp to UTC, and back.
 * https://github.com/starsite/FileMaker-Swift/blob/master/FileMaker-UTC.md
 
 - - -
