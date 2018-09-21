@@ -1,4 +1,4 @@
-#### Unix -> FileMaker
+#### UTC -> FileMaker
 ```
 GetAsTimestamp ( ( GetAsNumber ( timestamp_unix ) )
 
@@ -7,7 +7,7 @@ GetAsTimestamp ( ( GetAsNumber ( timestamp_unix ) )
   - Floor ( Get ( CurrentTimeUTCMilliseconds ) / 1000 ) )
 ```
 - - -
-#### FileMaker -> Unix
+#### FileMaker -> UTC
 ```
 GetAsNumber ( timestamp_fmp ) 
     
