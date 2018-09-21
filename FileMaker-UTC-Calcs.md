@@ -6,7 +6,7 @@ GetAsTimestamp ( ( GetAsNumber ( timestamp_unix ) )
   + GetAsNumber ( Get ( CurrentTimestamp ) )
   - Floor ( Get ( CurrentTimeUTCMilliseconds ) / 1000 ) )
 ```
-
+- - -
 ##### FileMaker -> Unix
 ```
 GetAsNumber ( timestamp_fmp ) 
@@ -15,7 +15,7 @@ GetAsNumber ( timestamp_fmp )
   + Floor ( Get ( CurrentTimeUTCMilliseconds ) / 1000 )
   - GetAsNumber ( Get ( CurrentTimestamp ) )
 ```
-
+- - -
 ##### Xcode, Swift
 ```
 let dateInt = Int( Date().timeIntervalSince1970 )
