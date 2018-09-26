@@ -32,5 +32,5 @@ Native FileMaker calcs to convert a FileMaker timestamp to UTC, and back.
 - - -
 
 ### URL schemes for FileMaker Go, FIAS, and iOS
-How to use `Open URL []` to launch another native iOS app
+Use `Open URL []` to launch another native iOS apps
 * https://github.com/starsite/FileMaker-Swift/blob/master/URL%20schemes%20for%20FileMaker%20Go%2C%20FIAS%2C%20and%20iOS.md
