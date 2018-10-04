@@ -1,4 +1,4 @@
-This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
+Note: This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
 
 
 ### What You'll Learn
