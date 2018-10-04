@@ -1,3 +1,6 @@
+This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
+
+
 ### What You'll Learn
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
 * How to trigger a script from the App Delegate.
