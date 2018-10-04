@@ -20,6 +20,8 @@ Step-by-step walkthrough of `Data-API-ViewController.swift`^
 - - -
 
 ### FIAS Swift App Delegate (walkthrough)
+Note: This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
+
 How to create and use a Swift `App Delegate` in a FileMaker iOS App SDK project (v17). Also shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` delegate method.
 * https://github.com/starsite/FileMaker-Swift/blob/master/FIAS-Swift-AppDelegate-walkthrough.md
 
