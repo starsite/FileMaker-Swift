@@ -11,7 +11,7 @@ The example includes a simple find request. Refer to the DataAPI.swift class to 
 ### Class vars and lets
 A `let` is a constant, in Swift.
 
-During testing, you can hardcode your `baseURL` and `auth` values as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote kill-switch, if necessary.
+During testing, you can hardcode your `baseURL` and `auth` values as below, but best practice is to keep sensitive info (such as API keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and park it in `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, at launch. Doing it that way also provides a remote kill-switch, if necessary.
  
 ```swift
 import UIKit
