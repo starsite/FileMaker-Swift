@@ -1,4 +1,4 @@
-# swiftFM
+# SwiftFM
 A service class (Data API wrapper) for Swift 4.2. Xcode 9.4 or later required.
 - - -
 
