@@ -3,7 +3,7 @@ This is a new repo and will be updated. Probably a lot. 🚀
 - - -
 ### DataAPI.swift
 A service class written for Swift 4.x, to work with the FileMaker 17 Data API
-* https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift
+* https://github.com/starsite/SwiftFM/blob/master/DataAPI.swift
 
 - - -
 
