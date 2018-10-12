@@ -1,8 +1,7 @@
 ## Data API + Swift
 This walkthrough shows how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
 
-Refer to the DataAPI.swift class for other available options (edit, delete, etc.)
-
+Refer to the DataAPI.swift class for a complete list of functions (createRecord, editRecord, deleteRecord, etc.)
 https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift
  - - -
  
