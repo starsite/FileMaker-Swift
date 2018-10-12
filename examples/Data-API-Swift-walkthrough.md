@@ -1,7 +1,7 @@
 ## Data API + Swift
 This walkthrough shows how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
 
-This example includes a basic find request. See the DataAPI.swift service class for other options (CRUD).
+The example below includes a basic find request. Visit the DataAPI.swift class (https://github.com/starsite/FileMaker-Swift/blob/master/DataAPI.swift) for other options (CRUD).
  - - -
  
 ### Class vars and lets
