@@ -1,5 +1,5 @@
 # SwiftFM
-SwiftFM is a service class (Data API wrapper) written for Swift 4.2. Xcode 9.4 or later required.
+SwiftFM is a service class for Swift 4.2 to work with the FileMaker Data API. (Xcode 9.4+ required)
 - - -
 
 ### Overview
@@ -11,7 +11,7 @@ The example includes a simple find request. Refer to the DataAPI.swift class to 
 ### Class vars and lets
 A `let` is a constant, in Swift.
 
-For testing the Data API, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote access kill-switch, if necessary.
+For testing, you can hardcode `baseURL` and `auth` as below, but best practice is to keep sensitive info (api keys, etc.) outside of `Bundle.main`. It's safer to fetch that information from elsewhere and save to `UserDefaults`. For my apps, I fetch all "environment" settings from CloudKit, on launch. Doing it that way also provides a remote kill-switch, if necessary.
  
 ```swift
 import UIKit
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
  - - -
  
 ### Active token?
-A simple Bool check to see if there's an existing token in `UserDefaults`, and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
+Bool check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
     // active token?
@@ -101,7 +101,7 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
  - - -
  
 ### Find request
-This example shows an "or" request. Set the payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
+This example shows an "or" request. Set your payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
 
 ```swift
     var payload = ["query": [   
@@ -159,7 +159,7 @@ This example shows an "or" request. Set the payload from a `UITextField` (or har
  - - -
  
 ### ViewDidLoad() with query
-Here we check for an active token (`self.token`) and give it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
+Check for an active token (`self.token`) and hand it to our find request. If the token is missing or expired, we fetch a new one and pass `newToken` instead.
  
 If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a view. It is *not* called when navigating backward/down the stack. If you need to call a function every time the user enters a view, that's done in `viewWillAppear()` or `viewDidAppear()`.
 
