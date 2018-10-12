@@ -1,4 +1,4 @@
-## Data API + Swift
+# Data API + Swift
 This walkthrough shows how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
 
 This README shows a simple find request. Refer to the DataAPI.swift class for a complete list of functions (createRecord, editRecord, deleteRecord, etc.)
