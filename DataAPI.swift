@@ -148,7 +148,7 @@ class DataAPI {
     
     
     // get record with id -> (record, error)
-    class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
+    class func getRecord(with id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -182,7 +182,7 @@ class DataAPI {
     
     
     // delete record with id -> (error)
-    class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+    class func deleteRecord(with id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -215,7 +215,7 @@ class DataAPI {
     
     
     // edit record with id -> (error)
-    class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
+    class func editRecord(with id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
         
         //  payload = ["fieldData": [
         //      "firstName": "newValue",
