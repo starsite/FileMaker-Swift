@@ -5,7 +5,7 @@ SwiftFM is a service class for Swift 4.2 to work with the FileMaker Data API. (X
 ### Overview
 This walkthrough will show you how to check status for an existing token, how to refresh expired tokens, and to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
 
-The example below includes a basic find request. Refer to the `DataAPI.swift` class to see a complete list of functions (createRecord, getRecords, editRecord, deleteRecord, etc.) and how to call them.
+The example below includes a basic find request. Refer to the `DataAPI.swift` class to see a complete list of functions (createRecord, getRecord, getRecords, editRecord, deleteRecord, etc.) and how to call them.
  - - -
  
 ### Class vars and lets
@@ -112,7 +112,7 @@ This example shows an "or" request. Set your payload from a `UITextField` (or ha
  
  
     /// data api find request
-    func findRequest(with token: String, layout: String, payload: [String: Any]) {
+    func findRequest(token: String, layout: String, payload: [String: Any]) {
     
         guard   let body = try? JSONSerialization.data(withJSONObject: payload),
                 let baseURL = URL(string: self.baseURL) else { return }
@@ -175,12 +175,12 @@ If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a vi
         switch isActiveToken() {  
         case true:
             print("active token - expiry \(self.expiry)")
-            findRequest(with: token!, layout: "Bands", payload: self.payload)
+            findRequest(token: token!, layout: "Bands", payload: self.payload)
  
         case false:
             refreshToken(for: auth, completion: { newToken, newExpiry in
                 print("new token - expiry \(newExpiry)")
-                self.findRequest(with: newToken, layout: "Bands", payload: self.payload)
+                self.findRequest(token: newToken, layout: "Bands", payload: self.payload)
             })
         }
         
