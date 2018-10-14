@@ -106,14 +106,16 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
 This example shows an "or" request. Set your payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
 
 ```swift
+    // payload
     var payload = ["query": [   
         ["bandName": "Pinkish Black"],  // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
-        ["bandName": "Sudie"]
+        ["bandName": "Sudie"],
+        ["bandName": "Cure For Paranoia"]
         // ...
     ]]
  
  
-    /// data api find request
+    // data api find request
     func findRequest(token: String, layout: String, payload: [String: Any]) {
     
         guard   let body = try? JSONSerialization.data(withJSONObject: payload),
