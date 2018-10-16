@@ -17,15 +17,15 @@ class DataAPI {
     let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better    
     let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
     
-    let token   = UserDefaults.standard.string(forKey: "fm-token")
-    let expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+    var token   = UserDefaults.standard.string(forKey: "fm-token")
+    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
 
     
     
     // active token?
     class func isActiveToken() -> Bool {
                 
-        if let _ = token, expiry > Date() {
+        if let _ = self.token, expiry > Date() {
             return true
         } else {
             return false
