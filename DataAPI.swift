@@ -17,15 +17,15 @@ class DataAPI {
     let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better    
     let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
     
-    var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
-
     
     
     // active token?
     class func isActiveToken() -> Bool {
-                
-        if let _ = self.token, expiry > Date() {
+            
+    let token  = UserDefaults.standard.string(forKey: "fm-token")
+    let expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+        
+        if let _ = token, expiry > Date() {
             return true
         } else {
             return false
@@ -37,7 +37,8 @@ class DataAPI {
     // refresh token -> (token, expiry, error)
     class func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
         
-        guard let baseURL = URL(string: self.baseURL) else { return }
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
         
         let url = baseURL.appendingPathComponent("/sessions")
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
@@ -74,7 +75,8 @@ class DataAPI {
     // get records -> ([records], error)
     class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
         
-        guard let baseURL = URL(string: self.baseURL) else { return }
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=1&_limit=\(limit)")
         
@@ -112,7 +114,8 @@ class DataAPI {
         //    ["firstName": Geoff"]             "lastName": "Hamm"
         //  ]]                                ]]
         
-        guard   let baseURL = URL(string: self.baseURL),
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path),
                 let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
@@ -147,7 +150,8 @@ class DataAPI {
     // get record with id -> (record, error)
     class func getRecord(with id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
         
-        guard let baseURL = URL(string: self.baseURL) else { return }
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
         
@@ -180,7 +184,8 @@ class DataAPI {
     // delete record with id -> (error)
     class func deleteRecord(with id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
-        guard let baseURL = URL(string: self.baseURL) else { return }
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
         
@@ -217,7 +222,8 @@ class DataAPI {
         //      "lastName": "newValue"
         //  ]]  
         
-        guard   let baseURL = URL(string: self.baseURL),
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path),
                 let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
