@@ -138,7 +138,7 @@ This example shows an "or" request. Set your payload from a `UITextField` (or ha
                     let response = json["response"] as? [String: Any],
                     let records  = response["data"] as? [[String: Any]] else { return }
             
-            // json array
+            // array
             for record in records {
 
                 guard   let fieldData = record["fieldData"] as? [String: Any],
