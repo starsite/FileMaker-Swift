@@ -10,8 +10,7 @@ import Foundation
 
 
 class DataAPI {    
-        
-        
+         
 //  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
 //  let auth    = "xxxxxabcdefg1234567"
     
