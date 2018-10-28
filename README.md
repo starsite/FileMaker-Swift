@@ -109,7 +109,7 @@ This example shows an "or" request. Set your payload from a `UITextField` (or ha
     // payload
     var payload = ["query": [   
         ["bandName": "Pinkish Black"],  // "or" query ->[[pred1],[pred2]]   "and" ->[[pred1, pred2]]
-        ["bandName": "Sudie"],
+        ["bandName": "Sudie"]
         // ...
     ]]
  
