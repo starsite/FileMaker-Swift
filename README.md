@@ -3,7 +3,7 @@ SwiftFM is a service class for Swift 4.2 to work with the FileMaker Data API. (X
 - - -
 
 ### Overview
-This document will show you how to check the status for an existing token, how to refresh expired tokens, and how to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
+This `README.md` will show you how to check the status for an existing token, how to refresh expired tokens, and how to make sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
 
 #### The example below includes a basic find request. Refer to the `DataAPI.swift` class (above) to see a full list of functions and how to call them.
  - - -
