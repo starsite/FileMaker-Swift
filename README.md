@@ -29,10 +29,10 @@ class ViewController: UIViewController {
     var token   = UserDefaults.standard.string(forKey: "fm-token")
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
     
-    var bands   = [Band]()    
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
+
+    var bands = [Band]()    
     
     struct Band {
         name: String
@@ -151,7 +151,7 @@ This example shows an "or" request. Set your payload from a `UITextField` (or ha
             
             // completion
             OperationQueue.main.addOperation {
-                self.bands.sort { $0.bandName < $1.bandName }
+                self.bands.sort { $0.name < $1.name }
                 self.collectionView.reloadData()
             }
            
