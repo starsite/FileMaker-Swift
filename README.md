@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     var token   = UserDefaults.standard.string(forKey: "fm-token")
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
-
 
     var bands = [Band]()    
     
