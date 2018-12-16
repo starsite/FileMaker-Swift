@@ -172,7 +172,6 @@ If you're new to Swift, `viewDidLoad()` is called only when stepping *into* a vi
    
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.isPrefetchingEnabled = true
    
         // request
         switch isActiveToken() {  
