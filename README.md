@@ -1,5 +1,5 @@
 # SwiftFM
-SwiftFM is a service class for Swift 4.2 to work with the FileMaker Data API. (Xcode 9.4+ required)
+SwiftFM is a service class for working with the FileMaker Data API. (Swift 4.2+, Xcode 9.4+)
 - - -
 
 ### Overview
