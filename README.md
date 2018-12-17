@@ -103,7 +103,7 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
  - - -
  
 ### Find request
-This example shows an "or" request. Set your payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
+This example shows an "or" request. Note the difference in payload for an "and" request. Set the payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
 
 ```swift
     // payload
