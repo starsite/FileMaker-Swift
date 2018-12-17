@@ -72,7 +72,6 @@ Refresh an expired token. The `@escaping` marker allows the `token` and `expiry`
         let url = baseURL.appendingPathComponent("/sessions")
         let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
        
-        // request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Basic \(auth)", forHTTPHeaderField: "Authorization")
