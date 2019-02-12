@@ -2,13 +2,20 @@
 SwiftFM is a service class for working with the FileMaker Data API. (Swift 4.2+, Xcode 9.4+)
 
 - - -
+
+
+## Overview
+This README.md is aimed at FileMaker devs who want to integrate the FileMaker Data API into their iOS projects. Each function is shown with an example. Everything below is included in the `DataAPI.swift` file, in this repo.
+
+- - -
+ 
  
 ## Class Vars and Lets
 A `let` is a constant, in Swift.
 
-During testing, you can hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. 
+During testing, you may hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy an iOS app with this information visible.
 
-I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it that way also provides a remote kill-switch, if necessary.
+I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary. You could also fetch from Firebase, or another service.
  
 ```swift
 import UIKit
@@ -22,21 +29,20 @@ class ViewController: UIViewController {
     let auth    = UserDefaults.standard.string(forKey: "fm-auth")     //
   
     var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)  
+    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+    // ...
 }
 ```
  
 - - -
  
+ 
 ## Active Token? (function)
-Bool check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
+A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
 class func isActiveToken() -> Bool {
-    
-    let token   = UserDefaults.standard.string(forKey: "fm-token")
-    let expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
-    
+        
     if let _ = token, expiry > Date() {
         return true
     } else {
@@ -48,6 +54,7 @@ class func isActiveToken() -> Bool {
 ## Active Token (example)
 ```swift 
 switch isActiveToken() {  
+
 case true:
     print("active token - expiry \(self.expiry)")
  
@@ -59,6 +66,7 @@ case false:
 ```
  
  - - -
+ 
  
 ## Refresh Token (function)
 Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
@@ -103,14 +111,17 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 ## Refresh Token (example)
 ```swift
 refreshToken(for: auth, completion: { newToken, newExpiry in
+
     print("new token - expiry \(newExpiry)")
-    // newToken and newExpiry saved to UserDefaults
+    // newToken and newExpiry are saved to UserDefaults
 })
 ```
 
 - - - 
+
  
 ## Get Records (function)
+Get an array of records using an offset
 ```swift
 // returns -> ([records], error code)
 class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
@@ -149,17 +160,19 @@ class func getRecords(token: String, layout: String, limit: Int, completion: @es
 // get first 20 records
 getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, error in
 
-    guard error == "0" else { 
+    // request error
+    guard error == "0" else {
         print("get records sad.")
         return 
     }
     
+    // successful request, no records returned
     guard let records = records else {
         print("no records.")
         return
     }
     
-    // array
+    // array!
     for record in records {
         // deserialize with Codable, append object array, load table or collection view
     }
@@ -168,8 +181,9 @@ getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, e
 
 - - -
 
+
 ## Find Request (function)
-This example shows an "or" request. Note the difference in payload for an "and" request. Set the payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
+Note the difference in payload when building an "or" request vs. an "and" request. You can set your payload from a `UITextField`, or hardcode a query (like this). Then pass the payload as a parameter.
 
 ```swift
 // returns -> ([records], error code)
@@ -234,6 +248,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 
 - - -
 
+
 ## Get Record (function)
 ```swift
 // returns -> (record, error code)
@@ -289,6 +304,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 
 - - -
 
+
 ## Delete Record (function)
 ```swift
 // returns -> (error code)
@@ -336,6 +352,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 ```
 
 - - -
+
 
 ## Edit Record (function)
 ```swift
