@@ -44,7 +44,7 @@ A simple `bool` check to see if there's an existing token and whether or not it'
 // swift bools return either 'true' or 'false'
 func isActiveToken() -> Bool {
         
-    if let _ = token, expiry > Date() {
+    if let _ = self.token, expiry > Date() {
         return true
     } else {
         return false
