@@ -3,7 +3,7 @@
 How to create and use the Swift `AppDelegate` in a FileMaker iOS App SDK project (v17). Also shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` delegate method.
 * https://github.com/starsite/SwiftFM/blob/master/examples/FIAS-Swift-AppDelegate-walkthrough.md
 
-#### Note: This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
+Note: This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the App Delegate. I'll update this post when that changes.
 
 
 ### What You'll Learn
