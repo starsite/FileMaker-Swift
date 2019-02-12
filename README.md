@@ -4,13 +4,13 @@ SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2+ a
 - - -
 
 
-## Overview
+# Overview
 This `README.md` is aimed at FileMaker devs who want to integrate the v17 Data API into their iOS projects. Each function is paired with an example. Everything below is part of the `DataAPI.swift` file, included in this repo.
 
 - - -
  
  
-## Class Vars and Lets
+# Class Vars and Lets
 A `let` is a constant, in Swift.
 
 During testing, you may hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy an iOS app with this information visible.
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 - - -
  
  
-## Active Token (function)
+# Active Token (function)
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
