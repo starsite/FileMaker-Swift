@@ -245,7 +245,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
         return
     }
     
-    // array
+    // array!
     for record in records {
         // deserialize with Codable, append object array, load table or collection view
     }
@@ -357,6 +357,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
         return
     }
     
+    // deleted!
     // remove object from local array, reload view
 }
 ```
@@ -417,6 +418,7 @@ editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload,
         return
     }
     
+    // edited!
     // refetch updated record, reload view
 }
 ```
