@@ -195,8 +195,8 @@ Note the difference in payload when building an "or" request vs. an "and" reques
 func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
     
     //  myPayload = ["query": [           myPayload = ["query": [
-    //    ["firstName": "Brian"],           "firstName": "Brian",
-    //    ["firstName": Geoff"]             "lastName": "Hamm"
+    //      ["firstName": "Brian"],           "firstName": "Brian",
+    //      ["firstName": "Geoff"]            "lastName": "Hamm"
     //  ]]                                ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -375,7 +375,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
     
     //  myPayload = ["fieldData": [
     //      "firstName": "newValue",
-    //      "lastName": newValue"
+    //      "lastName": "newValue"
     //  ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
