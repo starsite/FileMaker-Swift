@@ -5,7 +5,7 @@ SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2+ a
 
 
 # Overview
-This `README.md` is aimed at FileMaker devs who want to integrate the v17 Data API into their iOS projects. Each function is paired with an example. Everything below is part of the `DataAPI.swift` file, included in this repo.
+This `README.md` is aimed at FileMaker devs who want to integrate the v17 Data API into their iOS projects. Each function is paired with an example. In addition, everything shown below is part of the `DataAPI.swift` file, in this repo.
 
 - - -
  
@@ -13,7 +13,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the v17 Data A
 # Class Vars and Lets
 A `let` is a constant, in Swift.
 
-During testing, you may hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy an iOS app with this information visible.
+During testing, you may hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy an app with this information visible in code.
 
 I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary. You could also fetch from Firebase, or another service.
  
