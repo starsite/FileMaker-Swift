@@ -118,7 +118,7 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 refreshToken(for: auth, completion: { newToken, newExpiry in
 
     print("new token - expiry \(newExpiry)")
-    // newToken and newExpiry are saved to UserDefaults
+    // updated values written to UserDefaults.standard
 })
 ```
 
