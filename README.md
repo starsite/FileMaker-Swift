@@ -336,11 +336,6 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
                 let messages  = json["messages"] as? [[String: Any]],
                 let error     = messages[0]["code"] as? String else { return }
         
-        guard error == "0" else {
-            print(messages)
-            return
-        }
-        
         completion(error)
         
     }.resume()
@@ -396,12 +391,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
                 let error     = messages[0]["code"] as? String else { return }
-        
-        guard error == "0" else {
-            print(messages)
-            return
-        }
-        
+                
         completion(error)
         
     }.resume()
