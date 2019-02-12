@@ -12,13 +12,13 @@ import Foundation
 class DataAPI {    
          
 //  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
-//  let auth    = "xxxxxabcdefg1234567"
+//  let auth    = "xxxxxabcdefg1234567"    // base64 "user:pass"
     
-    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better    
-    let auth    = UserDefaults.standard.string(forKey: "fm-auth")      //
+    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")    // better    
+    let auth    = UserDefaults.standard.string(forKey: "fm-auth")       //
     
-    let token   = UserDefaults.standard.string(forKey: "fm-token")
-    let expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+    var token   = UserDefaults.standard.string(forKey: "fm-token")
+    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
    
     
     
@@ -148,7 +148,7 @@ class DataAPI {
     
     
     // get record with id -> (record, error)
-    class func getRecord(with id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
+    class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -182,7 +182,7 @@ class DataAPI {
     
     
     // delete record with id -> (error)
-    class func deleteRecord(with id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+    class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -215,7 +215,7 @@ class DataAPI {
     
     
     // edit record with id -> (error)
-    class func editRecord(with id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
+    class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
         
         //  payload = ["fieldData": [
         //      "firstName": "newValue",
