@@ -14,17 +14,17 @@ class DataAPI {
 //  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
 //  let auth    = "xxxxxabcdefg1234567"
     
-//  let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better    
-//  let auth    = UserDefaults.standard.string(forKey: "fm-auth")      // better
+    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")   // better    
+    let auth    = UserDefaults.standard.string(forKey: "fm-auth")      //
     
+    let token   = UserDefaults.standard.string(forKey: "fm-token")
+    let expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+   
     
     
     // active token?
     class func isActiveToken() -> Bool {
-            
-        let token  = UserDefaults.standard.string(forKey: "fm-token")
-        let expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
-        
+                    
         if let _ = token, expiry > Date() {
             return true
         } else {
