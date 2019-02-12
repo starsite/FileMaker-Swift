@@ -59,10 +59,12 @@ switch isActiveToken() {
 
 case true:
     print("active token - expiry \(self.expiry)")
+    // do stuff
  
 case false:
     refreshToken(for: auth, completion: { newToken, newExpiry in
         print("new token - expiry \(newExpiry)")
+        // do stuff
     })
 }    
 ```
