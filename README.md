@@ -126,7 +126,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 
  
 ## Get Records (function)
-Get an array of records using an offset of 1. This could be refactored to include an `offset` parameter, for paginating returned records.
+Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter, for recursive calls/paginating records.
 ```swift
 // returns -> ([records], error code)
 class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
