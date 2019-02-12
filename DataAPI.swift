@@ -111,7 +111,7 @@ class DataAPI {
         
         //  payload = ["query": [             payload = ["query": [
         //      ["firstName": "Brian"],           "firstName": "Brian",
-        //      ["firstName": Geoff"]             "lastName": "Hamm"
+        //      ["firstName": "Geoff"]            "lastName": "Hamm"
         //  ]]                                ]]
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
