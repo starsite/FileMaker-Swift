@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 - - -
  
  
-### Active Token (function)
+## Active Token (function)
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
@@ -109,7 +109,7 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 }
 ```
 
-### Example
+## Example
 ```swift
 // refresh token
 refreshToken(for: auth, completion: { newToken, newExpiry in
@@ -157,7 +157,7 @@ class func getRecords(token: String, layout: String, limit: Int, completion: @es
 }
 ```
 
-### Example
+## Example
 ```swift
 // get first 20 records
 getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, error in
@@ -227,7 +227,7 @@ class func findRequest(token: String, layout: String, payload: [String: Any], co
 }
 ```
 
-### Example
+## Example
 ```swift
 // find request
 findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { records, error in
@@ -287,7 +287,7 @@ class func getRecordWith(id: Int, token: String, layout: String, completion: @es
 }
 ```
  
-### Example
+## Example
 ```swift
 // get record
 getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record, error in
@@ -344,7 +344,7 @@ class func deleteRecordWith(id: Int, token: String, layout: String, completion: 
 }
 ```
 
-### Example
+## Example
 ```swift
 // delete record
 deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { error in
@@ -404,7 +404,7 @@ class func editRecordWith(id: Int, token: String, layout: String, payload: [Stri
 }
 ```
 
-### Example
+## Example
 ```swift
 // edit record
 editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload, completion: { error in
