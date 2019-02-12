@@ -256,7 +256,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 
 
 ## Get Record (function)
-Fetch a record with `recID`
+Fetch a record with `recID`.
 ```swift
 // returns -> (record, error code)
 class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
@@ -366,7 +366,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 
 
 ## Edit Record (function)
-Edit record with `recID`. Only pass new values for the fields you want to modify. Optionally, you may include the `modID` from your initial fetch, to make sure the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
+Edit record with `recID`. Only pass new values for the fields you want to modify. Optionally, you may include the `modID` (from your last fetch), to check that the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
 
 Only an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
 ```swift
