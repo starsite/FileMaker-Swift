@@ -42,7 +42,7 @@ A simple `bool` check to see if there's an existing token and whether or not it'
 
 ```swift
 // swift bools return either 'true' or 'false'
-class func isActiveToken() -> Bool {
+func isActiveToken() -> Bool {
         
     if let _ = token, expiry > Date() {
         return true
@@ -77,7 +77,7 @@ Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, a
 
 ```swift
 // returns -> (token, expiry, error code)
-class func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
+func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -129,7 +129,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter, for recursive calls/paginating records.
 ```swift
 // returns -> ([records], error code)
-class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
+func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -192,7 +192,7 @@ Note the difference in payload when building an "or" request vs. an "and" reques
 
 ```swift
 // returns -> ([records], error code)
-class func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
+func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
     
     //  myPayload = ["query": [           myPayload = ["query": [
     //    ["firstName": "Brian"],           "firstName": "Brian",
@@ -259,7 +259,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 Fetch a record with `recID`.
 ```swift
 // returns -> (record, error code)
-class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
+func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -317,7 +317,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 Delete record with `recID`. Only an error code is returned with this function.
 ```swift
 // returns -> (error code)
-class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -371,7 +371,7 @@ Edit record with `recID`. Only pass new values for the fields you want to modify
 Only an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
 ```swift
 // returns -> (error code)
-class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
+func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
     
     //  myPayload = ["fieldData": [
     //      "firstName": "newValue",
