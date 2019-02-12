@@ -52,7 +52,8 @@ class func isActiveToken() -> Bool {
 ```
 
 ### Example
-```swift 
+```swift
+// active token?
 switch isActiveToken() {  
 
 case true:
@@ -110,6 +111,7 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 
 ### Example
 ```swift
+// refresh token
 refreshToken(for: auth, completion: { newToken, newExpiry in
 
     print("new token - expiry \(newExpiry)")
@@ -227,6 +229,7 @@ class func findRequest(token: String, layout: String, payload: [String: Any], co
 
 ### Example
 ```swift
+// find request
 findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { records, error in
 
     guard error == "0" else { 
@@ -286,6 +289,7 @@ class func getRecordWith(id: Int, token: String, layout: String, completion: @es
  
 ### Example
 ```swift
+// get record
 getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record, error in
 
     guard error == "0" else { 
@@ -342,6 +346,7 @@ class func deleteRecordWith(id: Int, token: String, layout: String, completion: 
 
 ### Example
 ```swift
+// delete record
 deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { error in
 
     guard error == "0" else {
@@ -401,6 +406,7 @@ class func editRecordWith(id: Int, token: String, layout: String, payload: [Stri
 
 ### Example
 ```swift
+// edit record
 editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload, completion: { error in
 
     guard error == "0" else {
