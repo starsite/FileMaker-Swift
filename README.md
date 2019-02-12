@@ -312,7 +312,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 
 
 ## Delete Record (function)
-Nothing other than an error code is returned with this function.
+Only an error code is returned with this function.
 ```swift
 // returns -> (error code)
 class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -365,7 +365,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 ## Edit Record (function)
 Only pass new values for the fields you want to modify. Optionally, you may include the `modID` from your initial fetch, to make sure the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
 
-Nothing other an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
+Only an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
 ```swift
 // returns -> (error code)
 class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
