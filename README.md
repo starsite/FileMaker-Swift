@@ -115,7 +115,7 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
 ### Example
 ```swift
 // refresh token
-refreshToken(for: auth, completion: { newToken, newExpiry in
+refreshToken(for: self.auth, completion: { newToken, newExpiry in
 
     print("new token - expiry \(newExpiry)")
     // new values written to UserDefaults.standard
