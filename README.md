@@ -163,7 +163,7 @@ func getRecords(token: String, layout: String, limit: Int, completion: @escaping
 ### Example
 ```swift
 // get first 20 records
-getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, error in
+getRecords(token: self.token, layout: myLayout, limit: 20, completion: { records, error in
 
     // request error
     guard error == "0" else {
@@ -233,7 +233,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 ### Example
 ```swift
 // find request
-findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { records, error in
+findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, error in
 
     guard error == "0" else { 
         print("find request sad.")
@@ -293,7 +293,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record, error in
+getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, error in
 
     guard error == "0" else { 
         print("get record sad.")
@@ -350,7 +350,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 ```swift
 // delete record
-deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { error in
+deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { error in
 
     guard error == "0" else {
         print("delete record sad.")
@@ -411,7 +411,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload, completion: { error in
+editRecordWith(id: recID, token: self.token, layout: myLayout, playload: myPayload, completion: { error in
 
     guard error == "0" else {
         print("edit record sad.")
