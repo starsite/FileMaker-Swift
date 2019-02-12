@@ -69,7 +69,7 @@ case false:
  - - -
  
  
-### Refresh Token (function)
+## Refresh Token (function)
 Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and `error` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
@@ -109,7 +109,7 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 }
 ```
 
-## Example
+### Example
 ```swift
 // refresh token
 refreshToken(for: auth, completion: { newToken, newExpiry in
@@ -122,7 +122,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 - - - 
 
  
-### Get Records (function)
+## Get Records (function)
 Get an array of records using an offset of 1. Optionally, you could refactor this to include an `offset` parameter, to paginate returned records.
 ```swift
 // returns -> ([records], error code)
@@ -157,7 +157,7 @@ class func getRecords(token: String, layout: String, limit: Int, completion: @es
 }
 ```
 
-## Example
+### Example
 ```swift
 // get first 20 records
 getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, error in
@@ -184,7 +184,7 @@ getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, e
 - - -
 
 
-### Find Request (function)
+## Find Request (function)
 Note the difference in payload when building an "or" request vs. an "and" request. You can set your payload from a `UITextField`, or hardcode a query (like this). Then pass the payload as a parameter.
 
 ```swift
@@ -227,7 +227,7 @@ class func findRequest(token: String, layout: String, payload: [String: Any], co
 }
 ```
 
-## Example
+### Example
 ```swift
 // find request
 findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { records, error in
@@ -252,7 +252,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 - - -
 
 
-### Get Record (function)
+## Get Record (function)
 Fetch a record with `recID`
 ```swift
 // returns -> (record, error code)
@@ -287,7 +287,7 @@ class func getRecordWith(id: Int, token: String, layout: String, completion: @es
 }
 ```
  
-## Example
+### Example
 ```swift
 // get record
 getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record, error in
@@ -310,7 +310,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 - - -
 
 
-### Delete Record (function)
+## Delete Record (function)
 Nothing other than an error code is returned with this function.
 ```swift
 // returns -> (error code)
@@ -344,7 +344,7 @@ class func deleteRecordWith(id: Int, token: String, layout: String, completion: 
 }
 ```
 
-## Example
+### Example
 ```swift
 // delete record
 deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { error in
@@ -361,7 +361,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 - - -
 
 
-### Edit Record (function)
+## Edit Record (function)
 Only pass new values for the fields you want to modify. Optionally, you may include the `modID` from your initial fetch, to make sure the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
 
 Nothing other an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
@@ -404,7 +404,7 @@ class func editRecordWith(id: Int, token: String, layout: String, payload: [Stri
 }
 ```
 
-## Example
+### Example
 ```swift
 // edit record
 editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload, completion: { error in
