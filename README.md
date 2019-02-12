@@ -72,7 +72,7 @@ case false:
  - - -
  
  
-## Refresh Token (function)
+# Refresh Token (function)
 Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and `error` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
@@ -125,7 +125,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 - - - 
 
  
-## Get Records (function)
+# Get Records (function)
 Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter, for recursive calls/paginating records.
 ```swift
 // returns -> ([records], error code)
@@ -187,7 +187,7 @@ getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, e
 - - -
 
 
-## Find Request (function)
+# Find Request (function)
 Note the difference in payload when building an "or" request vs. an "and" request. You can set your payload from a `UITextField`, or hardcode a query (like this). Then pass the payload as a parameter.
 
 ```swift
@@ -255,7 +255,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 - - -
 
 
-## Get Record (function)
+# Get Record (function)
 Fetch a record with `recID`.
 ```swift
 // returns -> (record, error code)
@@ -313,7 +313,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 - - -
 
 
-## Delete Record (function)
+# Delete Record (function)
 Delete record with `recID`. Only an error code is returned with this function.
 ```swift
 // returns -> (error code)
@@ -365,7 +365,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 - - -
 
 
-## Edit Record (function)
+# Edit Record (function)
 Edit record with `recID`. Only pass new values for the fields you want to modify. Optionally, you may include the `modID` (from your last fetch), to check that the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
 
 Only an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
