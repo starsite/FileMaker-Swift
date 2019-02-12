@@ -62,7 +62,7 @@ case true:
     // do stuff
  
 case false:
-    refreshToken(for: auth, completion: { newToken, newExpiry in
+    refreshToken(for: self.auth, completion: { newToken, newExpiry in
         print("new token - expiry \(newExpiry)")
         // do stuff
     })
