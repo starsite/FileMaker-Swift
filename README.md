@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
-// swift bool values are 'true' or 'false'
+// swift bools return either 'true' or 'false'
 class func isActiveToken() -> Bool {
         
     if let _ = token, expiry > Date() {
