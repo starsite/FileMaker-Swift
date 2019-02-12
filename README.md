@@ -1,12 +1,9 @@
 # SwiftFM
 SwiftFM is a service class for working with the FileMaker Data API. (Swift 4.2+, Xcode 9.4+)
-- - -
 
-### Overview
-This `README.md` will get you started checking the status of an existing token, refreshing expired tokens, and making sure you're passing active tokens in your requests, where possible. Fetching a new session token for every request is lazy. Don't be that guy. 🙃
- - - -
+- - -
  
-### Class Vars and Lets
+## Class Vars and Lets
 A `let` is a constant, in Swift.
 
 During testing, you can hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. 
@@ -18,20 +15,20 @@ import UIKit
  
 class ViewController: UIViewController {
  
-    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")
-    let auth    = UserDefaults.standard.string(forKey: "fm-auth")
- 
 //  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
 //  let auth    = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
- 
+
+    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")  // better
+    let auth    = UserDefaults.standard.string(forKey: "fm-auth")     //
+  
     var token   = UserDefaults.standard.string(forKey: "fm-token")
     var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)  
 }
 ```
  
- - - -
+- - -
  
-### Active Token? (function)
+## Active Token? (function)
 Bool check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
@@ -47,7 +44,8 @@ class func isActiveToken() -> Bool {
     }
 }
 ```
-### Active Token (example)
+
+## Active Token (example)
 ```swift 
 switch isActiveToken() {  
 case true:
@@ -62,7 +60,7 @@ case false:
  
  - - -
  
-### Refresh Token (function)
+## Refresh Token (function)
 Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
@@ -102,7 +100,7 @@ class func refreshToken(for auth: String, completion: @escaping (String, Date, S
 }
 ```
 
-### Refresh Token (example)
+## Refresh Token (example)
 ```swift
 refreshToken(for: auth, completion: { newToken, newExpiry in
     print("new token - expiry \(newExpiry)")
@@ -112,7 +110,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 
 - - - 
  
-### Get Records (function)
+## Get Records (function)
 ```swift
 // returns -> ([records], error code)
 class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
@@ -146,7 +144,7 @@ class func getRecords(token: String, layout: String, limit: Int, completion: @es
 }
 ```
 
-### Get Records (example)
+## Get Records (example)
 ```swift
 // get first 20 records
 getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, error in
@@ -170,7 +168,7 @@ getRecords(token: myToken, layout: myLayout, limit: 20, completion: { records, e
 
 - - -
 
-### Find Request (function)
+## Find Request (function)
 This example shows an "or" request. Note the difference in payload for an "and" request. Set the payload from a `UITextField` (or hardcode a query, like this) and pass it as a parameter.
 
 ```swift
@@ -213,7 +211,7 @@ class func findRequest(token: String, layout: String, payload: [String: Any], co
 }
 ```
 
-### Find Request (example)
+## Find Request (example)
 ```swift
 findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { records, error in
 
@@ -236,7 +234,7 @@ findRequest(token: myToken, layout: myLayout, payload: myPayload, completion: { 
 
 - - -
 
-### Get Record (function)
+## Get Record (function)
 ```swift
 // returns -> (record, error code)
 class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
@@ -270,7 +268,7 @@ class func getRecordWith(id: Int, token: String, layout: String, completion: @es
 }
 ```
  
-### Get Record (example)
+## Get Record (example)
 ```swift
 getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record, error in
 
@@ -291,7 +289,7 @@ getRecordWith(id: recID, token: myToken, layout: myLayout, completion: { record,
 
 - - -
 
-### Delete Record (function)
+## Delete Record (function)
 ```swift
 // returns -> (error code)
 class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -324,7 +322,7 @@ class func deleteRecordWith(id: Int, token: String, layout: String, completion: 
 }
 ```
 
-### Delete Record (example)
+## Delete Record (example)
 ```swift
 deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { error in
 
@@ -339,7 +337,7 @@ deleteRecordWith(id: recID, token: myToken, layout: myLayout, completion: { erro
 
 - - -
 
-### Edit Record (function)
+## Edit Record (function)
 ```swift
 // returns -> (error code)
 class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
@@ -379,7 +377,7 @@ class func editRecordWith(id: Int, token: String, layout: String, payload: [Stri
 }
 ```
 
-### Edit Record (example)
+## Edit Record (example)
 ```swift
 editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload, completion: { error in
 
