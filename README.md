@@ -126,7 +126,7 @@ refreshToken(for: auth, completion: { newToken, newExpiry in
 
  
 ## Get Records (function)
-Get an array of records using an offset of 1. Optionally, you could refactor this to include an `offset` parameter, to paginate returned records.
+Get an array of records using an offset of 1. This could be refactored to include an `offset` parameter, for paginating returned records.
 ```swift
 // returns -> ([records], error code)
 class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
@@ -424,16 +424,3 @@ editRecordWith(id: recID, token: myToken, layout: myLayout, playload: myPayload,
 ```
 
 - - -
-
-
-## Error Codes
-```
-0       Success                 Hooray!
-400     Bad request             Occurs when the server cannot process the request due to a client error.
-401     Unauthorized            Occurs when the client is not authorized to access the API. If this error occurs when attempting to log in to a database session, then there is a problem with the specified user account or password. If this error occurs with other calls, the access token is not specified or it is not valid.
-403     Forbidden               Occurs when the client is authorized, but the call attempts an action that is forbidden for a different reason.
-404     Not found               Occurs if the call uses a URL with an invalid URL schema. Check the specified URL for syntax errors.
-405     Method not allowed      Occurs when an incorrect HTTP method is used with a call.
-415     Unsupported media type  Occurs if the required header is missing or is not correct for the request: For requests that require "Content-Type: application/json" header, occurs if the "Content-Type: application/json" header is not specified or if a different content type was specified instead of the "application/json" type. For requests that require "Content-Type: multipart/form-data" header, occurs if the "Content-Type: multipart/form-data" header is not specified or if a different content type was specified instead of the "multipart/form-data" type.
-500     FileMaker Server error  Includes FileMaker error messages and error codes. See FileMaker error codes in FileMaker Pro Advanced Help.  
-```
