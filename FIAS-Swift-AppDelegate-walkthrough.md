@@ -4,6 +4,7 @@ How to create and use the Swift `AppDelegate` in a FileMaker iOS App SDK project
 
 Note: This no longer works as of Xcode 10. The `otool` response no longer includes anything identifiable with regard to the `AppDelegate`. I'll update this post when that changes.
 
+- - -
 
 ### What You'll Learn
 * How to build a simple FIAS project in Xcode with a Swift App Delegate.
