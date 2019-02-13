@@ -58,8 +58,8 @@ func isActiveToken() -> Bool {
 switch isActiveToken() {  
 
 case true:
-    print("active token - expiry \(self.expiry)")  
-    // do stuff
+    print("token \(self.token) - expiry \(self.expiry)")  
+    // do stuff with self.token
  
 case false:
     refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
@@ -70,7 +70,7 @@ case false:
         }
         
         print("token \(newToken) - expiry \(newExpiry)")  
-        // use 'newToken' in another DataAPI call
+        // do stuff with newToken
     })
 }    
 ```
@@ -130,7 +130,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
     }
 
     print("token \(newToken) - expiry \(newExpiry)")
-    // use 'newToken' in another DataAPI call
+    // do stuff with newToken
 })
 ```
 
