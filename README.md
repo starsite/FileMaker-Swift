@@ -15,7 +15,7 @@ A `let` is a constant, in Swift.
 
 During testing, you may hardcode `baseURL` and `auth` values as below, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
 
-I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary. You could also fetch from Firebase, or another service.
+I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary.
  
 ```swift
 import UIKit
@@ -138,7 +138,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
  
 # Get Records (function)
-Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter, for recursive calls/paginating records.
+Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter if you'll be doing a lot of recursive calls/paginating records.
 ```swift
 // returns -> ([records], error code)
 func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
@@ -194,7 +194,7 @@ getRecords(token: self.token, layout: myLayout, limit: 20, completion: { records
 
 
 # Find Request (function)
-Note the difference in payload when building an "or" request vs. an "and" request. You can set your payload from a `UITextField`, or hardcode a query (like this). Then pass the payload as a parameter.
+Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
 
 ```swift
 // returns -> ([records], error code)
