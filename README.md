@@ -332,14 +332,8 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
-                
-        guard code == "0" else {         
-            print(message)  // optionally pass message to UIAlertController
-            return 
-        }
-        
+                let code      = messages[0]["code"] as? String else { return }
+                        
         completion(error)
         
     }.resume()
@@ -394,14 +388,8 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
-                
-        guard code == "0" else {
-            print(message)  // optionally pass message to UIAlertController
-            return
-        }
-                
+                let code      = messages[0]["code"] as? String else { return }
+                                
         completion(code)
         
     }.resume()
