@@ -34,8 +34,8 @@ class DataAPI {
     
     
     
-    // refresh token -> (token, expiry, error)
-    class func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
+    // refresh token -> (token, expiry)
+    class func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -56,7 +56,7 @@ class DataAPI {
                     let messages  = json["messages"] as? [[String: Any]],
                     let code      = messages[0]["code"] as? String else { return }
             
-            guard let token = response["token"] as? String else {
+            guard let token = response["token"] as? String, error == "0" else {
                 print(messages)
                 return
             }
@@ -64,7 +64,7 @@ class DataAPI {
             UserDefaults.standard.set(token, forKey: "fm-token")
             UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
             
-            completion(token, expiry, code)
+            completion(token, expiry)
             
         }.resume()
     }
