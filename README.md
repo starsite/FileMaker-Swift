@@ -397,12 +397,12 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
                 let code      = messages[0]["code"] as? String,
                 let message   = messages[0]["message"] as? String else { return }
                 
-        guard error == "0" else {
+        guard code == "0" else {
             print(message)  // optionally pass message to UIAlertController
             return
         }
                 
-        completion(error)
+        completion(code)
         
     }.resume()
 }
