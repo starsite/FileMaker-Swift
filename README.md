@@ -79,7 +79,7 @@ case false:
  
  
 # Refresh Token (function)
-Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and `error code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
 // returns -> (token, expiry, error code)
