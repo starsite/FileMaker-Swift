@@ -25,7 +25,7 @@ class DataAPI {
     // active token?
     class func isActiveToken() -> Bool {
                     
-        if let _ = token, expiry > Date() {
+        if let _ = self.token, self.expiry > Date() {
             return true
         } else {
             return false
