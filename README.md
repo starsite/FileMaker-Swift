@@ -58,13 +58,19 @@ func isActiveToken() -> Bool {
 switch isActiveToken() {  
 
 case true:
-    print("active token - expiry \(self.expiry)")
+    print("active token - expiry \(self.expiry)")  
     // do stuff
  
 case false:
-    refreshToken(for: self.auth, completion: { newToken, newExpiry in
-        print("new token - expiry \(newExpiry)")
-        // do stuff
+    refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
+    
+        guard error == "0" else {
+            print("refresh token sad.")  // optionally handle non-zero errors
+            return
+        }
+        
+        print("token \(newToken) - expiry \(newExpiry)")  
+        // use 'newToken' in another DataAPI call
     })
 }    
 ```
@@ -73,11 +79,11 @@ case false:
  
  
 # Refresh Token (function)
-Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and `error` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
-// returns -> (token, expiry)
-func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
+// returns -> (token, expiry, error code)
+func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -96,17 +102,18 @@ func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let response  = json["response"] as? [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
         
         guard let token = response["token"] as? String else {
-            print(messages)
+            print(message)  // optionally pass message to UIAlertController
             return
         }
         
         UserDefaults.standard.set(token, forKey: "fm-token")
         UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
         
-        completion(token, expiry)
+        completion(token, expiry, code)
         
     }.resume()
 }
@@ -117,13 +124,13 @@ func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void
 // refresh token
 refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
-    guard let token = newToken else {
-        print("refresh token sad.")
+    guard error == "0" else { 
+        print("refresh token sad.")  // optionally handle non-zero errors
         return 
     }
 
-    // updated token and expiry written to UserDefaults.standard
-    // pass updated token to another DataAPI call
+    print("token \(newToken) - expiry \(newExpiry)")
+    // use 'newToken' in another DataAPI call
 })
 ```
 
@@ -152,14 +159,15 @@ func getRecords(token: String, layout: String, limit: Int, completion: @escaping
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let response  = json["response"] as? [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
-            print(messages)
+            print(message)  // optionally pass message to UIAlertController
             return
         }
         
-        completion(records, error)
+        completion(records, code)
         
     }.resume()
 }
@@ -170,16 +178,9 @@ func getRecords(token: String, layout: String, limit: Int, completion: @escaping
 // get first 20 records
 getRecords(token: self.token, layout: myLayout, limit: 20, completion: { records, error in
 
-    // request error
-    guard error == "0" else {
-        print("get records sad.")
+    guard error == "0" else { 
+        print("get records sad.")  // optionally handle non-zero errors
         return 
-    }
-    
-    // successful request, no records returned
-    guard let records = records else {
-        print("no records.")
-        return
     }
     
     // array!
@@ -222,14 +223,15 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let response  = json["response"] as? [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
-            print(messages)
+            print(message)  // optionally pass message to UIAlertController
             return
         }
         
-        completion(records, error)
+        completion(records, code)
         
     }.resume()
 }
@@ -241,13 +243,8 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, error in
 
     guard error == "0" else { 
-        print("find request sad.")
+        print("find request sad.")  // optionally handle non-zero errors
         return 
-    }
-    
-    guard let records = records else {
-        print("no records found.")
-        return
     }
     
     // array!
@@ -282,14 +279,15 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let response  = json["response"] as? [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
-            print(messages)
+            print(message)  // optionally pass message to UIAlertController
             return
         }
         
-        completion(records[0], error)
+        completion(records[0], code)
         
     }.resume()
 }
@@ -301,17 +299,12 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, error in
 
     guard error == "0" else { 
-        print("get record sad.")
-        return 
-    }
-    
-    guard let record = record else { 
-        print("no record with id.")
+        print("get record sad.")  // optionally handle non-zero errors
         return 
     }
     
     // record!
-    // deserialize with Codable, load view
+    // deserialize with Codable, refresh UI
 }
 ```
 
@@ -339,7 +332,13 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+                
+        guard code == "0" else {         
+            print(message)  // optionally pass message to UIAlertController
+            return 
+        }
         
         completion(error)
         
@@ -351,14 +350,14 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ```swift
 // delete record
 deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { error in
-
-    guard error == "0" else {
-        print("delete record sad.")
-        return
+    
+    guard error == "0" else { 
+        print("delete record sad.")  // optionally handle non-zero errors
+        return 
     }
     
     // deleted!
-    // remove object from local array, reload view
+    // remove object from local array, refresh UI
 }
 ```
 
@@ -395,7 +394,13 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let error     = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+                
+        guard error == "0" else {
+            print(message)  // optionally pass message to UIAlertController
+            return
+        }
                 
         completion(error)
         
@@ -409,12 +414,12 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 editRecordWith(id: recID, token: self.token, layout: myLayout, playload: myPayload, completion: { error in
 
     guard error == "0" else {
-        print("edit record sad.")
+        print("edit record sad.")  // optionally handle non-zero errors
         return
     }
     
     // edited!
-    // refetch updated record, reload view
+    // refetch record using recID, referesh UI
 }
 ```
 
