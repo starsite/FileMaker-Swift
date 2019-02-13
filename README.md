@@ -98,7 +98,7 @@ func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void
                 let messages  = json["messages"] as? [[String: Any]],
                 let error     = messages[0]["code"] as? String else { return }
         
-        guard let token = response["token"] as? String, error == "0" else {
+        guard let token = response["token"] as? String else {
             print(messages)
             return
         }
