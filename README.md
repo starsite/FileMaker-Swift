@@ -73,11 +73,11 @@ case false:
  
  
 # Refresh Token (function)
-Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and `error` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+Refresh an expired token. The `@escaping` marker allows the `token` and `expiry` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
-// returns -> (token, expiry, error code)
-func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
+// returns -> (token, expiry)
+func refreshToken(for auth: String, completion: @escaping (String, Date) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -98,7 +98,7 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
                 let messages  = json["messages"] as? [[String: Any]],
                 let error     = messages[0]["code"] as? String else { return }
         
-        guard let token = response["token"] as? String else {
+        guard let token = response["token"] as? String, error == "0" else {
             print(messages)
             return
         }
@@ -106,7 +106,7 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
         UserDefaults.standard.set(token, forKey: "fm-token")
         UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
         
-        completion(token, expiry, error)
+        completion(token, expiry)
         
     }.resume()
 }
@@ -115,10 +115,15 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
 ### Example
 ```swift
 // refresh token
-refreshToken(for: self.auth, completion: { newToken, newExpiry in
+refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
-    print("new token - expiry \(newExpiry)")
-    // new values written to UserDefaults.standard
+    guard let token = newToken else {
+        print("refresh token sad.")
+        return 
+    }
+
+    // updated token and expiry written to UserDefaults.standard
+    // pass updated token to another DataAPI call
 })
 ```
 
