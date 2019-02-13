@@ -185,7 +185,7 @@ getRecords(token: self.token, layout: myLayout, limit: 20, completion: { records
     
     // array!
     for record in records {
-        // deserialize with Codable, append object array, load table or collection view
+        // deserialize with Codable, append object array, refresh UI
     }
 }
 ```
@@ -249,7 +249,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
     
     // array!
     for record in records {
-        // deserialize with Codable, append object array, load table or collection view
+        // deserialize with Codable, append object array, refresh UI
     }
 }
 ```
