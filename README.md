@@ -334,7 +334,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
                 let messages  = json["messages"] as? [[String: Any]],
                 let code      = messages[0]["code"] as? String else { return }
                         
-        completion(error)
+        completion(code)
         
     }.resume()
 }
