@@ -1,4 +1,4 @@
-## URL schemes for FileMaker Go, App SDK, and iOS
+## URL schemes for FileMaker Go, App SDK, and Swift
 
 I've tested all of the Apple and FileMaker URL schemes, and most of the third-party app schemes (for the apps/services I have). URL schemes can/and sometimes do change, so this list will be updated as needed. If you see something wrong, send me a message. This isn't meant to be an exhaustive list. The aim is to maintain a list of widely used/common apps for reference, for Go and FIAS developers.
  
