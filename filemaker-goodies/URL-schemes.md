@@ -1,4 +1,4 @@
-## URL schemes for FileMaker Go, FIAS, and iOS
+## URL schemes for FileMaker Go, App SDK, and iOS
 
 I've tested all of the Apple and FileMaker URL schemes, and most of the third-party app schemes (for the apps/services I have). URL schemes can/and sometimes do change, so this list will be updated as needed. If you see something wrong, send me a message. This isn't meant to be an exhaustive list. The aim is to maintain a list of widely used/common apps for reference, for Go and FIAS developers.
  
@@ -28,7 +28,7 @@ Notes           - mobilenotes://
 Phone           - tel://<1234567890>   (digits only)
 Photos          - photos-redirect://
 Reminders       - x-apple-reminder://
-Safari          - http:// or https://
+Safari          - http:// or https://   (Swift and FIAS only, Go apps will present a web viewer)
 Safari (FTP)    - ftp://
 Settings        - App-prefs://   (case sensitive!)
 Wallet          - shoebox://
@@ -68,7 +68,7 @@ Twitter         — twitter://user?screen_name=<userID>
 TweetBot        — tweetbot://
 Waze            — waze://
 WhatsApp        — whatsapp://
-YouTube         – youtube://
+YouTube         – youtube://watch?v=<videoID>
 ```
 - - -
 
