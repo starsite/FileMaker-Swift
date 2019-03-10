@@ -16,7 +16,7 @@ GetAsNumber ( timestamp_fmp )
   - GetAsNumber ( Get ( CurrentTimestamp ) )
 ```
 - - -
-#### Xcode, Swift
+#### Xcode (Swift)
 ```swift
 let dateInt = Int( Date().timeIntervalSince1970 )
 ```
