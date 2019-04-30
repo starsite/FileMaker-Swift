@@ -19,7 +19,7 @@ Note: This no longer works as of Xcode 10. The `otool` response no longer includ
 * iOS App SDK 17+
 * Xcode 9+
  
-### This Is What We'll Do
+### What We're Going To Do
 * Navigate to our FIAS directory and create a project
 * Add a Swift App Delegate class
 * Edit `Bridging-Header.h`
@@ -36,14 +36,14 @@ Note: This no longer works as of Xcode 10. The `otool` response no longer includ
 ### Ok, Let's Make A Project!
 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
-<pre>cd /Applications/iOSAppSDKPackage_17.0.2</pre>
+`cd /Applications/iOSAppSDKPackage_17.0.2`
 
 Create a project. Leading dot, yo.
-<pre>./makeprojdir ProjectDirectory MyProject com.domain.MyProject</pre>
+`./makeprojdir ProjectDirectory MyProject com.domain.MyProject`
 
 After FIAS returns a prompt, you can open the project with:
-<pre>open ProjectDirectory/MyProject.xcodeproj</pre>
- 
+`open ProjectDirectory/MyProject.xcodeproj`
+
 - - -
  
 ### Xcode: Create SwiftAppDel File
