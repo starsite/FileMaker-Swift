@@ -78,13 +78,13 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // did finish launching
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       
-        // disco!
-        print("swift app delegate!")
- 
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    
+        print("\n\n*** swift app delegate! \n\n") // disco!
+        
         return true
     }
+
     
     
     // return foreground active.. this is a FIAS delegate and not part of UIKit
