@@ -68,7 +68,7 @@ Build the project (Command-B). You shouldn't have any errors.
 - - -
  
 ### Xcode: SwiftAppDel Class
-Open `SwiftAppDel.swift` from the Project Navigator and finish it out like this:
+Open `SwiftAppDel.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
 ```swift
 import Foundation
@@ -84,7 +84,6 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
     
     
     // return foreground active.. this is a FIAS delegate and not part of UIKit
