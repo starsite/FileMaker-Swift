@@ -203,8 +203,8 @@ Note the difference in payload between an "or" request vs. an "and" request. You
 func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
     
     //  myPayload = ["query": [           myPayload = ["query": [
-    //      ["firstName": "Brian"],           "firstName": "Brian",
-    //      ["firstName": "Geoff"]            "lastName": "Hamm"
+    //      ["firstName": "Brian"],           ["firstName": "Brian",
+    //      ["firstName": "Geoff"]            "lastName": "Hamm"]
     //  ]]                                ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
