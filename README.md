@@ -1,4 +1,4 @@
-_Originally posted Sep 18, 2018. I'll be updating this after the SDK 18 (and Swift 5) is released_
+_Originally posted Sep 2018. I'll be updating this for SDK 18 (and Swift 5) when those are both released_
 
 # SwiftFM
 SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2+ and Xcode 9.4+ required.
