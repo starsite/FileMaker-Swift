@@ -369,8 +369,8 @@ Only an error code is returned with this function. The v17 Data API does not cur
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
     
     //  myPayload = ["fieldData": [
-    //      "firstName": "newValue",
-    //      "lastName": "newValue"
+    //      ["firstName": "newValue",
+    //      "lastName": "newValue"]
     //  ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -401,7 +401,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recID, token: self.token, layout: myLayout, playload: myPayload, completion: { error in
+editRecordWith(id: recID, token: self.token, layout: myLayout, playload: myPayload, modID: nil, completion: { error in
 
     guard error == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
