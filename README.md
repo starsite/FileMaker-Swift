@@ -142,8 +142,8 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 # Create Record (function)
 Creates a new record with a payload. Optionally pass `[]` for `fieldData` to create an empty record.
 ```swift
-// returns -> (error code)
-func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
+// returns -> (recordID, error code)
+func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
     //  payload = ["fieldData": [
     //      "firstName": "Brian",
@@ -167,10 +167,12 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
             
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response  = json["response"] as? [String: Any],
+                let recordID  = response["recordID"] as? String,
                 let messages  = json["messages"] as? [[String: Any]],
                 let code      = messages[0]["code"] as? String else { return }
                         
-        completion(code)
+        completion(recordID, code)
             
     }.resume()
 }
@@ -179,7 +181,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ### Example
 ```swift
 // create a new record
-createRecord(token: self.token, layout: myLayout, payload, completion: { error in
+createRecord(token: self.token, layout: myLayout, payload, completion: { recordID, error in
 
     guard error == "0" else { 
         print("get records sad.")  // optionally handle non-zero errors
@@ -187,6 +189,7 @@ createRecord(token: self.token, layout: myLayout, payload, completion: { error i
     }
     
     // record!
+    print("new record id: \(recordID)")
 }
 ```
 
