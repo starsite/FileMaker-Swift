@@ -178,7 +178,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 ### Example
 ```swift
 // get first 20 records
-getRecords(token: self.token, layout: myLayout, limit: 20, completion: { records, error in
+getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, error in
 
     guard error == "0" else { 
         print("get records sad.")  // optionally handle non-zero errors
