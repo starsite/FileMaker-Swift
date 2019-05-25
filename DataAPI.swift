@@ -75,8 +75,8 @@ class DataAPI {
 
 
 
-    // returns -> (error code)
-    class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
+    // returns -> (recordID, error code)
+    class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
         //  payload = ["fieldData": [
         //      "firstName": "Brian",
@@ -100,10 +100,17 @@ class DataAPI {
             
             guard   let data      = data, error == nil,
                     let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                    let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let code      = messages[0]["code"] as? String else { return }
-                        
-            completion(code)
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String { return }
+                                                   
+            guard let recordID = response["recordID"] as? String else {
+                print(message)
+                return
+            }
+      
+            completion(recordID, code)
             
         }.resume()
     }
