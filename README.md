@@ -140,15 +140,15 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
  
 # Get Records (function)
-Returns an array of records with an offset of 1. This could be refactored to include an `offset` parameter if you'll be doing a lot of recursive calls/paginating records.
+Returns an array of records with an offset. You can use the `offset` and `limit` parameters to paginate records.
 ```swift
 // returns -> ([records], error code)
-func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
+func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
     
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=1&_limit=\(limit)")
+    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=\(offset)&_limit=\(limit)")
     
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
