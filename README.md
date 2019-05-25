@@ -140,8 +140,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
 
 # Create Record (function)
-Create a new record with a paylaod. Optionally pass `{}` for `fieldData` to create an empty record.
-
+Creates a new record with a payload. Optionally pass `[]` for `fieldData` to create an empty record.
 ```swift
 // returns -> (error code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
@@ -456,7 +455,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recID, token: self.token, layout: myLayout, playload: myPayload, modID: nil, completion: { error in
+editRecordWith(id: recID, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { error in
 
     guard error == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
