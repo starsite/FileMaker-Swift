@@ -79,9 +79,9 @@ class DataAPI {
     class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
              
         //  payload = ["fieldData": [
-        //      ["firstName": "Brian"],
-        //      ["lastName": "Hamm"],
-        //      ["age": 47]
+        //      "firstName": "Brian",
+        //      "lastName": "Hamm",
+        //      "age": 47
         //  ]]
 
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
