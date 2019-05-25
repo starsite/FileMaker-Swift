@@ -168,10 +168,15 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let response  = json["response"] as? [String: Any],
-                let recordID  = response["recordID"] as? String,
                 let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String else { return }
-                        
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String { return }
+                                               
+        guard let recordID = response["recordID"] as? String else {
+            print(message)
+            return
+        }
+  
         completion(recordID, code)
             
     }.resume()
