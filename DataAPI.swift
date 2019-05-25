@@ -11,14 +11,14 @@ import Foundation
 
 class DataAPI {    
          
-//  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
-//  let auth    = "xxxxxabcdefg1234567"    // base64 "user:pass"
-    
-    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")    // better    
-    let auth    = UserDefaults.standard.string(forKey: "fm-auth")       //
-    
-    var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+//  let path   = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
+//  let auth   = "xxxxxabcdefg1234567"    // base64 "user:pass"
+   
+    let path   = UserDefaults.standard.string(forKey: "fm-db-path")    // better    
+    let auth   = UserDefaults.standard.string(forKey: "fm-auth")       //
+   
+    var token  = UserDefaults.standard.string(forKey: "fm-token")
+    var expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
    
     
     
@@ -74,12 +74,12 @@ class DataAPI {
     
     
     // returns -> ([records], error code)
-    class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
+    class func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
         
-        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=1&_limit=\(limit)")
+        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=\(offset)&_limit=\(limit)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
