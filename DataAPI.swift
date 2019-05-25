@@ -21,7 +21,8 @@ class DataAPI {
     var expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
    
     
-    
+   
+         
     // active token?
     class func isActiveToken() -> Bool {
                     
@@ -34,6 +35,7 @@ class DataAPI {
     
     
     
+         
     // returns -> (token, expiry, error code)
     class func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
         
@@ -69,11 +71,10 @@ class DataAPI {
             
         }.resume()
     }
-    
-         
-         
-         
-    
+
+
+
+
     // returns -> (error code)
     class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
              
@@ -106,11 +107,10 @@ class DataAPI {
             
         }.resume()
     }
-  
-         
-         
-         
-         
+
+
+
+
     // returns -> ([records], error code)
     class func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
         
