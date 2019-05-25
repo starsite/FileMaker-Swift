@@ -138,8 +138,10 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
 - - - 
 
-- - -
+
 # Create Record (function)
+Create a new record with a paylaod. Optionally pass `{}` for `fieldData` to create an empty record.
+
 ```swift
 // returns -> (error code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
