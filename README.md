@@ -15,7 +15,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the v17 Data A
 # Class Vars and Lets
 A `let` is a constant, in Swift.
 
-During testing it may be easier to hardcode `baseURL` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
+During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
 
 I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary.
  
@@ -24,14 +24,14 @@ import UIKit
  
 class ViewController: UIViewController {
  
-//  let baseURL = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
-//  let auth    = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
+//  let path   = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
+//  let auth   = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
 
-    let baseURL = UserDefaults.standard.string(forKey: "fm-db-path")  // better
-    let auth    = UserDefaults.standard.string(forKey: "fm-auth")     //
-  
-    var token   = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry  = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
+    let path   = UserDefaults.standard.string(forKey: "fm-db-path")  // better
+    let auth   = UserDefaults.standard.string(forKey: "fm-auth")     //
+ 
+    var token  = UserDefaults.standard.string(forKey: "fm-token")
+    var expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
     // ...
 }
 ```
