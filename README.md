@@ -145,7 +145,7 @@ Creates a new record with a payload. Optionally pass `[]` for `fieldData` to cre
 // returns -> (recordID, error code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
-    //  payload = ["fieldData": [
+    //  myPayload = ["fieldData": [
     //      "firstName": "Brian",
     //      "lastName": "Hamm",
     //      "age": 47
@@ -153,7 +153,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path),
-            let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+            let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
 
     let url = baseURL.appendingPathComponent("/layouts/\(layout)/records")
         
@@ -186,7 +186,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ### Example
 ```swift
 // create a new record
-createRecord(token: self.token, layout: myLayout, payload, completion: { recordID, error in
+createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordID, error in
 
     guard error == "0" else { 
         print("get records sad.")  // optionally handle non-zero errors
