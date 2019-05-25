@@ -138,7 +138,60 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
 - - - 
 
- 
+- - -
+# Create Record (function)
+```swift
+// returns -> (error code)
+func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void ) {
+             
+    //  payload = ["fieldData": [
+    //      "firstName": "Brian",
+    //      "lastName": "Hamm",
+    //      "age": 47
+    //  ]]
+    
+    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+            let baseURL = URL(string: path),
+            let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+
+    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records")
+        
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = body
+
+    URLSession.shared.dataTask(with: request) { data, _, error in
+            
+        guard   let data      = data, error == nil,
+                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let messages  = json["messages"] as? [[String: Any]],
+                let code      = messages[0]["code"] as? String else { return }
+                        
+        completion(code)
+            
+    }.resume()
+}
+```
+
+### Example
+```swift
+// create a new record
+createRecord(token: self.token, layout: myLayout, payload, completion: { error in
+
+    guard error == "0" else { 
+        print("get records sad.")  // optionally handle non-zero errors
+        return 
+    }
+    
+    // record!
+}
+```
+
+- - -
+
+
 # Get Records (function)
 Returns an array of records with an offset. You can use the `offset` and `limit` parameters to paginate records.
 ```swift
