@@ -78,7 +78,7 @@ class DataAPI {
     // returns -> (recordID, error code)
     class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
-        //  payload = ["fieldData": [
+        //  myPayload = ["fieldData": [
         //      "firstName": "Brian",
         //      "lastName": "Hamm",
         //      "age": 47
@@ -86,7 +86,7 @@ class DataAPI {
 
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path),
-                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+                let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
 
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records")
         
@@ -156,14 +156,14 @@ class DataAPI {
     // returns -> ([records], error code)
     class func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
         
-        //  payload = ["query": [             payload = ["query": [
+        //  myPayload = ["query": [           myPayload = ["query": [
         //      ["firstName": "Brian"],           ["firstName": "Brian",
         //      ["firstName": "Geoff"]            "lastName": "Hamm"]
         //  ]]                                ]]
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path),
-                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+                let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
         
@@ -261,14 +261,15 @@ class DataAPI {
     // returns -> (error code)
     class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
         
-        //  payload = ["fieldData": [
-        //      "firstName": "newValue",
-        //      "lastName": "newValue"
+        //  myPayload = ["fieldData": [
+        //      "firstName": "Brian",
+        //      "lastName": "Hamm",
+        //      "age": 47
         //  ]]  
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path),
-                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+                let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
         
         let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
         
