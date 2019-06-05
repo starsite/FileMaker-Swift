@@ -170,7 +170,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
                 let response  = json["response"] as? [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
                 let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String { return }
+                let message   = messages[0]["message"] as? String else { return }
                                                
         guard let recordID = response["recordID"] as? String else {
             print(message)
@@ -205,7 +205,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 Returns an array of records with an offset. You can use the `offset` and `limit` parameters to paginate records.
 ```swift
 // returns -> ([records], error code)
-func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]], String) -> Void) {
+func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -228,6 +228,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
+            completion(nil, code)
             return
         }
         
@@ -242,7 +243,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 // get first 20 records
 getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, error in
 
-    guard error == "0" else { 
+    guard let records = records else { 
         print("get records sad.")  // optionally handle non-zero errors
         return 
     }
@@ -262,7 +263,7 @@ Note the difference in payload between an "or" request vs. an "and" request. You
 
 ```swift
 // returns -> ([records], error code)
-func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]], String) -> Void) {
+func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     //  myPayload = ["query": [           myPayload = ["query": [
     //      ["firstName": "Brian"],           ["firstName": "Brian",
@@ -292,6 +293,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
+            completion(nil, code)
             return
         }
         
@@ -306,7 +308,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 // find request
 findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, error in
 
-    guard error == "0" else { 
+    guard let records = records else { 
         print("find request sad.")  // optionally handle non-zero errors
         return 
     }
@@ -325,7 +327,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 Fetch a record with `recID`.
 ```swift
 // returns -> (record, error code)
-func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any], String) -> Void) {
+func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -348,6 +350,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
+            completion(nil, code)
             return
         }
         
@@ -362,7 +365,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 // get record
 getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, error in
 
-    guard error == "0" else { 
+    guard record = record { 
         print("get record sad.")  // optionally handle non-zero errors
         return 
     }
