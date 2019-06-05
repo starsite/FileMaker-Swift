@@ -265,14 +265,14 @@ Note the difference in payload between an "or" request vs. an "and" request. You
 // returns -> ([records], error code)
 func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
     
-    //  myPayload = ["query": [           myPayload = ["query": [
-    //      ["firstName": "Brian"],           ["firstName": "Brian",
-    //      ["firstName": "Geoff"]            "lastName": "Hamm"]
-    //  ]]                                ]]
+    //  payload = ["query": [           payload = ["query": [
+    //      ["firstName": "Brian"],         ["firstName": "Brian",
+    //      ["firstName": "Geoff"]          "lastName": "Hamm"]
+    //  ]]                              ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path),
-            let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
+            let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
     
     let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
     
@@ -433,14 +433,14 @@ Only an error code is returned with this function. The v17 Data API does not cur
 // returns -> (error code)
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
     
-    //  myPayload = ["fieldData": [
+    //  payload = ["fieldData": [
     //      "firstName": "newValue",
     //      "lastName": "newValue"
     //  ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path),
-            let body = try? JSONSerialization.data(withJSONObject: myPayload) else { return }
+            let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
     
     let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
     
