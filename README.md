@@ -426,9 +426,9 @@ deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { e
 
 
 # Edit Record (function)
-Edit record with `recID`. Only pass values for the fields you want to modify. Optionally, you may include the `modID` from your last fetch, to ensure the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. /Not/ including a `modID` will post the request.
+Edit record with `recID`. Pass values for the fields you want to modify. Optionally, you may include the `modID` from your last fetch, to ensure the server record isn't newer than the one you're editing. Passing an outdated `modID` will cause an edit request to fail. Omitting the `modID` will post the request.
 
-Only an error code is returned with this function. The v17 Data API does not currently pass back a modified record object for you to use. Because of this, you may wish to refetch the record and update the view.
+Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
 ```swift
 // returns -> (error code)
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
