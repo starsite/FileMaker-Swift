@@ -1,3 +1,6 @@
+Note: FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble working with timeStamps on your workstation. You may also want to work with FileMaker Cloud timeStamps in Xcode. If so, you'll find these calcs handy.
+
+
 #### UTC -> FileMaker
 ```
 GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
