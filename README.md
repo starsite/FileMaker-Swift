@@ -202,7 +202,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 # Get Records (function)
-Returns an array of records with an offset and limit.
+Returns an optional array of records with an offset and limit.
 ```swift
 // returns -> ([records], error code)
 func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
@@ -259,7 +259,7 @@ getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion
 
 
 # Find Request (function)
-Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
+Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
 
 ```swift
 // returns -> ([records], error code)
@@ -324,7 +324,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 
 
 # Get Record (function)
-Fetch a record with `recID`.
+Get record with `recID`. Returns an optional record.
 ```swift
 // returns -> (record, error code)
 func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
