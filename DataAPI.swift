@@ -67,6 +67,49 @@ class DataAPI {
     
     
     
+    // create record -> (recordID, error code) • pass an empty fieldData object to create an empty record
+    func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
+        
+        //  payload = ["fieldData": [
+        //      "firstName": "Brian",
+        //      "lastName": "Hamm",
+        //      "age": 47
+        //  ]]
+                
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path),
+                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        
+        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            
+            guard   let data      = data, error == nil,
+                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let response  = json["response"] as? [String: Any],
+                    let messages  = json["messages"] as? [[String: Any]],
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
+            
+            guard let recordID = response["recordID"] as? String else {
+                print(message)
+                return
+            }
+            
+            completion(recordID, code)
+            
+        }.resume()
+    }
+    
+    
+    
+    
     // get records -> ([records], error)
     class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
         
