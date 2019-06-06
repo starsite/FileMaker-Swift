@@ -1,6 +1,6 @@
 #### UTC -> FileMaker
 ```
-GetAsTimestamp ( ( GetAsNumber ( timestamp_unix ) )
+GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
 
   + GetAsNumber ( Timestamp ( "01/01/1970" ; "00:00:00" ) )
   + GetAsNumber ( Get ( CurrentTimestamp ) )
