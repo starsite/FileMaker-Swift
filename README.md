@@ -140,15 +140,15 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 
 
 # Create Record (function)
-Creates a new record with a payload. Pass `[]` for `fieldData` to create an empty record.
+Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
 ```swift
 // returns -> (recordID, error code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
     //  payload = ["fieldData": [
-    //      "firstName": "Brian",
-    //      "lastName": "Hamm",
-    //      "age": 47
+    //    "firstName": "Brian",
+    //    "lastName": "Hamm",
+    //    "age": 47
     //  ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -202,7 +202,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 # Get Records (function)
-Returns an array of records with an offset. You can use the `offset` and `limit` parameters to paginate records.
+Returns an array of records with an offset and limit.
 ```swift
 // returns -> ([records], error code)
 func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
@@ -266,8 +266,8 @@ Note the difference in payload between an "or" request vs. an "and" request. You
 func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     //  payload = ["query": [           payload = ["query": [
-    //      ["firstName": "Brian"],         ["firstName": "Brian",
-    //      ["firstName": "Geoff"]          "lastName": "Hamm"]
+    //    ["firstName": "Brian"],         ["firstName": "Brian",
+    //    ["firstName": "Geoff"]          "lastName": "Hamm"]
     //  ]]                              ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -434,8 +434,8 @@ Only an error code is returned with this function. The v17 Data API does not cur
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
     
     //  payload = ["fieldData": [
-    //      "firstName": "newValue",
-    //      "lastName": "newValue"
+    //    "firstName": "newValue",
+    //    "lastName": "newValue"
     //  ]]
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
