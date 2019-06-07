@@ -68,7 +68,7 @@ class DataAPI {
     
     
     // create record -> (recordID, code)
-    func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
+    func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
         
         //  payload = ["fieldData": [
         //      "firstName": "Brian",
@@ -102,6 +102,7 @@ class DataAPI {
             
             guard let recordID = response["recordID"] as? String else {
                 print(message)
+                completion(nil, code)
                 return
             }
             
@@ -252,6 +253,7 @@ class DataAPI {
             
             guard code == "0" else {
                 print(message)
+                completion(code)
                 return
             }
             
@@ -293,6 +295,7 @@ class DataAPI {
             
             guard code == "0" else {
                 print(message)
+                completion(code)
                 return
             }
             
