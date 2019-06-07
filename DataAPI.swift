@@ -27,7 +27,7 @@ class DataAPI {
     
     
     
-    // refresh token -> (token, expiry, code)
+    // refresh token -> (token?, expiry?, code)
     class func refreshToken(for auth: String, completion: @escaping (String?, Date?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -66,7 +66,7 @@ class DataAPI {
     
     
     
-    // create record -> (recordID, code)
+    // create record -> (recordID?, code)
     func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
         
         //  payload = ["fieldData": [
@@ -114,7 +114,7 @@ class DataAPI {
     
     
     
-    // get records -> ([records], code)
+    // get records -> ([records]?, code)
     class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -150,7 +150,7 @@ class DataAPI {
     
     
     
-    // find request -> ([records], code)
+    // find request -> ([records]?, code)
     class func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
         
         //  payload = ["query": [             payload = ["query": [
@@ -193,7 +193,7 @@ class DataAPI {
     
     
     
-    // get record with id -> (record, code)
+    // get record with id -> (record?, code)
     class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -229,7 +229,7 @@ class DataAPI {
     
     
     
-    // delete record with id -> (error)
+    // delete record with id -> (code)
     class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
