@@ -85,7 +85,7 @@ Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, a
 
 ```swift
 // returns -> (token, expiry, error code)
-func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
+func refreshToken(for auth: String, completion: @escaping (String?, Date?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
