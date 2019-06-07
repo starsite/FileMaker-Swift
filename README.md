@@ -64,15 +64,15 @@ case true:
     // do stuff with self.token
  
 case false:
-    refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
+    refreshToken(for: self.auth, completion: { newToken, newExpiry, code in
     
-        guard error == "0" else {
+        guard let token = newToken, let expiry = newExpiry else {
             print("refresh token sad.")  // optionally handle non-zero errors
             return
         }
         
-        print("token \(newToken) - expiry \(newExpiry)")  
-        // do stuff with newToken
+        print("token \(token) - expiry \(expiry)")  
+        // do stuff with updated token
     })
 }    
 ```
@@ -125,7 +125,7 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 ### Example
 ```swift
 // refresh token
-refreshToken(for: self.auth, completion: { newToken, newExpiry, _ in
+refreshToken(for: self.auth, completion: { newToken, newExpiry, code in
 
     guard let token = newToken, let expiry = newExpiry else { 
         print("refresh token sad.")  // optionally handle non-zero errors
@@ -144,7 +144,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, _ in
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
 ```swift
 // returns -> (recordID, code)
-func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
+func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
              
     //  payload = ["fieldData": [
     //    "firstName": "Brian",
@@ -175,6 +175,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
                                                
         guard let recordID = response["recordID"] as? String else {
             print(message)
+            completion(nil, code)
             return
         }
   
@@ -187,10 +188,10 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ### Example
 ```swift
 // create a new record
-createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordID, error in
+createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordID, code in
 
-    guard error == "0" else { 
-        print("get records sad.")  // optionally handle non-zero errors
+    guard let recordID = recordID else { 
+        print("create record sad.")  // optionally handle non-zero errors
         return 
     }
     
@@ -242,7 +243,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 ### Example
 ```swift
 // get first 20 records
-getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, _ in
+getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, code in
 
     guard let records = records else { 
         print("get records sad.")  // optionally handle non-zero errors
@@ -307,7 +308,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 ### Example
 ```swift
 // find request
-findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, _ in
+findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, code in
 
     guard let records = records else { 
         print("find request sad.")  // optionally handle non-zero errors
@@ -364,7 +365,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, _ in
+getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, code in
 
     guard record = record { 
         print("get record sad.")  // optionally handle non-zero errors
