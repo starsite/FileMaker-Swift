@@ -109,6 +109,7 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
         
         guard let token = response["token"] as? String else {
             print(message)  // optionally pass message to UIAlertController
+            completion(nil, nil, code)
             return
         }
         
@@ -124,15 +125,15 @@ func refreshToken(for auth: String, completion: @escaping (String, Date, String)
 ### Example
 ```swift
 // refresh token
-refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
+refreshToken(for: self.auth, completion: { newToken, newExpiry, _ in
 
-    guard error == "0" else { 
+    guard let token = newToken, let expiry = newExpiry else { 
         print("refresh token sad.")  // optionally handle non-zero errors
         return 
     }
 
-    print("token \(newToken) - expiry \(newExpiry)")
-    // do stuff with newToken
+    print("token \(token) - expiry \(expiry)")
+    // do stuff with updated token
 })
 ```
 
@@ -142,7 +143,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, error in
 # Create Record (function)
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
 ```swift
-// returns -> (recordID, error code)
+// returns -> (recordID, code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
              
     //  payload = ["fieldData": [
@@ -204,7 +205,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 # Get Records (function)
 Returns an optional array of records with an offset and limit.
 ```swift
-// returns -> ([records], error code)
+// returns -> ([records], code)
 func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -241,7 +242,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 ### Example
 ```swift
 // get first 20 records
-getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, error in
+getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, _ in
 
     guard let records = records else { 
         print("get records sad.")  // optionally handle non-zero errors
@@ -306,7 +307,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 ### Example
 ```swift
 // find request
-findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, error in
+findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, _ in
 
     guard let records = records else { 
         print("find request sad.")  // optionally handle non-zero errors
@@ -326,7 +327,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 # Get Record (function)
 Get record with `recID`. Returns an optional record.
 ```swift
-// returns -> (record, error code)
+// returns -> (record, code)
 func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -363,7 +364,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, error in
+getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, _ in
 
     guard record = record { 
         print("get record sad.")  // optionally handle non-zero errors
@@ -381,7 +382,7 @@ getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { reco
 # Delete Record (function)
 Delete record with `recID`. Only an error code is returned with this function.
 ```swift
-// returns -> (error code)
+// returns -> (code)
 func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -399,7 +400,14 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+                
+        guard code == "0" else {
+            print(message)
+            completion(code)
+            return
+        }
                         
         completion(code)
         
@@ -410,9 +418,9 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 ```swift
 // delete record
-deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { error in
+deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { code in
     
-    guard error == "0" else { 
+    guard code == "0" else { 
         print("delete record sad.")  // optionally handle non-zero errors
         return 
     }
@@ -455,7 +463,14 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
         guard   let data      = data, error == nil,
                 let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
                 let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String else { return }
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+                
+        guard code == "0" else {
+            print(message)
+            completion(code)
+            return
+        }
                                 
         completion(code)
         
@@ -466,9 +481,9 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recID, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { error in
+editRecordWith(id: recID, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
 
-    guard error == "0" else {
+    guard code == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
         return
     }
