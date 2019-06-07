@@ -64,9 +64,9 @@ case true:
     // do stuff with self.token
  
 case false:
-    refreshToken(for: self.auth, completion: { newToken, newExpiry, code in
+    refreshToken(for: self.auth, completion: { token, expiry, code in
     
-        guard let token = newToken, let expiry = newExpiry else {
+        guard let token = token, let expiry = expiry else {
             print("refresh token sad.")  // optionally handle non-zero errors
             return
         }
