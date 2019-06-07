@@ -47,10 +47,11 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let code      = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
             guard let token = response["token"] as? String else {
-                print(messages)
+                print(message)
                 completion(nil, nil, code)
                 return
             }
@@ -180,8 +181,8 @@ class DataAPI {
                     let message   = messages[0]["message"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
-                completion(nil, code)
                 print(message)
+                completion(nil, code)
                 return
             }
             
