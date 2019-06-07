@@ -367,7 +367,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 // get record
 getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, code in
 
-    guard let record = record { 
+    guard let record = record else { 
         print("get record sad.")  // optionally handle non-zero errors
         return 
     }
