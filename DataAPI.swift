@@ -12,7 +12,6 @@ import Foundation
 class DataAPI {
     
     
-        
     // active token?
     class func isActiveToken() -> Bool {
         
@@ -29,8 +28,8 @@ class DataAPI {
     
     
     
-    // refresh token -> (token, expiry, error)
-    class func refreshToken(for auth: String, completion: @escaping (String, Date, String) -> Void) {
+    // refresh token -> (token, expiry, code)
+    class func refreshToken(for auth: String, completion: @escaping (String?, Date?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -49,17 +48,18 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String else { return }
             
             guard let token = response["token"] as? String else {
                 print(messages)
+                completion(nil, nil, code)
                 return
             }
             
             UserDefaults.standard.set(token, forKey: "fm-token")
             UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
             
-            completion(token, expiry, error)
+            completion(token, expiry, code)
             
         }.resume()
     }
@@ -67,15 +67,18 @@ class DataAPI {
     
     
     
-    // create record -> (recordID, error code) • pass an empty fieldData object to create an empty record
+    // create record -> (recordID, code)
     func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String, String) -> Void ) {
         
         //  payload = ["fieldData": [
-        //    "firstName": "Brian",
-        //    "lastName": "Hamm",
-        //    "age": 47
+        //      "firstName": "Brian",
+        //      "lastName": "Hamm",
+        //      "age": 47
         //  ]]
-                
+        
+        
+        //  payload = ["fieldData": []]     create a new empty record
+        
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path),
                 let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
@@ -106,11 +109,12 @@ class DataAPI {
             
         }.resume()
     }
+
     
     
     
     
-    // get records -> ([records], error)
+    // get records -> ([records], code)
     class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -129,15 +133,16 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
-                print(messages)
-                completion(nil, error)
+                print(message)
+                completion(nil, code)
                 return
             }
             
-            completion(records, error)
+            completion(records, code)
             
         }.resume()
     }
@@ -145,7 +150,7 @@ class DataAPI {
     
     
     
-    // find request -> ([records], error)
+    // find request -> ([records], code)
     class func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
         
         //  payload = ["query": [             payload = ["query": [
@@ -171,15 +176,16 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
             guard let records = response["data"] as? [[String: Any]] else {
-                print(messages)
-                completion(nil, error)
+                completion(nil, code)
+                print(message)
                 return
             }
             
-            completion(records, error)
+            completion(records, code)
             
         }.resume()
     }
@@ -187,7 +193,7 @@ class DataAPI {
     
     
     
-    // get record with id -> (record, error)
+    // get record with id -> (record, code)
     class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -206,15 +212,16 @@ class DataAPI {
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let response  = json["response"] as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
-            guard let records = response["data"] as? [[String: Any]] else {                
-                print(messages)
-                completion(nil, error)
+            guard let records = response["data"] as? [[String: Any]] else {
+                print(message)
+                completion(nil, code)
                 return
             }
             
-            completion(records[0], error)
+            completion(records[0], code)
             
         }.resume()
     }
@@ -240,14 +247,15 @@ class DataAPI {
             guard   let data      = data, error == nil,
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
-            guard error == "0" else {
-                print(messages)
+            guard code == "0" else {
+                print(message)
                 return
             }
             
-            completion(error)
+            completion(code)
             
         }.resume()
     }
@@ -255,12 +263,12 @@ class DataAPI {
     
     
     
-    // edit record with id -> (error)
+    // edit record with id -> (code)
     class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
         
         //  payload = ["fieldData": [
-        //    "firstName": "newValue",
-        //    "lastName": newValue"
+        //      "firstName": "newValue",
+        //      "lastName": newValue"
         //  ]]
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -280,17 +288,19 @@ class DataAPI {
             guard   let data      = data, error == nil,
                     let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                     let messages  = json["messages"] as? [[String: Any]],
-                    let error     = messages[0]["code"] as? String else { return }
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
             
-            guard error == "0" else {
-                print(messages)
+            guard code == "0" else {
+                print(message)
                 return
             }
             
-            completion(error)
+            completion(code)
             
         }.resume()
     }
+    
     
     
     
