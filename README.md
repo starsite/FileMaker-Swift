@@ -81,10 +81,10 @@ case false:
  
  
 # Refresh Token (function)
-Refresh an expired token. The `@escaping` marker allows the `token`, `expiry`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+Refresh an expired token. The `@escaping` marker allows the `token?`, `expiry?`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
-// returns -> (token, expiry, error code)
+// returns -> (token?, expiry?, error code)
 func refreshToken(for auth: String, completion: @escaping (String?, Date?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -125,9 +125,9 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 ### Example
 ```swift
 // refresh token
-refreshToken(for: self.auth, completion: { newToken, newExpiry, code in
+refreshToken(for: self.auth, completion: { token, expiry, code in
 
-    guard let token = newToken, let expiry = newExpiry else { 
+    guard let token = token, let expiry = expiry else { 
         print("refresh token sad.")  // optionally handle non-zero errors
         return 
     }
@@ -143,7 +143,7 @@ refreshToken(for: self.auth, completion: { newToken, newExpiry, code in
 # Create Record (function)
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
 ```swift
-// returns -> (recordID, code)
+// returns -> (recordID?, code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
              
     //  payload = ["fieldData": [
@@ -206,7 +206,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 # Get Records (function)
 Returns an optional array of records with an offset and limit.
 ```swift
-// returns -> ([records], code)
+// returns -> ([records]?, code)
 func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -264,7 +264,7 @@ getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion
 Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
 
 ```swift
-// returns -> ([records], error code)
+// returns -> ([records]?, error code)
 func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
     
     //  payload = ["query": [           payload = ["query": [
@@ -439,7 +439,7 @@ Edit record with `recID`. Pass values for the fields you want to modify. Optiona
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
 ```swift
-// returns -> (error code)
+// returns -> (code)
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
     
     //  payload = ["fieldData": [
