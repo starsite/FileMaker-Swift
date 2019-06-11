@@ -3,7 +3,6 @@
 //  Created by Brian Hamm on 9/16/18.
 //  Copyright © 2018 Brian Hamm. All rights reserved.
 
-
 import Foundation
 
 
@@ -75,8 +74,7 @@ class DataAPI {
         //    "age": 47
         //  ]]
         
-        
-        //  payload = ["fieldData": []]     create a new empty record
+        //  payload = ["fieldData": []]     <-- creates a new empty record        
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path),
@@ -114,8 +112,7 @@ class DataAPI {
 
     
     // duplicate record with id -> (code)
-    // ** data api v18 **
-    class func duplicateRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+    class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -229,7 +226,7 @@ class DataAPI {
     
     
     // get record with id -> (record?, code)
-    class func getRecordWith(_ id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
+    class func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -265,7 +262,7 @@ class DataAPI {
     
     
     // delete record with id -> (code)
-    class func deleteRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+    class func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
@@ -300,7 +297,7 @@ class DataAPI {
     
     
     // edit record with id -> (code)
-    class func editRecordWith(_ id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
+    class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
         
         //  payload = ["fieldData": [
         //    "firstName": "newValue",
@@ -342,8 +339,7 @@ class DataAPI {
     
     
     // set global fields -> (code)
-    // ** data api v18 **
-    class func setGlobalFields(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void) {
+    class func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
         
         //  payload = ["globalFields": [
         //    "fieldName": "value",
