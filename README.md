@@ -1,4 +1,4 @@
-_I'll be updating this for the v18 Data API and Swift 5 in the not too distant future_
+_06-11-2019: New functions for duplicating records and setting global fields (v18 data api)_
 
 # SwiftFM
 SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4, or later.
