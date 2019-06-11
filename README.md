@@ -203,6 +203,59 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 - - -
 
 
+# Duplicate Record (function)
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+```swift
+// returns -> (code)
+    class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+        
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
+        
+        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            
+            guard   let data      = data, error == nil,
+                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let messages  = json["messages"] as? [[String: Any]],
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
+            
+            guard code == "0" else {
+                print(message)
+                completion(code)
+                return
+            }
+            
+            completion(code)
+            
+        }.resume()
+    }
+```
+
+### Example
+```swift
+// duplicate an existing record
+duplicateRecordWith(id: Int, token: self.token, layout: myLayout, completion: { code in
+
+    guard code == "0" else { 
+        print("duplicate record sad.")  // optionally handle non-zero errors
+        return 
+    }
+    
+    // new duplicate record!
+}
+```
+
+- - -
+
+
 # Get Records (function)
 Returns an optional array of records with an offset and limit.
 ```swift
@@ -495,3 +548,60 @@ editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayloa
 ```
 
 - - -
+
+
+# Set Global Fields (function)
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/gloabls` endpoint.
+```swift
+// set global fields -> (code)
+class func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
+    
+    //  payload = ["globalFields": [
+    //    "globalFieldA": "valueA",
+    //    "globalFieldB": "valueB"
+    //  ]]
+    
+    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+            let baseURL = URL(string: path),
+            let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+    
+    let url = baseURL.appendingPathComponent("/globals")
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "PATCH"
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = body
+    
+    URLSession.shared.dataTask(with: request) { data, _, error in
+        
+        guard   let data      = data, error == nil,
+                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages  = json["messages"] as? [[String: Any]],
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+        
+        guard code == "0" else {
+            print(message)
+            completion(code)
+            return
+        }
+        
+        completion(code)
+        
+    }.resume()
+}
+```
+
+### Example
+```swift
+// edit record
+setGlobalFields(token: self.token, payload: myPayload, completion: { code in
+
+    guard code == "0" else {
+        print("set globals sad.")  // optionally handle non-zero errors
+        return
+    }
+    
+    // globals set!
+}
