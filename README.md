@@ -204,7 +204,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 - - -
 
 
-# Duplicate Record (function)*
+# Duplicate Record With ID (function)*
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id)` is a POST.
 ```swift
 // returns -> (code)
@@ -379,8 +379,8 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 - - -
 
 
-# Get Record (function)
-Get record with `recordId`. Returns an optional record.
+# Get Record With ID (function)
+Get a single record with `recordId`. Returns an optional record.
 ```swift
 // returns -> (record, code)
 func getRecordWith(_ id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
@@ -434,7 +434,7 @@ getRecordWith(id, token: self.token, layout: myLayout, completion: { record, cod
 - - -
 
 
-# Delete Record (function)
+# Delete Record With ID (function)
 Delete record with `recordId`. Only an error code is returned with this function.
 ```swift
 // returns -> (code)
@@ -488,7 +488,7 @@ deleteRecordWith(id, token: self.token, layout: myLayout, completion: { code in
 - - -
 
 
-# Edit Record (function)
+# Edit Record With ID (function)
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
