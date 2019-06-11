@@ -2,7 +2,7 @@
 //
 //  Created by Brian Hamm on 9/16/18.
 //  Copyright © 2018 Brian Hamm. All rights reserved.
-//
+
 
 import Foundation
 
@@ -150,12 +150,12 @@ class DataAPI {
     
     
     // get records -> ([records]?, code)
-    class func getRecords(token: String, layout: String, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
+    class func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
                 let baseURL = URL(string: path) else { return }
         
-        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=1&_limit=\(limit)")
+        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=\(offset)&_limit=\(limit)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
