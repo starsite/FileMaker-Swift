@@ -243,7 +243,7 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
 ### Example
 ```swift
 // duplicate an existing record
-duplicateRecordWith(id, token: self.token, layout: myLayout, completion: { code in
+duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
 
     guard code == "0" else { 
         print("duplicate record sad.")  // optionally handle non-zero errors
@@ -419,7 +419,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id, token: self.token, layout: myLayout, completion: { record, code in
+getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { record, code in
 
     guard let record = record else { 
         print("get record sad.")  // optionally handle non-zero errors
@@ -473,7 +473,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 ```swift
 // delete record
-deleteRecordWith(id, token: self.token, layout: myLayout, completion: { code in
+deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
     
     guard code == "0" else { 
         print("delete record sad.")  // optionally handle non-zero errors
@@ -536,7 +536,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
+editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
 
     guard code == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
