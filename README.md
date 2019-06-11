@@ -536,7 +536,7 @@ func editRecordWith(_ id: Int, token: String, layout: String, payload: [String: 
 ### Example
 ```swift
 // edit record
-editRecordWith(id, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
+editRecordWith(id, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
 
     guard code == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
