@@ -67,13 +67,13 @@ class DataAPI {
     
     
     
-    // create record -> (recordID?, code)
+    // create record -> (recordId?, code)
     func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
         
         //  payload = ["fieldData": [
-        //      "firstName": "Brian",
-        //      "lastName": "Hamm",
-        //      "age": 47
+        //    "firstName": "Brian",
+        //    "lastName": "Hamm",
+        //    "age": 47
         //  ]]
         
         
@@ -100,18 +100,52 @@ class DataAPI {
                     let code      = messages[0]["code"] as? String,
                     let message   = messages[0]["message"] as? String else { return }
             
-            guard let recordID = response["recordID"] as? String else {
+            guard let recordId = response["recordId"] as? String else {
                 print(message)
                 completion(nil, code)
                 return
             }
             
-            completion(recordID, code)
+            completion(recordId, code)
             
         }.resume()
     }
 
     
+
+    
+    // duplicate record with id -> (code)
+    class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+        
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
+        
+        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            
+            guard   let data      = data, error == nil,
+                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let messages  = json["messages"] as? [[String: Any]],
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
+            
+            guard code == "0" else {
+                print(message)
+                completion(code)
+                return
+            }
+            
+            completion(code)
+            
+        }.resume()
+    }
+
     
     
     
@@ -266,11 +300,11 @@ class DataAPI {
     
     
     // edit record with id -> (code)
-    class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modID: Int?, completion: @escaping (String) -> Void) {
+    class func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
         
         //  payload = ["fieldData": [
-        //      "firstName": "newValue",
-        //      "lastName": newValue"
+        //    "firstName": "newValue",
+        //    "lastName": newValue"
         //  ]]
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -304,6 +338,48 @@ class DataAPI {
         }.resume()
     }
     
+    
+    
+    
+    // set global fields -> (code)
+    class func setGlobalFields(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void) {
+        
+        //  payload = ["globalFields": [
+        //    "globalFieldA": "valueA",
+        //    "globalFieldB": "valueB"
+        //  ]]
+        
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path),
+                let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        
+        let url = baseURL.appendingPathComponent("/globals")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            
+            guard   let data      = data, error == nil,
+                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let messages  = json["messages"] as? [[String: Any]],
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
+            
+            guard code == "0" else {
+                print(message)
+                completion(code)
+                return
+            }
+            
+            completion(code)
+            
+        }.resume()
+    }
+
     
     
     
