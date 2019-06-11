@@ -551,7 +551,7 @@ editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayloa
 
 
 # Set Global Fields (function)
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/gloabls` endpoint.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/globals` endpoint.
 ```swift
 // set global fields -> (code)
 class func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
