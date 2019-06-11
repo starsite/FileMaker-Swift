@@ -326,7 +326,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 
 
 # Get Record (function)
-Get record with `recID`. Returns an optional record.
+Get record with `recId`. Returns an optional record.
 ```swift
 // returns -> (record, code)
 func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
@@ -365,7 +365,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { record, code in
+getRecordWith(id: recId, token: self.token, layout: myLayout, completion: { record, code in
 
     guard let record = record else { 
         print("get record sad.")  // optionally handle non-zero errors
@@ -381,7 +381,7 @@ getRecordWith(id: recID, token: self.token, layout: myLayout, completion: { reco
 
 
 # Delete Record (function)
-Delete record with `recID`. Only an error code is returned with this function.
+Delete record with `recId`. Only an error code is returned with this function.
 ```swift
 // returns -> (code)
 func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -419,7 +419,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 ```swift
 // delete record
-deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { code in
+deleteRecordWith(id: recId, token: self.token, layout: myLayout, completion: { code in
     
     guard code == "0" else { 
         print("delete record sad.")  // optionally handle non-zero errors
@@ -435,7 +435,7 @@ deleteRecordWith(id: recID, token: self.token, layout: myLayout, completion: { c
 
 
 # Edit Record (function)
-Edit record with `recID`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
+Edit record with `recId`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
 ```swift
@@ -482,7 +482,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recID, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
+editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
 
     guard code == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
@@ -490,7 +490,7 @@ editRecordWith(id: recID, token: self.token, layout: myLayout, payload: myPayloa
     }
     
     // edited!
-    // refetch record using recID, referesh UI
+    // refetch record using recId, referesh UI
 }
 ```
 
