@@ -143,7 +143,7 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 # Create Record (function)
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
 ```swift
-// returns -> (recordID?, code)
+// returns -> (recordId?, code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
              
     //  payload = ["fieldData": [
@@ -173,13 +173,13 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
                 let code      = messages[0]["code"] as? String,
                 let message   = messages[0]["message"] as? String else { return }
                                                
-        guard let recordID = response["recordID"] as? String else {
+        guard let recordId = response["recordId"] as? String else {
             print(message)
             completion(nil, code)
             return
         }
   
-        completion(recordID, code)
+        completion(recordId, code)
             
     }.resume()
 }
@@ -188,15 +188,15 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ### Example
 ```swift
 // create a new record
-createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordID, code in
+createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordId, code in
 
-    guard let recordID = recordID else { 
+    guard let recordId = recordId else { 
         print("create record sad.")  // optionally handle non-zero errors
         return 
     }
     
     // record!
-    print("new record id: \(recordID)")
+    print("new record id: \(recordId)")
 }
 ```
 
