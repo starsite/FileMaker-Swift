@@ -1,5 +1,5 @@
 ### UTC-functions
-Native FileMaker calcs to convert a FileMaker timestamp to Unix time, and back.
+Native FileMaker calcs to convert a FileMaker timeStamp to UTC, and back.
 * https://github.com/starsite/SwiftFM/blob/master/filemaker-goodies/UTC-functions.md
 
 - - -
