@@ -196,7 +196,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
     }
     
     // record!
-    print("new record id: \(recordId)")
+    print("new recordId: \(recordId)")
 }
 ```
 
@@ -204,10 +204,10 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 # Duplicate Record (function)*
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 ```swift
 // returns -> (code)
-class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+func duplicateRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -242,7 +242,7 @@ class func duplicateRecordWith(id: Int, token: String, layout: String, completio
 ### Example
 ```swift
 // duplicate an existing record
-duplicateRecordWith(id: Int, token: self.token, layout: myLayout, completion: { code in
+duplicateRecordWith(id, token: self.token, layout: myLayout, completion: { code in
 
     guard code == "0" else { 
         print("duplicate record sad.")  // optionally handle non-zero errors
@@ -379,10 +379,10 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 
 
 # Get Record (function)
-Get record with `recId`. Returns an optional record.
+Get record with `recordId`. Returns an optional record.
 ```swift
 // returns -> (record, code)
-func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
+func getRecordWith(_ id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -418,7 +418,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 ```swift
 // get record
-getRecordWith(id: recId, token: self.token, layout: myLayout, completion: { record, code in
+getRecordWith(id, token: self.token, layout: myLayout, completion: { record, code in
 
     guard let record = record else { 
         print("get record sad.")  // optionally handle non-zero errors
@@ -434,10 +434,10 @@ getRecordWith(id: recId, token: self.token, layout: myLayout, completion: { reco
 
 
 # Delete Record (function)
-Delete record with `recId`. Only an error code is returned with this function.
+Delete record with `recordId`. Only an error code is returned with this function.
 ```swift
 // returns -> (code)
-func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+func deleteRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -472,7 +472,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 ```swift
 // delete record
-deleteRecordWith(id: recId, token: self.token, layout: myLayout, completion: { code in
+deleteRecordWith(id, token: self.token, layout: myLayout, completion: { code in
     
     guard code == "0" else { 
         print("delete record sad.")  // optionally handle non-zero errors
@@ -488,12 +488,12 @@ deleteRecordWith(id: recId, token: self.token, layout: myLayout, completion: { c
 
 
 # Edit Record (function)
-Edit record with `recId`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
+Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
 ```swift
 // returns -> (code)
-func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
+func editRecordWith(_ id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
     
     //  payload = ["fieldData": [
     //    "firstName": "newValue",
@@ -535,7 +535,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 ```swift
 // edit record
-editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
+editRecordWith(id, token: self.token, layout: myLayout, payload: myPayload, modID: nil, completion: { code in
 
     guard code == "0" else {
         print("edit record sad.")  // optionally handle non-zero errors
@@ -543,7 +543,7 @@ editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayloa
     }
     
     // edited!
-    // refetch record using recId, referesh UI
+    // refetch record using recordId, referesh UI
 }
 ```
 
@@ -551,10 +551,10 @@ editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayloa
 
 
 # Set Global Fields (function)*
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/globals` endpoint.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/globals` endpoint.
 ```swift
 // set global fields -> (code)
-class func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
+func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
     
     //  payload = ["globalFields": [
     //    "fieldName": "value",
