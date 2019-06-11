@@ -204,39 +204,39 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 # Duplicate Record (function)
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require a `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 ```swift
 // returns -> (code)
-    class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+    
+    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+            let baseURL = URL(string: path) else { return }
+    
+    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-                let baseURL = URL(string: path) else { return }
+        guard   let data      = data, error == nil,
+                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages  = json["messages"] as? [[String: Any]],
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
         
-        let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            
-            guard   let data      = data, error == nil,
-                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                    let messages  = json["messages"] as? [[String: Any]],
-                    let code      = messages[0]["code"] as? String,
-                    let message   = messages[0]["message"] as? String else { return }
-            
-            guard code == "0" else {
-                print(message)
-                completion(code)
-                return
-            }
-            
+        guard code == "0" else {
+            print(message)
             completion(code)
-            
-        }.resume()
-    }
+            return
+        }
+        
+        completion(code)
+        
+    }.resume()
+}
 ```
 
 ### Example
