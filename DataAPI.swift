@@ -347,8 +347,8 @@ class DataAPI {
     class func setGlobalFields(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void) {
         
         //  payload = ["globalFields": [
-        //    "globalFieldA": "valueA",
-        //    "globalFieldB": "valueB"
+        //    "fieldName": "value",
+        //    "fieldName": "value"
         //  ]]
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
