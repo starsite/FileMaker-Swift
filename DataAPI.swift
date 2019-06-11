@@ -115,7 +115,7 @@ class DataAPI {
 
     
     // duplicate record with id -> (code)
-    // ** v18 data api required **
+    // ** data api v18 **
     class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
         
         guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -343,7 +343,7 @@ class DataAPI {
     
     
     // set global fields -> (code)
-    // ** v18 data api required **
+    // ** data api v18 **
     class func setGlobalFields(token: String, layout: String, payload: [String: Any], completion: @escaping (String) -> Void) {
         
         //  payload = ["globalFields": [
