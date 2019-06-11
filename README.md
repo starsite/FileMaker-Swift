@@ -208,7 +208,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id)` is a POST.
 ```swift
 // returns -> (code)
-func duplicateRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -383,7 +383,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 Get a single record with `recordId`. Returns an optional record.
 ```swift
 // returns -> (record, code)
-func getRecordWith(_ id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
+func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -438,7 +438,7 @@ getRecordWith(id, token: self.token, layout: myLayout, completion: { record, cod
 Delete record with `recordId`. Only an error code is returned with this function.
 ```swift
 // returns -> (code)
-func deleteRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
+func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
@@ -489,12 +489,12 @@ deleteRecordWith(id, token: self.token, layout: myLayout, completion: { code in
 
 
 # Edit Record With ID (function)
-Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you may include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record is edited only when the `modId` matches.
+Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
 ```swift
 // returns -> (code)
-func editRecordWith(_ id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
+func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
     
     //  payload = ["fieldData": [
     //    "firstName": "newValue",
