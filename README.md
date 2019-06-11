@@ -205,7 +205,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 # Duplicate Record (function)*
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id)` is a POST.
 ```swift
 // returns -> (code)
 func duplicateRecordWith(_ id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
