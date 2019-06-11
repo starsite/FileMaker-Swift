@@ -203,8 +203,8 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 - - -
 
 
-# Duplicate Record (function)
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require a `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+# Duplicate Record (function)*
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recID`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 ```swift
 // returns -> (code)
 class func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -550,7 +550,7 @@ editRecordWith(id: recId, token: self.token, layout: myLayout, payload: myPayloa
 - - -
 
 
-# Set Global Fields (function)
+# Set Global Fields (function)*
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/globals` endpoint.
 ```swift
 // set global fields -> (code)
