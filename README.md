@@ -1,4 +1,4 @@
-🔥 June 11 update: Added functions for duplicating records and setting global fields (v18 data api)
+🔥 _June 11 update: Added v18 functions for duplicateRecordWith(id:) and setGlobalFields()_
 
 
 # SwiftFM
