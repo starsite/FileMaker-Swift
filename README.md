@@ -1,4 +1,4 @@
-_06-11-2019: Added functions for duplicating records and setting global fields (v18 data api)_
+🔥 June 11 update: Added functions for duplicating records and setting global fields (v18 data api)
 
 
 # SwiftFM
