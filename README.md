@@ -57,7 +57,6 @@ func isActiveToken() -> Bool {
 
 #### Example
 ```swift
-// active token?
 switch isActiveToken() {  
 
 case true:
@@ -125,7 +124,6 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 
 #### Example
 ```swift
-// refresh token
 refreshToken(for: self.auth, completion: { token, expiry, code in
 
     guard let token = token, let expiry = expiry else { 
@@ -188,7 +186,6 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 
 #### Example
 ```swift
-// create a new record
 createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordId, code in
 
     guard let recordId = recordId else { 
@@ -242,7 +239,6 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
 
 #### Example
 ```swift
-// duplicate an existing record
 duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
 
     guard code == "0" else { 
@@ -296,7 +292,6 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 
 #### Example
 ```swift
-// get first 20 records
 getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, code in
 
     guard let records = records else { 
@@ -361,7 +356,6 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 
 #### Example
 ```swift
-// find request
 findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, code in
 
     guard let records = records else { 
@@ -382,7 +376,7 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 ## Get Record With ID (function)
 Get a single record with `recordId`. Returns an optional record.
 ```swift
-// returns -> (record, code)
+// returns -> (record?, code)
 func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
     
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
@@ -418,7 +412,6 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
  
 #### Example
 ```swift
-// get record
 getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { record, code in
 
     guard let record = record else { 
@@ -472,7 +465,6 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 
 #### Example
 ```swift
-// delete record
 deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
     
     guard code == "0" else { 
@@ -535,7 +527,6 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 
 #### Example
 ```swift
-// edit record
 editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
 
     guard code == "0" else {
@@ -596,7 +587,6 @@ func setGlobalFields(token: String, payload: [String: Any], completion: @escapin
 
 #### Example
 ```swift
-// edit record
 setGlobalFields(token: self.token, payload: myPayload, completion: { code in
 
     guard code == "0" else {
