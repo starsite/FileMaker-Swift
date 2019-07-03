@@ -6,7 +6,7 @@ How to use: In any FileMaker Go or FIAS app, add a URL scheme to a simple `Open 
 
 
 ### Apple
-```
+```swift
 Apple Music     - music://geo.itunes.apple.com/us/albums/<albumID>
                 - music://geo.itunes.apple.com/us/artists/<artistID>
  
@@ -36,7 +36,7 @@ Wallet          - shoebox://
 - - -
 
 ### Third-Party
-```
+```swift
 Airbnb          - airbnb://rooms/<listingID>  (can an airbnb user confirm this one, please?)
  
 Facebook        — fb://profile?id=<pageID>    (numeric *page* ID, can't open personal profiles)
@@ -73,7 +73,7 @@ YouTube         – youtube://watch?v=<videoID>
 - - -
 
 ### FileMaker
-```
+```swift
 fmp://<hostName>/<fileName>   // .fmp12 not required
 fmp://<user>:<pass>@<hostName>/<fileName>
 fmp://<hostName>/<fileName>?script=<scriptName>&param=<parameter>
