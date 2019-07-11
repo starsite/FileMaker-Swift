@@ -1,4 +1,4 @@
-🔥 _July 10 update: Added deleteToken(_:)_
+🔥 _July 10 update: Added deleteToken() function_
 
 🔥 _June 11 update: Added v18 functions for duplicateRecordWith(id:) and setGlobalFields()_
 
