@@ -139,7 +139,7 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 - - - 
 
 ## Delete Token (function)
-Log out a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to put this in `applicationDidEnterBackground(_:)`. This is not required. If you don't delete session tokens, they will expire 15 minutes after the last API call.
+Log out a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground`. Expring sessions is not required. If you don't delete a session token, it will expire 15 minutes after the last API call.
 ```swift
 // returns -> (code)
 class func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
