@@ -66,6 +66,39 @@ class DataAPI {
     
     
     
+    // delete token -> (code)
+    class func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
+    
+        guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+                let baseURL = URL(string: path) else { return }
+            
+        let url = baseURL.appendingPathComponent("/sessions/\(token)")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            
+            guard   let data      = data, error == nil,
+                    let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let messages  = json["messages"] as? [[String: Any]],
+                    let code      = messages[0]["code"] as? String,
+                    let message   = messages[0]["message"] as? String else { return }
+            
+            guard code == "0" else {
+                print(message)
+                completion(code)
+                return
+            }
+            
+            completion(code)
+            
+        }.resume()
+    }
+
+    
+    
+    
     // create record -> (recordId?, code)
     func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
         
