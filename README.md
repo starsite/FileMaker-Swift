@@ -138,6 +138,55 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 
 - - - 
 
+## Delete Token (function)
+Log out a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to put this in `applicationDidEnterBackground(_:)`. This is not required. If you don't delete session tokens, they will expire 15 minutes after the last API call.
+```swift
+// returns -> (code)
+class func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
+
+    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
+            let baseURL = URL(string: path) else { return }
+
+    let url = baseURL.appendingPathComponent("/sessions/\(token)")
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "DELETE"
+
+    URLSession.shared.dataTask(with: request) { data, _, error in
+
+        guard   let data      = data, error == nil,
+                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages  = json["messages"] as? [[String: Any]],
+                let code      = messages[0]["code"] as? String,
+                let message   = messages[0]["message"] as? String else { return }
+
+        guard code == "0" else {
+            print(message)
+            completion(code)
+            return
+        }
+
+        completion(code)
+
+    }.resume()
+}
+```
+
+#### Example
+```swift
+deleteToken(self.token, completion: { code in
+
+    guard code == "0" else {
+        print("delete token sad.")  // optionally handle non-zero errors
+        return
+    }
+    
+    // logged out!
+})
+```
+
+- - -
+
 
 ## Create Record (function)
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
