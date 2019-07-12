@@ -100,7 +100,7 @@ class DataAPI {
     
     
     // create record -> (recordId?, code)
-    func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
+    class func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
         
         //  payload = ["fieldData": [
         //    "firstName": "Brian",
