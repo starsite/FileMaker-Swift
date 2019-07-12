@@ -1,6 +1,6 @@
-🔥 _July 10 update: Added deleteToken() function_
+🔥 July 10 update: Added function for `deleteToken(_:)`
 
-🔥 _June 11 update: Added v18 functions for duplicateRecordWith(id:) and setGlobalFields()_
+🔥 June 11 update: Added v18 functions for `duplicateRecordWith(id:)` and `setGlobalFields()`
 
 
 # SwiftFM
