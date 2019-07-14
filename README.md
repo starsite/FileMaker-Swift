@@ -343,6 +343,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 
 #### Example
 ```swift
+// get the first 20 records
 getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, code in
 
     guard let records = records else { 
