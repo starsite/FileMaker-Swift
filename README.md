@@ -144,7 +144,7 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground`. Expring a session is not required. If you don't delete a session token, it will expire 15 minutes after the last API call.
 ```swift
 // returns -> (code)
-class func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
+func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
 
     guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
             let baseURL = URL(string: path) else { return }
