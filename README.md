@@ -10,7 +10,7 @@ SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 an
 
 
 ## Overview
-This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` file, in this repo.
+This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of `DataAPI.swift`, in this repo.
 
 * [`isActiveToken()`](#active-token-function)
 * [`refreshToken(for:)`](#refresh-token-function)
