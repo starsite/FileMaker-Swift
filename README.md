@@ -1,7 +1,5 @@
 🔥 July 10 update: Added function for `deleteToken(_:)`
 
-🔥 June 11 update: Added v18 functions for `duplicateRecordWith(id:)` and `setGlobalFields()`
-
 
 # SwiftFM
 SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4, or later.
@@ -16,12 +14,12 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
-* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function)  _v18 only_
+* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function)  _*v18 only_
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
 * [`deleteRecordWith(id:token:layout:)`](#delete-record-with-id-function)
 * [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
-* [`setGlobalFields(token:payload:)`](#set-global-fields-function)  _v18 only_
+* [`setGlobalFields(token:payload:)`](#set-global-fields-function)  _*v18 only_
 
 - - -
  
