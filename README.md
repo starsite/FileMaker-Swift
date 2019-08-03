@@ -150,7 +150,7 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 - - - 
 
 ## Delete Token (function)
-End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground`. There is reportedly a 500-session limit in FMS 18, so this function may be helpful for larger deployments. If you don't delete a session token, it will expire 15 minutes after the last API call.
+End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground(_:)`. There is reportedly a 500-session limit in FMS 18, so this function may be useful for larger deployments. If you don't delete session tokens, they will expire 15 minutes after the last API call.
 ```swift
 // returns -> (code)
 func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
@@ -262,7 +262,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 
 ## Duplicate Record With ID (function)*
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id)`. Both require the `recordId`. The primary difference is `getRecordWith(id)` is a GET, and `duplicateRecordWith(id)` is a POST.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 ```swift
 // returns -> (code)
 func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -604,7 +604,7 @@ editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPay
 
 
 ## Set Global Fields (function)*
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The primary difference is the `/globals` endpoint.
+Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
 ```swift
 // set global fields -> (code)
 func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
