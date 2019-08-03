@@ -1,6 +1,3 @@
-🔥 July 10 update: Added function for `deleteToken(_:)`
-
-
 # SwiftFM
 SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4 (or later) required.
 
