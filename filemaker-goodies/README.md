@@ -3,7 +3,7 @@
 FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble working with timeStamps on your workstation. You may also wish to work with FileMaker Cloud timeStamps in Xcode. In either case, you'll find these calcs handy.
 
 
-### UTC -> FileMaker
+#### UTC -> FileMaker
 ```
 GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
 
@@ -12,7 +12,7 @@ GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
   - Floor ( Get ( CurrentTimeUTCMilliseconds ) / 1000 ) )
 ```
 
-### FileMaker -> UTC
+#### FileMaker -> UTC
 ```
 GetAsNumber ( timestamp_fmp ) 
     
@@ -21,7 +21,7 @@ GetAsNumber ( timestamp_fmp )
   - GetAsNumber ( Get ( CurrentTimestamp ) )
 ```
 
-### Xcode (Swift)
+#### Xcode (Swift)
 ```swift
 let dateInt = Int( Date().timeIntervalSince1970 )
 ```
@@ -35,7 +35,7 @@ I've tested all of the Apple and FileMaker URL schemes, and most of the third-pa
 How to use: In any FileMaker Go or FIAS app, add a URL scheme to a simple `Open URL []` script step. The corresponding app, if present on device, will launch. All of these will work with no parameters if you simply want to open an app to no particular destination. Others can take a variety of parameters. I've included a few that I use regularly.
 
 
-### Apple
+#### Apple
 ```swift
 Apple Music     - music://geo.itunes.apple.com/us/albums/<albumID>
                 - music://geo.itunes.apple.com/us/artists/<artistID>
@@ -64,7 +64,7 @@ Settings        - App-prefs://   (case sensitive!)
 Wallet          - shoebox://
 ```
 
-### Third-Party
+#### Third-Party
 ```swift
 Airbnb          - airbnb://rooms/<listingID>  (can an airbnb user confirm this one, please?)
  
@@ -100,7 +100,7 @@ WhatsApp        — whatsapp://
 YouTube         – youtube://watch?v=<videoID>
 ```
 
-### FileMaker
+#### FileMaker
 ```swift
 fmp://<hostName>/<fileName>   // .fmp12 not required
 fmp://<user>:<pass>@<hostName>/<fileName>
