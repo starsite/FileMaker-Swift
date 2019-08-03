@@ -1,6 +1,6 @@
 ## UTC Conversion
 
-FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble syncing against timeStamps on your workstation. You may also wish to work with FileMaker timeStamps in Xcode. In either case, you'll find these calcs handy.
+FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble syncing against timeStamps on your workstation. You may also wish to work with FileMaker timeStamps in Xcode. In either case, you should find these calcs handy. :)
 
 #### FileMaker » UTC
 ```
