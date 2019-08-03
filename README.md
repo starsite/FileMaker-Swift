@@ -26,7 +26,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 - - -
  
  
-## Class Vars and Lets
+## Environment
 A `let` is a constant, in Swift.
 
 During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
