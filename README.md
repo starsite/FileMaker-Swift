@@ -20,7 +20,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
 * [`deleteRecordWith(id:token:layout:)`](#delete-record-with-id-function)
-* [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-idfunction)
+* [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 
 - - -
