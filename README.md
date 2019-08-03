@@ -12,16 +12,16 @@ SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 an
 ## Overview
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` file, in this repo.
 
-[`isActiveToken()`]()
-[`refreshToken(for:)`]()
-[`deleteToken(_:)`]()
-[`createRecord(token:layout:payload:)`]()
-[`duplicateRecordWith(id:token:layout)`]()
-[`getRecords(token:layout:offset:limit:)`]()
-[`findRequest(token:layout:payload:)`]()
-[`deleteRecordWith(id:token:layout:)`]()
-[`editRecordWith(id:token:layout:payload:modId:)`]()
-[`setGlobalFields(token:payload:)`]()
+*[`isActiveToken()`]()
+*[`refreshToken(for:)`]()
+*[`deleteToken(_:)`]()
+*[`createRecord(token:layout:payload:)`]()
+*[`duplicateRecordWith(id:token:layout)`]()
+*[`getRecords(token:layout:offset:limit:)`]()
+*[`findRequest(token:layout:payload:)`]()
+*[`deleteRecordWith(id:token:layout:)`]()
+*[`editRecordWith(id:token:layout:payload:modId:)`]()
+*[`setGlobalFields(token:payload:)`]()
 
 - - -
  
