@@ -1,9 +1,9 @@
-# UTC Calcs
+## UTC Calcs
 
 FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble working with timeStamps on your workstation. You may also want to work with FileMaker Cloud timeStamps in Xcode. In either case, you'll find these calcs handy.
 
 
-## UTC -> FileMaker
+### UTC -> FileMaker
 ```
 GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
 
@@ -12,7 +12,7 @@ GetAsTimestamp ( ( GetAsNumber ( timestamp_utc ) )
   - Floor ( Get ( CurrentTimeUTCMilliseconds ) / 1000 ) )
 ```
 
-## FileMaker -> UTC
+### FileMaker -> UTC
 ```
 GetAsNumber ( timestamp_fmp ) 
     
@@ -21,14 +21,14 @@ GetAsNumber ( timestamp_fmp )
   - GetAsNumber ( Get ( CurrentTimestamp ) )
 ```
 
-## Xcode (Swift)
+### Xcode (Swift)
 ```swift
 let dateInt = Int( Date().timeIntervalSince1970 )
 ```
 
 
-
-# URL schemes for FileMaker Go, App SDK, and Swift
+- - -
+## URL schemes for FileMaker Go, App SDK, and Swift
 
 I've tested all of the Apple and FileMaker URL schemes, and most of the third-party app schemes (for the apps/services I have). URL schemes can/and sometimes do change, so this list will be updated as needed. If you see something wrong, send me a message. This isn't meant to be an exhaustive list. The aim is to maintain a list of widely used/common apps for reference, for Go and FIAS developers.
  
@@ -63,7 +63,6 @@ Safari (FTP)    - ftp://
 Settings        - App-prefs://   (case sensitive!)
 Wallet          - shoebox://
 ```
-- - -
 
 ### Third-Party
 ```swift
@@ -100,7 +99,6 @@ Waze            — waze://
 WhatsApp        — whatsapp://
 YouTube         – youtube://watch?v=<videoID>
 ```
-- - -
 
 ### FileMaker
 ```swift
