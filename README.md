@@ -150,7 +150,7 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 - - - 
 
 ## Delete Token (function)
-End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground(_:)`. There is reportedly a 500-session limit in FMS 18, so this function may be useful for larger deployments. If you don't delete session tokens, they will expire 15 minutes after the last API call.
+End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground(_:)`. There is reportedly a 500-session limit in FMS 18, so this may be useful for larger deployments. If you don't delete a session token, it will expire 15 minutes after the last API call.
 ```swift
 // returns -> (code)
 func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
