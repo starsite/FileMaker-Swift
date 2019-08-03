@@ -13,15 +13,15 @@ SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 an
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` file, in this repo.
 
 * [`isActiveToken()`](#active-token-function)
-* [`refreshToken(for:)`]()
-* [`deleteToken(_:)`]()
-* [`createRecord(token:layout:payload:)`]()
-* [`duplicateRecordWith(id:token:layout)`]()
-* [`getRecords(token:layout:offset:limit:)`]()
-* [`findRequest(token:layout:payload:)`]()
-* [`deleteRecordWith(id:token:layout:)`]()
-* [`editRecordWith(id:token:layout:payload:modId:)`]()
-* [`setGlobalFields(token:payload:)`]()
+* [`refreshToken(for:)`](#refresh-token-function)
+* [`deleteToken(_:)`](#delete-token-function)
+* [`createRecord(token:layout:payload:)`](#create-record-function)
+* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-function)
+* [`getRecords(token:layout:offset:limit:)`](#get-records-function)
+* [`findRequest(token:layout:payload:)`](#find-request-function)
+* [`deleteRecordWith(id:token:layout:)`](#delete-record-function)
+* [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-function)
+* [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 
 - - -
  
