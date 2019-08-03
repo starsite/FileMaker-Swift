@@ -29,7 +29,7 @@ A `let` is a constant, in Swift.
 
 During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
 
-I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `didEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary.
+I like to fetch my environment settings from CloudKit, in `didFinishLaunching` or `applicationWillEnterForeground`. Doing it this way also provides a remote kill-switch, if necessary.
  
 ```swift
 import UIKit
