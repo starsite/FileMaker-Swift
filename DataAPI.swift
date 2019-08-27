@@ -57,7 +57,7 @@ class DataAPI {
             
             UserDefaults.standard.set(token, forKey: "fm-token")
             UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
-            
+                                                   
             completion(token, expiry, code)
             
         }.resume()
@@ -93,6 +93,7 @@ class DataAPI {
                                                    
             UserDefaults.standard.set(nil, forKey: "fm-token")
             UserDefaults.standard.set(0, forKey: "fm-token-expiry")
+                                                   
             completion(code)
             
         }.resume()
