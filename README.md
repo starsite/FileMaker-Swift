@@ -173,7 +173,9 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
             completion(code)
             return
         }
-
+        
+        UserDefaults.standard.set(nil, forKey: "fm-token")
+        UserDefaults.standard.set(0, forKey: "fm-token-expiry")
         completion(code)
 
     }.resume()
