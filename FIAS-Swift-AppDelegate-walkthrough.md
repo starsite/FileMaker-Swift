@@ -122,7 +122,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
- 
+
 - - -
  
 ### Terminal: Get Object Reference To SwiftAppDelegate
