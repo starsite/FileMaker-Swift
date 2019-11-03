@@ -157,6 +157,8 @@ Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly afte
 Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution, it should fire.
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
+
+🚨 There appears to be an issue in the 18 SDK with `completedReturnToForegroundActive()`. It no longer fires, as in previous SDK versions. This is a proprietary FIAS delegate function to give the SDK additional time to prepare to fire scripts. As a workaround, I'd use the standard UIKit `applicationDidBecomeActive()` delegate and wrap it in a 2-3 second delay, until FMI addresses the issue.
  
 - - -
  
