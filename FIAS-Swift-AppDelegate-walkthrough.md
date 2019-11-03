@@ -134,7 +134,7 @@ This outputs a _ton_ of metadata for the MyProject Unix executable inside of `My
 
 `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`
 
-The value we need here is the *TtC4MyProject10SwiftAppDelegate*. Copy it to your clipboard.
+The value we need here is the `TtC4MyProject10SwiftAppDelegate`. Copy it to your clipboard.
  
 - - -
  
