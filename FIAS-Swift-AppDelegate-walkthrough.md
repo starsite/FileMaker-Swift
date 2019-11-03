@@ -127,7 +127,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
  
 ### Terminal: Get Object Reference To SwiftAppDelegate
 
-When you've successfully landed in the `MyProject.app` directory, do this:
+Once you've successfully landed in the `MyProject.app` directory, do this:
 <pre>objdump -all-headers MyProject</pre>
 
 This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic name of our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this:
