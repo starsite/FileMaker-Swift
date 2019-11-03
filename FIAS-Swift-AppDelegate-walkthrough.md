@@ -62,7 +62,7 @@ If Xcode _didn't_ prompt you about a bridging header, we need to create it ourse
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. Select `Header File` as the type and click Next. Save the file as `<projectName>-Bridging-Header.h`, again, minding the naming convention. Then click Create.
 
-Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. Then, from the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
+Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. From the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
 
 - - -
  
@@ -79,7 +79,7 @@ Build the project (Command-B). You shouldn't have any errors.
  
 - - -
  
-### Xcode: SwiftAppDelegate Class
+### Xcode: Edit SwiftAppDelegate
 Open `SwiftAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
 ```swift
@@ -145,7 +145,7 @@ Return to Xcode, select `configFile.txt` from the Project Navigator, and update 
 ```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
-applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Include a leading underscore, this is not optional
+applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Include a leading underscore - this is not optional
 ```
 
 - - -
