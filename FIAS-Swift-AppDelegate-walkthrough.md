@@ -33,7 +33,7 @@ Note: In older versions of Xcode, obtaining the symbolic name for a Swift AppDel
 * Build and run app
 * Profit!
 
-* Not plagiarize other developers' work with a blog post (ahem). If you find this walkthrough helpful and want to share, link back to it, or write your own tutorial. Please and thank you.
+* Not plagiarize other developers' work with a blog post (ahem). If you find this walkthrough helpful and want to share, link back to it, or write your own tutorial. Please and thank you. ❤️
  
 - - -
  
