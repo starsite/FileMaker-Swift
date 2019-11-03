@@ -1,6 +1,6 @@
 # FileMaker iOS App SDK + Swift AppDelegate
 
-Create and use a Swift `AppDelegate` in a FIAS project. Also shows an example of how to fire a FileMaker script from the `completedReturnToForegroundActive()` delegate method.
+Create and use a Swift `AppDelegate` in a FIAS project. Also shows an example of how to fire a FileMaker script using `FMX_Queue_Script` from the `completedReturnToForegroundActive()` delegate method.
 
 🔥 Updated for Xcode 11
 
