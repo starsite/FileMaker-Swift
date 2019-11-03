@@ -152,7 +152,7 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Add -one- leadi
 
 ### Xcode: Run
 
-Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you.
+Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you. 🤚
  
 Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution, it should fire.
 
