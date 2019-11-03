@@ -66,7 +66,7 @@ Because we created our bridging header manually, we also need to update our buil
 
 - - -
  
-### Xcode: Edit Bridging-Header.h
+### Xcode: Edit Bridging Header
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
 
@@ -79,7 +79,7 @@ Build the project (Command-B). You shouldn't have any errors.
  
 - - -
  
-### Xcode: SwiftAppDel Class
+### Xcode: SwiftAppDelegate Class
 Open `SwiftAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
 ```swift
@@ -125,7 +125,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
  
 - - -
  
-### Terminal: Get Object Reference To SwiftAppDel
+### Terminal: Get Object Reference To SwiftAppDelegate
 
 When you've successfully landed in the `MyProject.app` directory, do this:
 <pre>objdump -all-headers MyProject</pre>
