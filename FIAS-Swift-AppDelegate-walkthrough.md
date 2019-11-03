@@ -145,7 +145,7 @@ Return to Xcode, select `configFile.txt` from the Project Navigator, and update 
 ```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
-applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Include a leading underscore
+applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Add -one- leading underscore
 ```
 
 - - -
