@@ -4,7 +4,7 @@ How to create and use a Swift `AppDelegate` in a FIAS project. Also shows an exa
 
 🔥 Updated for Xcode 11
 
-Note: In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line tool, `otool`, which is no longer available (staring with Xcode 10). The following walkthrough has been updated for Xcode 10 and 11, using the `objdump` tool.
+Note: In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line tool, `otool`, which is no longer available (staring with Xcode 10). This walkthrough has been updated for Xcode 10 and 11 and uses the `objdump` tool.
 
 - - -
 
