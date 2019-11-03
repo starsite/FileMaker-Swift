@@ -132,7 +132,7 @@ When you've successfully landed in the `MyProject.app` directory, do this:
 
 This outputs a _ton_ of metadata for the MyProject Unix executable inside of `MyProject.app`. Now we need the symbolic name of our AppDelegate. Do a find, `[Command] + [F]`, and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. What you're looking for is something like this:
 
-`_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`
+<pre>_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`</pre>
 
 The value we need here is the `TtC4MyProject10SwiftAppDelegate`. Copy it to your clipboard.
  
