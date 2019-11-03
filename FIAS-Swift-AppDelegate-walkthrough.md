@@ -52,13 +52,13 @@ After FIAS returns a prompt, you can open the project with:
  
 ### Xcode: Create SwiftAppDelegate File
 
-In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our Swift AppDelegate class. Choose `Swift File`, name it `SwiftAppDelegate`, and click Create. Earlier versions of Xcode would open a prompt here about a bridging header. If Xcode does ask about a bridging header, choose `Create Bridging Header` and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
+In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our AppDelegate class. Choose `Swift File`, name it `SwiftAppDelegate`, and click Create. In earlier versions of Xcode, this used to fire a prompt about a bridging header. If Xcode gives you a bridging header prompt, choose `Create Bridging Header` and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
  
 - - -
 
 ### Xcode: Create Bridging Header (if necessary)
 
-If Xcode didn't prompt you about a bridging header, we need to create one ourselves.
+If Xcode _didn't_ prompt you about a bridging header, we need to create it ourselves.
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. Select `Header File` as the type and click Next. Save the file as `<projectName>-Bridging-Header.h`, again, minding the naming convention. Then click Create.
 
@@ -118,7 +118,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
  
 ### Terminal: Navigate To DerivedData
 
-`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is still based on Objective-C. Boo. In order to get FIAS to 'see' our Swift AppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
+`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is _still_ based on Objective-C. Boo. In order to get FIAS to 'see' our SwiftAppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
@@ -130,7 +130,7 @@ If you're familiar with Terminal, this can all be done rather quickly using [tab
 When you've successfully landed in the `MyProject.app` directory, do this:
 <pre>objdump -all-headers MyProject</pre>
 
-This outputs a ton of metadata for the `MyProject` Unix executable inside of `MyProject.app`. What we need is a symbolic name of our AppDelegate. Do a find, `[Command] + [F]`, and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. What you're looking for is something like this:
+This outputs a _ton_ of metadata for the `MyProject` Unix executable inside of `MyProject.app`. We need the symbolic name of our AppDelegate. Do a find, `[Command] + [F]`, and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. What you're looking for is something like this:
 
 <pre>_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate</pre>
 
