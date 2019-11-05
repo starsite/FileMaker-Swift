@@ -33,7 +33,7 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 * Build and run app
 * Profit!
 
-* Not plagiarize other developers' work with a blog post (ahem). If you find this walkthrough helpful, link back to it or write your own tutorial. Please and thank you. ❤️
+* Not plagiarize other developers' work with a blog post (ahem). If you find this walkthrough helpful, give it a ⭐️, link back to it or write your own tutorial. Please and thank you. ❤️
  
 - - -
  
@@ -58,7 +58,7 @@ In the Project Navigator (left sidebar), right-click on the Custom Application R
 
 ### Xcode: Create Bridging Header (if necessary)
 
-If Xcode _didn't_ prompt you about a bridging header, we need to create it ourselves.
+If Xcode _didn't_ prompt you about a bridging header, we need to create one ourselves.
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. Select `Header File` as the type and click Next. Save the file as `<projectName>-Bridging-Header.h`, again, minding the naming convention. Then click Create.
 
@@ -118,7 +118,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
  
 ### Terminal: Navigate To DerivedData
 
-`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is _still_ based on Objective-C. Boo. In order to get FIAS to 'see' our SwiftAppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
+`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is still based on Objective-C. Boo. In order to get FIAS to 'see' our SwiftAppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
 <pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
