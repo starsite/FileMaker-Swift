@@ -6,22 +6,26 @@ Create and use a Swift `AppDelegate` in a FIAS project. Also shows an example of
 
 In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (staring with Xcode 10). This walkthrough has been updated for Xcode 10 and 11 and uses the `objdump` tool.
 
-- - -
+---
 
 ### What You'll Learn
+
 * How to build a simple FIAS project in Xcode with a Swift AppDelegate.
 * How to trigger a script from the AppDelegate.
  
 ### What This Post Is Not
+
 * A tutorial on Xcode
 * A tutorial on Swift
 * A tutorial on Terminal
  
 ### Requirements
+
 * iOS App SDK 17+
 * Xcode 10+
  
 ### What We're Going To Do
+
 * Navigate to our FIAS directory and create a project
 * Add a Swift AppDelegate class
 * Create and edit a `Bridging-Header.h`
@@ -32,10 +36,9 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 * Assign our AppDelegate reference in `configFile.txt`
 * Build and run app
 * Profit!
-
 * Not plagiarize other developers' work with a blog post (ahem). If this walkthrough is helpful, give it a ⭐️, link back to it, or write your own tutorial. Please and thank you. ❤️
  
-- - -
+---
  
 ### Ok, Let's Make A Project
 
@@ -48,13 +51,13 @@ Create a project. Leading dot, yo.
 After FIAS returns a prompt, you can open the project with:
 <pre>open ProjectDirectory/MyProject.xcodeproj</pre>
 
-- - -
+---
  
 ### Xcode: Create AppDelegate
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our AppDelegate class. Choose `Swift File`, name it `SwiftAppDelegate`, and click Create. In earlier versions of Xcode, this used to fire a prompt about a bridging header. If Xcode gives you a bridging header prompt, create one and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
  
-- - -
+---
 
 ### Xcode: Create Bridging Header (if necessary)
 
@@ -64,7 +67,7 @@ In the Project Navigator (left sidebar), right-click on the Custom Application R
 
 Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. From the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
 
-- - -
+---
  
 ### Xcode: Edit Bridging Header
 
@@ -77,7 +80,7 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 
 Build the project (Command-B). You shouldn't have any errors.
  
-- - -
+---
  
 ### Xcode: Edit SwiftAppDelegate
 Open `SwiftAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
@@ -97,7 +100,6 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
     // return foreground active.. this is a FIAS delegate and not part of UIKit
     func completedReturnToForegroundActive() {
  
@@ -114,7 +116,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
  
 Build Project (Command-B). Take care of any errors or typos before proceeding.
  
-- - -
+---
  
 ### Terminal: Navigate To DerivedData
 
@@ -123,7 +125,7 @@ Build Project (Command-B). Take care of any errors or typos before proceeding.
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
 
-- - -
+---
  
 ### Terminal: Get Object Reference To SwiftAppDelegate
 
@@ -136,7 +138,7 @@ This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.ap
 
 The value we need here is the `TtC4MyProject10SwiftAppDelegate`. Copy it to your clipboard.
  
-- - -
+---
  
 ### Xcode: Update FIAS Config File
 
@@ -148,7 +150,7 @@ solution CopyOption      = 1
 applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Add -one- leading underscore
 ```
 
-- - -
+---
 
 ### Xcode: Run
 
@@ -160,7 +162,7 @@ Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be
 
 🚨 _There appears to be an issue in the 18 SDK with `completedReturnToForegroundActive()`. It no longer fires, as in previous SDK versions. This is a proprietary FIAS delegate function that gives the SDK additional time to prepare to fire scripts. As a workaround, Consider using the standard UIKit `applicationDidBecomeActive()` delegate and wrapping any script calls in a 2-3 second delay, until FMI addresses the issue._
  
-- - -
+---
  
 ### Further Reading
 
@@ -168,7 +170,7 @@ There are lots of iOS app lifecycle delegate methods. You can read more about th
 
 https://developer.apple.com/documentation/uikit/uiapplicationdelegate
   
-- - -
+---
  
 ### Extra Credit
 Here's a peek at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
