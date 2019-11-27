@@ -69,7 +69,7 @@ func isActiveToken() -> Bool {
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 switch isActiveToken() {  
@@ -139,7 +139,7 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 refreshToken(for: self.auth, completion: { token, expiry, code in
@@ -196,7 +196,7 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 deleteToken(self.token, completion: { code in
@@ -261,7 +261,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordId, code in
@@ -318,7 +318,7 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
@@ -375,7 +375,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 // get the first 20 records
@@ -443,7 +443,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, code in
@@ -501,7 +501,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 }
 ```
  
-#### Example
+### Example
 
 ```swift
 getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { record, code in
@@ -555,7 +555,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
@@ -621,7 +621,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
@@ -685,7 +685,7 @@ func setGlobalFields(token: String, payload: [String: Any], completion: @escapin
 }
 ```
 
-#### Example
+### Example
 
 ```swift
 setGlobalFields(token: self.token, payload: myPayload, completion: { code in
