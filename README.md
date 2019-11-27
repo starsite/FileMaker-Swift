@@ -1,10 +1,13 @@
 # SwiftFM
+
 SwiftFM is a service class for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4 (or later) required.
 
-- - -
+
+---
 
 
-## Overview
+### Overview
+
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
 * [`isActiveToken()`](#active-token-function)
@@ -18,10 +21,12 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18 only
 
-- - -
+
+---
  
  
-## Environment
+### Environment
+
 A `let` is a constant, in Swift.
 
 During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
@@ -44,11 +49,12 @@ class ViewController: UIViewController {
     // ...
 }
 ```
+
+
+---
  
-- - -
  
- 
-## Active Token (function)
+### Active Token (function)
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
@@ -64,6 +70,7 @@ func isActiveToken() -> Bool {
 ```
 
 #### Example
+
 ```swift
 switch isActiveToken() {  
 
@@ -85,10 +92,12 @@ case false:
 }    
 ```
  
- - - -
+
+---
  
  
-## Refresh Token (function)
+### Refresh Token (function)
+
 Returns an optional token and expiry. The `@escaping` marker allows the `token?`, `expiry?`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
 
 ```swift
@@ -131,6 +140,7 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 ```
 
 #### Example
+
 ```swift
 refreshToken(for: self.auth, completion: { token, expiry, code in
 
@@ -144,9 +154,12 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 })
 ```
 
-- - - 
 
-## Delete Token (function)
+---
+
+
+### Delete Token (function)
+
 End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground(_:)`. There is reportedly a 500-session limit in FMS 18, so this may be useful for larger deployments. If you don't delete a session token, it will expire 15 minutes after the last API call.
 ```swift
 // returns -> (code)
@@ -184,6 +197,7 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
 ```
 
 #### Example
+
 ```swift
 deleteToken(self.token, completion: { code in
 
@@ -196,11 +210,14 @@ deleteToken(self.token, completion: { code in
 })
 ```
 
-- - -
+
+---
 
 
-## Create Record (function)
+### Create Record (function)
+
 Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
+
 ```swift
 // returns -> (recordId?, code)
 func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
@@ -245,6 +262,7 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ```
 
 #### Example
+
 ```swift
 createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordId, code in
 
@@ -258,11 +276,14 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 }
 ```
 
-- - -
+
+---
 
 
-## Duplicate Record With ID (function)*
+### Duplicate Record With ID (function)*
+
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+
 ```swift
 // returns -> (code)
 func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
@@ -298,6 +319,7 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
 ```
 
 #### Example
+
 ```swift
 duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
 
@@ -310,11 +332,14 @@ duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completio
 }
 ```
 
-- - -
+
+---
 
 
-## Get Records (function)
+### Get Records (function)
+
 Returns an optional array of records with an offset and limit.
+
 ```swift
 // returns -> ([records]?, code)
 func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
@@ -351,6 +376,7 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 ```
 
 #### Example
+
 ```swift
 // get the first 20 records
 getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, code in
@@ -367,10 +393,12 @@ getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion
 }
 ```
 
+
 - - -
 
 
-## Find Request (function)
+### Find Request (function)
+
 Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
 
 ```swift
@@ -416,6 +444,7 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 ```
 
 #### Example
+
 ```swift
 findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, code in
 
@@ -431,10 +460,11 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 }
 ```
 
-- - -
+
+---
 
 
-## Get Record With ID (function)
+### Get Record With ID (function)
 Get a single record with `recordId`. Returns an optional record.
 ```swift
 // returns -> (record?, code)
@@ -472,6 +502,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ```
  
 #### Example
+
 ```swift
 getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { record, code in
 
@@ -488,7 +519,7 @@ getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { r
 - - -
 
 
-## Delete Record With ID (function)
+### Delete Record With ID (function)
 Delete record with `recordId`. Only an error code is returned with this function.
 ```swift
 // returns -> (code)
@@ -525,6 +556,7 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ```
 
 #### Example
+
 ```swift
 deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
     
@@ -538,13 +570,16 @@ deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: 
 }
 ```
 
+
 - - -
 
 
-## Edit Record With ID (function)
+### Edit Record With ID (function)
+
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
 Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
+
 ```swift
 // returns -> (code)
 func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
@@ -587,6 +622,7 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ```
 
 #### Example
+
 ```swift
 editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
 
@@ -600,11 +636,14 @@ editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPay
 }
 ```
 
-- - -
+
+---
 
 
-## Set Global Fields (function)*
+### Set Global Fields (function)*
+
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
+
 ```swift
 // set global fields -> (code)
 func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
@@ -647,6 +686,7 @@ func setGlobalFields(token: String, payload: [String: Any], completion: @escapin
 ```
 
 #### Example
+
 ```swift
 setGlobalFields(token: self.token, payload: myPayload, completion: { code in
 
@@ -657,3 +697,4 @@ setGlobalFields(token: self.token, payload: myPayload, completion: { code in
     
     // globals set!
 }
+```
