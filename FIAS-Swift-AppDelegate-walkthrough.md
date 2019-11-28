@@ -1,6 +1,6 @@
-# FileMaker iOS App SDK + Swift AppDelegate
+## FileMaker iOS App SDK + Swift AppDelegate
 
-Create and use a Swift `AppDelegate` in a FIAS project. Also shows an example of how to fire a FileMaker script using `FMX_Queue_Script` from the `completedReturnToForegroundActive()` delegate method.
+Learn how to create and use a Swift AppDelegate in a FIAS project. Includes an example of how to fire a FileMaker script using `FMX_Queue_Script` from the `completedReturnToForegroundActive()` delegate method.
 
 🔥 Updated for Xcode 11
 
@@ -12,24 +12,24 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 
 * How to build a simple FIAS project in Xcode with a Swift AppDelegate.
 * How to trigger a script from the AppDelegate.
- 
+
 ### What This Post Is Not
 
 * A tutorial on Xcode
 * A tutorial on Swift
 * A tutorial on Terminal
- 
+
 ### Requirements
 
 * iOS App SDK 17+
 * Xcode 10+
- 
+
 ### What We're Going To Do
 
 * Navigate to our FIAS directory and create a project
-* Add a Swift AppDelegate class
+* Add a Swift AppDelegate
 * Create and edit a `Bridging-Header.h`
-* Finish the AppDelegate class
+* Finish the `SwiftAppDelegate.swift` class
 * Build (test)
 * Navigate to `.../DerivedData/.../MyProject.app/`
 * Get an object reference for our AppDelegate using `objdump`
@@ -37,26 +37,34 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 * Build and run app
 * Profit!
 * Not plagiarize other developers' work with a blog post (ahem). If this walkthrough is helpful, give it a ⭐️, link back to it, or write your own tutorial. Please and thank you. ❤️
- 
+
 ---
- 
+
 ### Ok, Let's Make A Project
 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
-<pre>cd /Applications/iOSAppSDKPackage_18.0.3</pre>
+
+```html
+cd /Applications/iOSAppSDKPackage_18.0.3
+```
 
 Create a project. Leading dot, yo.
-<pre>./makeprojdir ProjectDirectory MyProject com.domain.MyProject</pre>
+
+```html
+./makeprojdir ~/Desktop/ProjectDirectory MyProject com.domain.MyProject
+```
 
 After FIAS returns a prompt, you can open the project with:
-<pre>open ProjectDirectory/MyProject.xcodeproj</pre>
+```html
+open ~/Desktop/ProjectDirectory/MyProject.xcodeproj
+```
 
 ---
- 
+
 ### Xcode: Create AppDelegate
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our AppDelegate class. Choose `Swift File`, name it `SwiftAppDelegate`, and click Create. In earlier versions of Xcode, this used to fire a prompt about a bridging header. If Xcode gives you a bridging header prompt, create one and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
- 
+
 ---
 
 ### Xcode: Create Bridging Header (if necessary)
@@ -68,7 +76,7 @@ In the Project Navigator (left sidebar), right-click on the Custom Application R
 Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. From the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
 
 ---
- 
+
 ### Xcode: Edit Bridging Header
 
 Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
@@ -79,9 +87,9 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 ```
 
 Build the project (Command-B). You shouldn't have any errors.
- 
+
 ---
- 
+
 ### Xcode: Edit SwiftAppDelegate
 Open `SwiftAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
@@ -110,36 +118,40 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     }
 }
 ```
- 
- 
- 
- 
-Build Project (Command-B). Take care of any errors or typos before proceeding.
- 
+
+ Build Project (Command-B). Take care of any errors or typos before proceeding.
+
 ---
- 
+
 ### Terminal: Navigate To DerivedData
 
 `/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is still based on Objective-C. Boo. In order to get FIAS to 'see' our SwiftAppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
-<pre>> cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/</pre>
+
+```html
+cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/
+```
 
 If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
 
 ---
- 
+
 ### Terminal: Get Object Reference To SwiftAppDelegate
 
 Once you've successfully landed in the `MyProject.app` directory, do this:
-<pre>objdump -all-headers MyProject</pre>
+```html
+objdump -all-headers MyProject
+```
 
 This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic name of our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
 
-<pre>_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`</pre>
+```html
+_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate
+```
 
 The value we need here is the `TtC4MyProject10SwiftAppDelegate`. Copy it to your clipboard.
- 
+
 ---
- 
+
 ### Xcode: Update FIAS Config File
 
 Return to Xcode, select `configFile.txt` from the Project Navigator, and update these settings:
@@ -155,28 +167,28 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Add -one- leadi
 ### Xcode: Run
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you. 🤚
- 
+
 Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution, it should fire.
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
 
 🚨 _There appears to be an issue in the 18 SDK with `completedReturnToForegroundActive()`. It no longer fires, as in previous SDK versions. This is a proprietary FIAS delegate function that gives the SDK additional time to prepare to fire scripts. As a workaround, Consider using the standard UIKit `applicationDidBecomeActive()` delegate and wrapping any script calls in a 2-3 second delay, until FMI addresses the issue._
- 
+
 ---
- 
+
 ### Further Reading
 
 There are lots of iOS app lifecycle delegate methods. You can read more about them here:
 
 https://developer.apple.com/documentation/uikit/uiapplicationdelegate
-  
+
 ---
- 
+
 ### Extra Credit
 Here's a peek at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
- 
-My last two `nil` arguments in the Swift example (above) are for a script parameter and a variables Dictionary, respectively. The script parameter object is typed as a `String`. The Dictionary is typed as `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. This is because Swift needs to cast `kFMXT_Resume` back to a `UInt8`.
- 
+
+My last two `nil` arguments in `SwiftAppDelegate.swift` (above) are for a script parameter and a variables Dictionary, respectively. The script parameter object is typed as a `String`. The Dictionary is typed as `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. This is because Swift needs to cast `kFMXT_Resume` back to a `UInt8`.
+
 ```objective-c
 #ifndef FMX_Exports_h
 #define FMX_Exports_h
