@@ -1,11 +1,12 @@
 # SwiftFM
 
-SwiftFM is a framework for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4 (or later) required.
+SwiftFM is a framework for working with the FileMaker Data API.
 
 ---
 
-
 ### Overview
+
+Swift 4.2 and Xcode 9.4 (or later) required.
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
@@ -112,12 +113,12 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response  = json["response"] as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard let token = response["token"] as? String else {
             print(message)  // optionally pass message to UIAlertController
@@ -169,11 +170,11 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
 
     URLSession.shared.dataTask(with: request) { data, _, error in
 
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
 
         guard code == "0" else {
             print(message)
@@ -235,12 +236,12 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 
     URLSession.shared.dataTask(with: request) { data, _, error in
             
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response  = json["response"] as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
                                                
         guard let recordId = response["recordId"] as? String else {
             print(message)
@@ -292,11 +293,11 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard code == "0" else {
             print(message)
@@ -347,12 +348,12 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response  = json["response"] as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
@@ -414,12 +415,12 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response  = json["response"] as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
@@ -471,12 +472,12 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response  = json["response"] as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard let records = response["data"] as? [[String: Any]] else {
             print(message)  // optionally pass message to UIAlertController
@@ -526,11 +527,11 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
                 
         guard code == "0" else {
             print(message)
@@ -591,11 +592,11 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
                 
         guard code == "0" else {
             print(message)
@@ -654,11 +655,11 @@ func setGlobalFields(token: String, payload: [String: Any], completion: @escapin
     
     URLSession.shared.dataTask(with: request) { data, _, error in
         
-        guard   let data      = data, error == nil,
-                let json      = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                let messages  = json["messages"] as? [[String: Any]],
-                let code      = messages[0]["code"] as? String,
-                let message   = messages[0]["message"] as? String else { return }
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
         
         guard code == "0" else {
             print(message)
