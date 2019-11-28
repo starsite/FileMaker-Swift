@@ -2,7 +2,6 @@
 
 SwiftFM is a framework for working with the FileMaker Data API. Swift 4.2 and Xcode 9.4 (or later) required.
 
-
 ---
 
 
@@ -21,10 +20,8 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18 only
 
-
 ---
- 
- 
+
 ### Environment
 
 A `let` is a constant, in Swift.
@@ -32,7 +29,7 @@ A `let` is a constant, in Swift.
 During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
 
 I like to fetch my environment settings from CloudKit, in `application(_:didFinishLaunchingWithOptions)` or `applicationWillEnterForeground(_:)`. Doing it this way also provides a remote kill-switch, if necessary.
- 
+
 ```swift
 import UIKit
  
@@ -50,10 +47,9 @@ class ViewController: UIViewController {
 }
 ```
 
-
 ---
- 
- 
+
+
 ### Active Token (function)
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
@@ -91,11 +87,10 @@ case false:
     })
 }    
 ```
- 
 
 ---
- 
- 
+
+
 ### Refresh Token (function)
 
 Returns an optional token and expiry. The `@escaping` marker allows the `token?`, `expiry?`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
@@ -154,7 +149,6 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 })
 ```
 
-
 ---
 
 
@@ -209,7 +203,6 @@ deleteToken(self.token, completion: { code in
     // logged out!
 })
 ```
-
 
 ---
 
@@ -276,11 +269,10 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 }
 ```
 
-
 ---
 
 
-### Duplicate Record With ID (function)*
+### Duplicate Record With ID (function)
 
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 
@@ -331,7 +323,6 @@ duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completio
     // new duplicate record!
 }
 ```
-
 
 ---
 
@@ -392,7 +383,6 @@ getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion
     }
 }
 ```
-
 
 - - -
 
@@ -460,7 +450,6 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 }
 ```
 
-
 ---
 
 
@@ -500,7 +489,7 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
     }.resume()
 }
 ```
- 
+
 ### Example
 
 ```swift
@@ -570,7 +559,6 @@ deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: 
 }
 ```
 
-
 - - -
 
 
@@ -636,11 +624,10 @@ editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPay
 }
 ```
 
-
 ---
 
 
-### Set Global Fields (function)*
+### Set Global Fields (function)
 
 Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
 
