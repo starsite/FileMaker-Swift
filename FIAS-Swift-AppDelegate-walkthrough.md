@@ -69,7 +69,7 @@ In the Project Navigator (left sidebar), right-click on the Custom Application R
 
 ### Xcode: Create Bridging Header (if necessary)
 
-If Xcode _didn't_ prompt you about a bridging header, we need to create one ourselves.
+If Xcode _didn't_ prompt you about a bridging header, we need to create one.
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. Select `Header File` as the type and click Next. Save the file as `<projectName>-Bridging-Header.h`, again, minding the naming convention. Then click Create.
 
