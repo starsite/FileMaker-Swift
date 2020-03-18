@@ -1,6 +1,6 @@
 # SwiftFM
 
-SwiftFM is a framework for working with the FileMaker Data API.
+SwiftFM is a Swift wrapper for working with the FileMaker Data API.
 
 ---
 
