@@ -1,18 +1,16 @@
 # SwiftFM
 
-SwiftFM is a Swift wrapper for working with the FileMaker Data API.
+SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or later required.
 
 ---
 
 ### 🚨 FileMaker v19
 
-I'm not FBA, so I don't know yet what might have been changed or added in the upcoming v19 Data API. Once v19 is released, I'll have a look at it and update the repo as needed. Thanks!
+I'm not FBA, so I just got my hands on the v19 Data API. Looking at it right now an will update the repo as needed. Thanks!
 
 ---
 
 ### Overview
-
-Swift 4.2 and Xcode 9.4 (or later) required. Supported up to Swift 5.1 and Xcode 11.2.1
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
@@ -20,12 +18,12 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
-* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18 only
+* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18 or later
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
 * [`deleteRecordWith(id:token:layout:)`](#delete-record-with-id-function)
 * [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
-* [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18 only
+* [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18 or later
 
 ---
 
@@ -35,7 +33,7 @@ A `let` is a constant, in Swift.
 
 During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
 
-I like to fetch my environment settings from CloudKit, in `application(_:didFinishLaunchingWithOptions)` or `applicationWillEnterForeground(_:)`. Doing it this way also provides a remote kill-switch, if necessary.
+I like to fetch my environment settings from CloudKit, in `application(_:didFinishLaunchingWithOptions)` or `applicationWillEnterForeground(_:)`. Doing it this way also provides an optional remote kill-switch.
 
 ```swift
 import UIKit
@@ -281,7 +279,7 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 ### Duplicate Record With ID (function)
 
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 or later. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 
 ```swift
 // returns -> (code)
@@ -636,7 +634,7 @@ editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPay
 
 ### Set Global Fields (function)
 
-Data API v18 only. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
+Data API v18 or later. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
 
 ```swift
 // set global fields -> (code)
