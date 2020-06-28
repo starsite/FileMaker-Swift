@@ -96,7 +96,7 @@ Open `MyAppDelegate.swift` from the Project Navigator and finish it out like thi
 ```swift
 import Foundation
 
-class SwiftAppDel: UIResponder, UIApplicationDelegate {
+class MyAppDelegate: UIResponder, UIApplicationDelegate {
    
     var window: UIWindow?
     
