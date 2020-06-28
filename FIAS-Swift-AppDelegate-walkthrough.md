@@ -131,7 +131,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
 
 ### Terminal: Navigate To DerivedData
 
-`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 19.0.10088) is _still_ based on Objective-C. Boo. 👎 In order to get FIAS to see our `MyAppDelegate.swift`, we need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
+`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 19.0.10088) is _still_ based on Objective-C. Boo. 👎 In order to get FIAS to 'see' our Swift AppDelegate, we need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
 
 ```html
 cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/
