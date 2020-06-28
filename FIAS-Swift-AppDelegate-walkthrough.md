@@ -155,7 +155,7 @@ If you have a more recent version of objdump, you may need to use _this_ instead
 objdump -t MyProject
 ```
 
-This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic header name for our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
+This outputs a ton of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic header name for our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
 
 ```html
 _OBJC_CLASS_$__TtC4MyProject10SwiftAppDel
@@ -185,7 +185,7 @@ Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly afte
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
 
-🚨 _There is still an issue in the 18 (and 19) SDK, with FileMaker's proprietary `completedReturnToForegroundActive()` delegate method. It no longer fires, as it did in older SDKs. It's possible this delegate was removed, since the standard UIKit delegate `applicationDidBecomeActive()` now fires correctly for FIAS projects (it didn't previously). FIAS is a black box, so I don't know, really. Just a hunch._
+🚨 _In the 18 (and 19) SDK, FileMaker's proprietary `completedReturnToForegroundActive()` delegate method no longer fires (as it did in older SDKs). It's possible this delegate was removed, since the standard UIKit delegate `applicationDidBecomeActive()` now fires correctly for FIAS projects. Hard to say. FIAS is a black box, so I don't know, really. Just a hunch._
 
 ---
 
