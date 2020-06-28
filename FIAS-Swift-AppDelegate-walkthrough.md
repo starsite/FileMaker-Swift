@@ -108,7 +108,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // return foreground active - proprietary FIAS delegate, not part of UIKit
+    // return foreground active - proprietary FIAS delegate, doesn't work, not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active! - FIAS")
@@ -121,6 +121,9 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
     
         print("did become active! - UIKit")
+
+        // fire a script, requires fmurlscript extended privilege in your fmp12 file
+        FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
 }
 ```
@@ -178,11 +181,11 @@ applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // Add -one- leading un
 
 Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly after your app launches you should see a "swift app delegate!" message in the console/debug area. High-five yourself or the person nearest you. 🤚
 
-Now press your device Home button and re-launch the app (from the device). This time, `completedReturnToForegroundActive()` should fire and post a "return foreground active!" message to the console. If you go back and include a 'MyScript' in your solution, it should fire.
+🚨 _Now that the iOS App SDK (v19) supports UIKit's standard `applicationDidBecomeActive()` delegate, you should also get a "did become active!" message. This is good. If you go back and include a 'MyScript' in your solution, that should fire as well.
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
 
-🚨 _There appears to be an issue in the 18 SDK (and 19, still!), with the proprietary FIAS delegate `completedReturnToForegroundActive()`. It no longer fires, as in older FIAS versions. It's possible this proprietary delegate was removed, as the standard UIKit delegate `applicationDidBecomeActive()` now appears to be firing for FIAS projects (it hadn't previously). FIAS is a black box, so there's no way for me to know, really. Just a hunch._
+🚨 _There is still an issue in the 18 (and 19) SDK, with the proprietary FIAS delegate `completedReturnToForegroundActive()`. It no longer fires, as in older FIAS versions. It's possible this proprietary delegate was removed, since the standard UIKit delegate `applicationDidBecomeActive()` now fires correctly for FIAS projects (it didn't previously). FIAS is a black box, so I don't know, really. Just a hunch._
 
 ---
 
