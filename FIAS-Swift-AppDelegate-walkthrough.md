@@ -155,7 +155,7 @@ If you have a more recent version of objdump, you may need to use _this_ instead
 objdump -t MyProject
 ```
 
-This outputs a ton of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic header name for our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
+This outputs a ton of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic header name for our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. You may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
 
 ```html
 _OBJC_CLASS_$__TtC4MyProject10SwiftAppDel
