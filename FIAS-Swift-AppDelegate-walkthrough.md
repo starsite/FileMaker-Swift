@@ -185,7 +185,7 @@ Click the 'Play' button in Xcode (or Command-R) to run the project. Shortly afte
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
 
-🚨 _There is still an issue in the 18 (and 19) SDK, with the proprietary FIAS delegate `completedReturnToForegroundActive()`. It no longer fires, as in older FIAS versions. It's possible this proprietary delegate was removed, since the standard UIKit delegate `applicationDidBecomeActive()` now fires correctly for FIAS projects (it didn't previously). FIAS is a black box, so I don't know, really. Just a hunch._
+🚨 _There is still an issue in the 18 (and 19) SDK, with FileMaker's proprietary `completedReturnToForegroundActive()` delegate method. It no longer fires, as it did in older SDKs. Maybe support for this delegate was removed, since the standard UIKit delegate `applicationDidBecomeActive()` now fires correctly for FIAS projects (it didn't previously). FIAS is a black box, so I don't know, really. Just a hunch._
 
 ---
 
