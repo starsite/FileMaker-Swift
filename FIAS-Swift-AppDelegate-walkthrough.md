@@ -108,7 +108,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // return foreground active - proprietary FIAS delegate, doesn't work, not part of UIKit
+    // return foreground active - doesn't work anymore, proprietary FIAS delegate (not part of UIKit)
     func completedReturnToForegroundActive() {
  
         print("return foreground active! - FIAS")
