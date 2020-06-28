@@ -2,9 +2,9 @@
 
 Learn how to create and use a Swift AppDelegate in a FIAS project. Includes an example of how to fire a FileMaker script using `FMX_Queue_Script` from the `completedReturnToForegroundActive()` delegate method.
 
-🔥 Updated for Xcode 11
+🔥 Updated for Xcode 11 and the FileMaker 19 SDK
 
-In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (staring with Xcode 10). This walkthrough has been updated for Xcode 10+ and uses the `objdump` tool.
+In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (starting with Xcode 10). This walkthrough has been updated for Xcode 11 and uses the `objdump` tool.
 
 ---
 
@@ -35,7 +35,7 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 * Get an object reference for our AppDelegate using `objdump`
 * Assign our AppDelegate reference in `configFile.txt`
 * Build and run app
-* Profit!
+* Profit! Lol.
 * Not plagiarize other developers' work with a blog post (ahem). If this walkthrough is helpful, give it a ⭐️, link back to it, or write your own tutorial. Please and thank you. ❤️
 
 ---
@@ -86,7 +86,7 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 #import "FMX_Exports.h"
 ```
 
-Build the project (Command-B). You shouldn't have any errors. If you failed to set a development team, select your target, `Signing & Capabilities`, and select a team.
+Build the project (Command-B). You shouldn't have any errors. If you failed to set a development team, select your project from the Project Navigator, select `Target`, `Signing & Capabilities`, and set a team.
 
 ---
 
@@ -108,13 +108,19 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // return foreground active.. this is a FIAS delegate and not part of UIKit
+    // return foreground active - this is a proprietary FIAS delegate and not part of UIKit
     func completedReturnToForegroundActive() {
  
-        print("return foreground active!")
+        print("return foreground active! - FIAS")
         
         // fire a script, requires fmurlscript extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
+    }
+    
+    // did become active - this is a standard UIKit delegate, which now fires correctly for FIAS projects
+    func applicationDidBecomeActive(_ application: UIApplication) {
+    
+        print("did become active! - UIKit")
     }
 }
 ```
