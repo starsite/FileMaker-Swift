@@ -147,18 +147,18 @@ Once you've successfully landed in the `MyProject.app` directory, try this*:
 ```html
 objdump -all-headers MyProject
 ```
-If you're using a more recent version of objdump, you may need to do _this_ instead:
+If you have a more recent version of objdump, you may need to _do this_ instead:
 ```html
 objdump -t MyProject
 ```
 
-This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic name of our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
+This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic header name for our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
 
 ```html
 _OBJC_CLASS_$__TtC4MyProject10SwiftAppDel
 ```
 
-The value we need here is the `TtC4MyProject10SwiftAppDel`. Copy it to your clipboard. 🚨 Note: this symbolic header entry has changed slightly in the 19 SDK. In previous SDKs, this appears as `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`.
+The value we need here is the `TtC4MyProject10SwiftAppDel`. Copy it to your clipboard. 🚨 Note: This changed slightly in the 19 SDK. In previous SDKs, it appears as `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`.
 
 ---
 
