@@ -144,7 +144,7 @@ If you're familiar with Terminal, this can be done rather quickly using [tab] au
 
 ---
 
-### Terminal: Get Object Reference To SwiftAppDelegate
+### Terminal: Get Object Reference To MyAppDelegate
 
 Once you've successfully landed in the `MyProject.app` directory, try this*:
 ```html
