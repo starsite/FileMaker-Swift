@@ -1,10 +1,10 @@
 # FileMaker iOS App SDK + Swift AppDelegate
 
+🚨 Updated for FileMaker 19 SDK
+
 Learn how to create and use a Swift AppDelegate in a FIAS project. Includes an example of how to fire a FileMaker script using `FMX_Queue_Script` from the `completedReturnToForegroundActive()` delegate method.
 
-🔥 *Updated for Xcode 11 and the FileMaker 19 SDK*
-
-In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (starting with Xcode 10). This walkthrough has been updated for Xcode 11 and uses the `objdump` tool.
+In older versions of Xcode, obtaining the symbolic header name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (starting with Xcode 10). This walkthrough has been updated for Xcode 11 and uses the `objdump` tool.
 
 ---
 
@@ -90,7 +90,7 @@ Build the project (Command-B). You shouldn't have any errors. If you failed to s
 
 ---
 
-### Xcode: Edit SwiftAppDelegate
+### Xcode: Edit MyAppDelegate
 Open `MyAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
 ```swift
@@ -117,7 +117,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
     
-    // did become active - this is a standard UIKit delegate, which now fires correctly for FIAS projects
+    // did become active - this is the standard UIKit delegate, which now fires correctly for FIAS projects. Hooray!
     func applicationDidBecomeActive(_ application: UIApplication) {
     
         print("did become active! - UIKit")
