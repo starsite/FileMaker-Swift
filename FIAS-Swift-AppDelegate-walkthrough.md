@@ -158,9 +158,7 @@ This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.ap
 _OBJC_CLASS_$__TtC4MyProject10SwiftAppDel
 ```
 
-The value we need here is the `TtC4MyProject10SwiftAppDel`. Copy it to your clipboard.
-
-🚨 This changed slightly in the 19 SDK. In previous SDKs, it appears as `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`.
+The value we need here is the `TtC4MyProject10SwiftAppDel`. Copy it to your clipboard. 🚨 _This changed slightly in the 19 SDK. In previous SDKs, it appears as `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`._
 
 ---
 
