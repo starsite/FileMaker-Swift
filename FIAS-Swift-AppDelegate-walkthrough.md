@@ -4,14 +4,14 @@ Learn how to create and use a Swift AppDelegate in a FIAS project. Includes an e
 
 🔥 Updated for Xcode 11
 
-In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (staring with Xcode 10). This walkthrough has been updated for Xcode 10 and 11 and uses the `objdump` tool.
+In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (staring with Xcode 10). This walkthrough has been updated for Xcode 10+ and uses the `objdump` tool.
 
 ---
 
 ### What You'll Learn
 
 * How to build a simple FIAS project in Xcode with a Swift AppDelegate.
-* How to trigger a script from the AppDelegate.
+* How to trigger a script from `MyAppDelegate.swift`.
 
 ### What This Post Is Not
 
@@ -29,7 +29,7 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 * Navigate to our FIAS directory and create a project
 * Add a Swift AppDelegate
 * Create and edit a `Bridging-Header.h`
-* Finish the `SwiftAppDelegate.swift` class
+* Finish the `MyAppDelegate.swift` class
 * Build (test)
 * Navigate to `.../DerivedData/.../MyProject.app/`
 * Get an object reference for our AppDelegate using `objdump`
@@ -45,7 +45,7 @@ In older versions of Xcode, obtaining the symbolic name for a Swift AppDelegate 
 In Terminal, cd to your FIAS directory, wherever that is. Mine lives in `/Applications`, so:
 
 ```html
-cd /Applications/iOSAppSDKPackage_18.0.3
+cd /Applications/iOSAppSDKPackage_19.0.10088
 ```
 
 Create a project. Leading dot, yo.
@@ -63,7 +63,7 @@ open ~/Desktop/ProjectDirectory/MyProject.xcodeproj
 
 ### Xcode: Create AppDelegate
 
-In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our AppDelegate class. Choose `Swift File`, name it `SwiftAppDelegate`, and click Create. In earlier versions of Xcode, this used to fire a prompt about a bridging header. If Xcode gives you a bridging header prompt, create one and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
+In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. This will be our AppDelegate class. Choose `Swift File`, name it `MyAppDelegate`, and click Create. In earlier versions of Xcode, this used to fire a prompt about a bridging header. If Xcode gives you a bridging header prompt, create one and name it `MyProject-Bridging-Header.h`. Mind the naming convention here, it's not optional. It's always `<projectName>-Bridging-Header.h`
 
 ---
 
@@ -73,25 +73,25 @@ If Xcode _didn't_ prompt you about a bridging header, we need to create one.
 
 In the Project Navigator (left sidebar), right-click on the Custom Application Resources folder and choose `New File`. Select `Header File` as the type and click Next. Save the file as `<projectName>-Bridging-Header.h`, again, minding the naming convention. Then click Create.
 
-Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. From the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
+Because we created our bridging header manually, we also need to update our build settings. Select your project name (topmost item in the ProjectNavigator). Select your target, then click the `Build Settings - All` tab (top center). Scroll down and find `Swift Compiler - General`. Double click the empty space next to `Objective-C Bridging Header` to open a popover. From the Project Navigator (left sidebar), drag `MyProject-Bridging-Header.h` into the popover. That will ensure the correct path is set, without any typos.
 
 ---
 
 ### Xcode: Edit Bridging Header
 
-Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements:
+Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 import statements after the `#define` statement:
 
 ```objective-c
 #import "UIKit/UIKit.h"
 #import "FMX_Exports.h"
 ```
 
-Build the project (Command-B). You shouldn't have any errors.
+Build the project (Command-B). You shouldn't have any errors. If you failed to set a development team, select your target, `Signing & Capabilities`, and select a team.
 
 ---
 
 ### Xcode: Edit SwiftAppDelegate
-Open `SwiftAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
+Open `MyAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
 
 ```swift
 import Foundation
@@ -125,30 +125,34 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
 
 ### Terminal: Navigate To DerivedData
 
-`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 18.0.3) is still based on Objective-C. Boo. 👎 In order to get FIAS to 'see' our SwiftAppDelegate, we'll need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
+`/DerivedData` is where Xcode stores your project build data. The FileMaker iOS App SDK (currently 19.0.10088) is _still_ based on Objective-C. JFC. 👎 In order to get FIAS to see our `MyAppDelegate.swift`, we need to use a command line tool called `objdump`. First, cd to DerivedData/ all-the-way-to /MyProject.app (*MyProject.app is a directory*):
 
 ```html
 cd ~/Library/Developer/Xcode/DerivedData/MyProject-gznmjbw.../Build/Products/Release-iphoneos/MyProject.app/
 ```
 
-If you're familiar with Terminal, this can all be done rather quickly using [tab] auto-complete.
+If you're familiar with Terminal, this can be done rather quickly using [tab] auto-complete.
 
 ---
 
 ### Terminal: Get Object Reference To SwiftAppDelegate
 
-Once you've successfully landed in the `MyProject.app` directory, do this:
+Once you've successfully landed in the `MyProject.app` directory, try this*:
 ```html
 objdump -all-headers MyProject
+```
+If you're using a more recent version of objdump, you may need to do _this_ instead:
+```html
+objdump -t MyProject
 ```
 
 This outputs a _ton_ of metadata for the Unix executable inside of `MyProject.app`. What we need is the symbolic name of our AppDelegate. Do a `[Command] + [F]` and search for `_OBJC_CLASS_`. Don't forget the underscores. Depending on the folder stucture of your project, you may need to `[Command] + [G]` a couple times to cycle through the matches. Be on the lookout for something like this 🔎:
 
 ```html
-_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate
+_OBJC_CLASS_$__TtC4MyProject10SwiftAppDel
 ```
 
-The value we need here is the `TtC4MyProject10SwiftAppDelegate`. Copy it to your clipboard.
+The value we need here is the `TtC4MyProject10SwiftAppDel`. Copy it to your clipboard. 🚨 Note: this symbolic header entry has changed slightly in the 19 SDK. In previous SDKs, this appears as `_OBJC_CLASS_$__TtC4MyProject10SwiftAppDelegate`.
 
 ---
 
@@ -159,7 +163,7 @@ Return to Xcode, select `configFile.txt` from the Project Navigator, and update 
 ```
 launchSolution           = PlaceHolder.fmp12 (or your solution file)
 solution CopyOption      = 1
-applicationDelegateClass = _TtC4MyProject10SwiftAppDelegate   // Add -one- leading underscore
+applicationDelegateClass = _TtC4MyProject10SwiftAppDel   // Add -one- leading underscore
 ```
 
 ---
@@ -172,7 +176,7 @@ Now press your device Home button and re-launch the app (from the device). This 
 
 Note: Firing scripts from a FIAS app requires the `fmurlscript` permission to be selected in your .fmp12 solution.
 
-🚨 _There appears to be an issue in the 18 SDK with `completedReturnToForegroundActive()`. It no longer fires, as in previous SDK versions. This is a proprietary FIAS delegate function that gives the SDK additional time to prepare to fire scripts. As a workaround, Consider using the standard UIKit `applicationDidBecomeActive()` delegate and wrapping any script calls in a 2-3 second delay, until FMI addresses the issue._
+🚨 _There appears to be an issue in the 18 SDK (and 19, still!), with the proprietary FIAS delegate `completedReturnToForegroundActive()`. It no longer fires, as in older FIAS versions. It's possible this proprietary delegate was removed, as the standard UIKit delegate `applicationDidBecomeActive()` now appears to be firing for FIAS projects (it hadn't previously). FIAS is a black box, so there's no way for me to know, really. Just a hunch._
 
 ---
 
