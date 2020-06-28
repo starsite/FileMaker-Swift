@@ -35,7 +35,7 @@ In older versions of Xcode, obtaining the symbolic header name for a Swift AppDe
 * Get an object reference for our AppDelegate using `objdump`
 * Assign our AppDelegate reference in `configFile.txt`
 * Build and run app
-* Profit! Lol.
+* Profit!
 * Not plagiarize other developers' work with a blog post (ahem). If this walkthrough is helpful, give it a ⭐️, link back to it, or write your own tutorial. Please and thank you. ❤️
 
 ---
