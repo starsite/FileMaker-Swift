@@ -86,7 +86,7 @@ Open `MyProject-Bridging-Header.h` from the Project Navigator and add these 2 im
 #import "FMX_Exports.h"
 ```
 
-Build the project (Command-B). You shouldn't have any errors. If you failed to set a development team, select your project from the Project Navigator, select `Target`, `Signing & Capabilities`, and set a team.
+Build the project (Command-B). You shouldn't have any errors.
 
 ---
 
