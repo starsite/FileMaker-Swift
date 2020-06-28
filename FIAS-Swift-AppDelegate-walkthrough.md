@@ -108,7 +108,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // return foreground active - this is a proprietary FIAS delegate and not part of UIKit
+    // return foreground active - proprietary FIAS delegate, not part of UIKit
     func completedReturnToForegroundActive() {
  
         print("return foreground active! - FIAS")
@@ -117,7 +117,7 @@ class SwiftAppDel: UIResponder, UIApplicationDelegate {
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
     
-    // did become active - this is the standard UIKit delegate, which now fires correctly for FIAS projects. Hooray!
+    // did become active - standard UIKit delegate, which now fires correctly for FIAS projects. Hooray!
     func applicationDidBecomeActive(_ application: UIApplication) {
     
         print("did become active! - UIKit")
