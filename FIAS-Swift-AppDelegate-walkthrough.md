@@ -148,7 +148,7 @@ If you're familiar with Terminal, this can be done rather quickly using [tab] au
 
 ### Terminal: Get Object Reference To MyAppDelegate
 
-Once you've successfully landed in the `MyProject.app` directory, try this*:
+Once you've successfully landed in the `MyProject.app` directory, try this:
 ```html
 objdump -all-headers MyProject
 ```
@@ -202,7 +202,7 @@ https://developer.apple.com/documentation/uikit/uiapplicationdelegate
 ### Extra Credit
 Here's a peek at the `FMX_Exports.h` Objective-C header, to give you an idea how `FMX_Queue_Script()` works.
 
-My last two `nil` arguments in `SwiftAppDelegate.swift` (above) are for a script parameter and a variables Dictionary, respectively. The script parameter object is typed as a `String`. The Dictionary is typed as `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. This is because Swift needs to cast `kFMXT_Resume` back to a `UInt8`.
+My last two `nil` arguments in `MyAppDelegate.swift` (above) are for a script parameter and a variables Dictionary, respectively. The script parameter object is typed as a `String`. The Dictionary is typed as `[String: String]`, instead of the more common `[String: Any]` you might expect. Also note that the Swift `FMX_Queue_Script()` function signature varies slightly from its Objective-C counterpart. This is because Swift needs to cast `kFMXT_Resume` back to a `UInt8`.
 
 ```objective-c
 #ifndef FMX_Exports_h
