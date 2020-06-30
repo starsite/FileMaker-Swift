@@ -91,7 +91,7 @@ Build the project (Command-B). You shouldn't have any errors.
 ---
 
 ### Xcode: Edit MyAppDelegate
-Open `MyAppDelegate.swift` from the Project Navigator and finish it out like this (updated for Swift 5):
+Open `MyAppDelegate.swift` from the Project Navigator and finish it out like this (Swift 5):
 
 ```swift
 import Foundation
@@ -108,6 +108,7 @@ class MyAppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
     // return foreground active - doesn't work anymore, proprietary FIAS delegate (not part of UIKit)
     func completedReturnToForegroundActive() {
  
@@ -116,6 +117,7 @@ class MyAppDelegate: UIResponder, UIApplicationDelegate {
         // fire a script, requires fmurlscript extended privilege in your fmp12 file
         FMX_Queue_Script("PlaceHolder.fmp12", "MyScript", FMX_ScriptControl(kFMXT_Resume), nil, nil) 
     }
+    
     
     // did become active - standard UIKit delegate, which now fires correctly for FIAS projects. Hooray!
     func applicationDidBecomeActive(_ application: UIApplication) {
