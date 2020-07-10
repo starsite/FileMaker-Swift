@@ -6,7 +6,7 @@ SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or l
 
 ### 🚨 FileMaker v19
 
-I just got my hands on the v19 Data API (I'm not FBA). Looking at it right now and will update the repo as needed.
+~I just got my hands on the v19 Data API (I'm not FBA). Looking at it right now and will update the repo as needed.~
 
 ---
 
