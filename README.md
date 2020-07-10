@@ -8,6 +8,8 @@ SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or l
 
 ~I just got my hands on the v19 Data API (I'm not FBA). Looking at it right now and will update the repo as needed.~
 
+I'm going to update the repo this weekend, to include the new `validateSession` endpoint. As such, I'll be deprecating `isActiveToken`, as it's no longer necessary. It will remain in the repo, badged as deprecated.
+
 ---
 
 ### Overview
