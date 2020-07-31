@@ -2,6 +2,8 @@
 
 SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or later required.
 
+This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
+
 ---
 
 ### 🚨 FileMaker v19
@@ -12,9 +14,7 @@ I'll also be deprecating `isActiveToken()`, which is no longer needed and requir
 
 ---
 
-### Overview
-
-This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
+### Table of Contents
 
 #### v19 only
 * `validateSession()` (coming soon)
