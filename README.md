@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 ---
 
 
-### 𝑓 Active Token (function)
+### Active Token (function)
 A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
 
 ```swift
