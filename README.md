@@ -8,7 +8,7 @@ SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or l
 
 I'm going to update the repo this weekend, to include the new `validateSession()` method. Claris chose to use a different baseURL for validateSession, which means changes to _all other_ paths in the framework. 😅
 
-As part of this process, I'll also be deprecating `isActiveToken()`, which is more difficult to manage and requires tracking Date() values. Yuck.
+I'll also be deprecating `isActiveToken()`, which is no longer needed and requires tracking Date() values. Yuck.
 
 ---
 
