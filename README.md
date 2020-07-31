@@ -22,7 +22,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 * [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17
-* `isActiveToken()` (deprecated)
+* [`isActiveToken()`](#active-token-function) (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
