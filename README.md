@@ -6,9 +6,9 @@ SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or l
 
 ### 🚨 FileMaker v19
 
-~I just got my hands on the v19 Data API (I'm not FBA). Looking at it right now and will update the repo as needed.~
+I'm going to update the repo this weekend, to include the new `validateSession()` method. Claris chose to use a different baseURL for validateSession, which means changes to _all other_ paths in the framework. Joy.
 
-I'm going to update the repo this weekend, to include the new (and very fast) `validateSession` endpoint. As such, I'll be deprecating `isActiveToken()`, which is more difficult to manage and requires tracking Date() values. Yuck.
+As part of this process, I'll also be deprecating `isActiveToken()`, which is more difficult to manage and requires tracking Date() values.
 
 ---
 
@@ -17,16 +17,18 @@ I'm going to update the repo this weekend, to include the new (and very fast) `v
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
 * `validateSession()` » v19+ (coming soon)
+
+* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18+
+* [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18+
+
 * `isActiveToken()` (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
-* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18+
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
 * [`deleteRecordWith(id:token:layout:)`](#delete-record-with-id-function)
 * [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
-* [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18+
 
 ---
 
