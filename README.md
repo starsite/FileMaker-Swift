@@ -6,9 +6,9 @@ SwiftFM is a Swift wrapper for working with the FileMaker Data API. Swift 4 or l
 
 ### 🚨 FileMaker v19
 
-I'm going to update the repo this weekend, to include the new `validateSession()` method. Claris chose to use a different baseURL for validateSession, which means changes to _all other_ paths in the framework. Joy.
+I'm going to update the repo this weekend, to include the new `validateSession()` method. Claris chose to use a different baseURL for validateSession, which means changes to _all other_ paths in the framework. 😅
 
-As part of this process, I'll also be deprecating `isActiveToken()`, which is more difficult to manage and requires tracking Date() values.
+As part of this process, I'll also be deprecating `isActiveToken()`, which is more difficult to manage and requires tracking Date() values. Yuck.
 
 ---
 
@@ -18,7 +18,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 #### v19 only
 * `validateSession()` (coming soon)
-#### v18 only
+#### v18+
 * [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17
