@@ -16,12 +16,12 @@ As part of this process, I'll also be deprecating `isActiveToken()`, which is mo
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
-##### v19 only
+#### v19 only
 * `validateSession()` (coming soon)
-##### v18 only
+#### v18 only
 * [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18+
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18+
-##### v17
+#### v17
 * `isActiveToken()` (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
