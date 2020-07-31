@@ -19,8 +19,8 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 #### v19 only
 * `validateSession()` (coming soon)
 #### v18 only
-* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function) » v18+
-* [`setGlobalFields(token:payload:)`](#set-global-fields-function) » v18+
+* [`duplicateRecordWith(id:token:layout)`](#duplicate-record-with-id-function)
+* [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17
 * `isActiveToken()` (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
