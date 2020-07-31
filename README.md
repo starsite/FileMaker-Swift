@@ -16,8 +16,8 @@ I'm going to update the repo this weekend, to include the new (and very fast) `v
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
-* [`validateSession()`] » v19+ (coming soon)
-* [`isActiveToken()`] (deprecated)
+* `validateSession()` » v19+ (coming soon)
+* `isActiveToken()` (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
