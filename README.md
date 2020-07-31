@@ -8,7 +8,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ### 🚨 FileMaker v19
 
-I'll update the repo this weekend, to include the new, wicked fast `validateSession()` method. With this, we no longer need to create and track `expiry` values with `isActiveToken()`. So that's good. However, Claris chose to use a different baseURL for `validateSession()`, requiring `appendingPathComponent` changes to everything else in the framework. 😅
+I'll update the repo this weekend to include the new, wicked fast `validateSession()` method. With this, we no longer need to create and track `expiry` values with `isActiveToken()`. So that's good. However, Claris chose to use a different baseURL for `validateSession()`, requiring `appendingPathComponent` changes to everything else in the framework. 😅
 
 ---
 
