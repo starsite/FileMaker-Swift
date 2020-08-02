@@ -115,14 +115,14 @@ DataAPI.validateSession(token: token, completion: { success, _ in
         self.fetchUpdates(token: token)
 
     case false:
-        DataAPI.refreshToken(auth: auth, completion: { token, _, message in
-            guard let token = token else {
+        DataAPI.refreshToken(auth: auth, completion: { newToken, _, message in
+            guard let newToken = newToken else {
                 print(message)
                 return
             }
             
-            // do stuff with 'token'
-            self.fetchUpdates(token: token)
+            // do stuff with 'newToken'
+            self.fetchUpdates(token: newToken)
         })
     }
 })
