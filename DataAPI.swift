@@ -17,7 +17,7 @@ class DataAPI {
 /* For TESTING, you can set these values with string literals.                                 */
 /* For PRODUCTION, you should be fetching these values from elsewhere.                         */
 /*                                                                                             */
-/* *DO NOT* deploy apps with these values visible in code.                                     */
+/* *DO NOT* deploy apps with credentials visible in code.                                      */
     
         
 //      let host = "my.server.com"
