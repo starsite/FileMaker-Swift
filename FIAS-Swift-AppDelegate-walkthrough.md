@@ -1,8 +1,8 @@
 # FileMaker iOS App SDK + Swift AppDelegate
 
-🚨 _Updated for the FileMaker 19 SDK_
+🚨 Updated for the FileMaker 19 SDK
 
-Learn how to create and use a Swift AppDelegate in a FIAS project. Includes an example of how to fire a FileMaker script using `FMX_Queue_Script` from `applicationDidBecomeActive()`.
+In this walkthrough, you'll learn how to create and use a Swift AppDelegate in a FIAS project. Includes an example of how to fire a FileMaker script using `FMX_Queue_Script` from `applicationDidBecomeActive()`.
 
 In older versions of Xcode, obtaining the symbolic header name for a Swift AppDelegate required using the command line utility `otool`, which is no longer available (starting with Xcode 10). This walkthrough has been updated for Xcode 11 and uses the `objdump` tool.
 
