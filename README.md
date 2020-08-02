@@ -502,6 +502,12 @@ payload = ["query": [
   ["firstName": "Geoff"]
 ]]
 
+// find customers named Brian in Dallas
+payload = ["query": [
+  ["firstName": "Brian",
+  "city": "Dallas"]
+]]
+
 findRequest(token: token, layout: layout, payload: payload, completion: { records, code, message in
 
     guard let records = records else { 
