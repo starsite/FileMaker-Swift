@@ -23,7 +23,7 @@ While I was at it, I moved the Data API `message` response into the completion b
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17+
 * ~`isActiveToken()`~ (deprecated)
-* [`refreshToken(for:)`](#refresh-token-function)
+* [`refreshToken(auth:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
