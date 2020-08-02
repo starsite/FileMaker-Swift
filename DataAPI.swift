@@ -83,8 +83,8 @@ class DataAPI {
 //              self.myFunction(token: token)    
 //
 //          case false:
-//              DataAPI.refreshToken(auth: auth, completion: { token, _, message in
-//                  guard let token = token else {
+//              DataAPI.refreshToken(auth: auth, completion: { newToken, _, message in
+//                  guard let newToken = newToken else {
 //                      print(message)
 //                      return
 //                  }
