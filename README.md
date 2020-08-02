@@ -107,7 +107,8 @@ DataAPI.validateSession(token: token, completion: { success, _ in
 
     switch success {
     case true:
-        self.fetchUpdates()
+        // do stuff with 'token'
+        self.fetchUpdates(token: token)
 
     case false:
         DataAPI.refreshToken(auth: auth, completion: { token, _, message in
@@ -115,7 +116,8 @@ DataAPI.validateSession(token: token, completion: { success, _ in
                 print(message)
                 return
             }
-            self.fetchUpdates()
+            // do stuff with 'token'
+            self.fetchUpdates(token: token)
         })
     }
 })
