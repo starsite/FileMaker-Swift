@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 ### Validate Session (function)
-Data API v19 or later. In previous versions, we had to attempt (and retry) calls that failed, or set and track an expiry `Date()`. Neither of those options were great. Now we can (very) quickly validate a session token. 🎉
+Data API v19 or later. In previous versions, we had to attempt and retry calls that failed, or set and track an expiry `Date()`. Neither of those options were great. Now we can (very) quickly validate a session token. 🎉
 
 ```swift
 // MARK: - validate session -> (bool, message)
