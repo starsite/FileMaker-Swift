@@ -40,8 +40,6 @@ Set your host, db, and auth values in the AppDelegate, in `applicationWillEnterF
 DO NOT deploy apps with credentials visible in code. 😵
 
 ```swift
-import UIKit
- 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // ...
