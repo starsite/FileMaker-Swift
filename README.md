@@ -255,8 +255,6 @@ class func createRecord(token: String,
                         payload: [String: Any],
                         completion: @escaping (String?, String, String) -> Void ) {
 
-    //  payload = ["fieldData": []]    <-- creates an empty record
-
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
             let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records"),
@@ -299,6 +297,10 @@ let payload = ["fieldData": [
   "lastName": "Hamm",
   "email": "hello@starsite.co"
 ]]
+
+// to create a new empty record, pass an empty dict object as the payload
+let payload = ["fieldData": []]
+
 
 createRecord(token: token, layout: layout, payload: payload, completion: { recordId, code, message in
 
