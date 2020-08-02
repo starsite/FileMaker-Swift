@@ -8,9 +8,9 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ### 🚨 FileMaker v19 
 
-I updated the repo this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris chose to use a different URL path for `validateSession()`, so I refactored everything to use `host`, `db`, and `auth` environment values. 😅
+I updated SwiftFM this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris decided to use a different URL path/syntax for `validateSession()`, so I went ahead and refactored all of the calls to use `host`, `db`, and `auth` environment values.
 
-While I was at it, I moved the Data API `message` response into the completion block. So now you can access `message` in the closure, where it's more helpful.
+While I was at it, I moved the Data API `message` response to the completion block. So now you can access `message` in the closure, where it's more helpful. 😘
 
 ---
 
@@ -37,7 +37,7 @@ While I was at it, I moved the Data API `message` response into the completion b
 
 A `let` is a constant, in Swift.
 
-Set your host, db, and auth values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
+Set your host, db, and auth values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with credentials visible in code. 😵
 
 ```swift
 import UIKit
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 ### Validate Session (function)
-Data API v19 or later. Prior to the 19 API, we had to either attempt (and retry) calls that failed, or set an expiry `Date()` and track it. Neither of those options were great. Now we can quickly validate a session token. 🎉
+Data API v19 or later. Prior to the 19 API, we had to either attempt (and retry) calls that failed, or set an expiry `Date()` and track it. Neither of those options were great. Now we can (very) quickly validate a session token. 🎉
 
 ```swift
 // MARK: - validate session -> (bool, message)
