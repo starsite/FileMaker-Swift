@@ -255,12 +255,6 @@ class func createRecord(token: String,
                         payload: [String: Any],
                         completion: @escaping (String?, String, String) -> Void ) {
 
-    //  payload = ["fieldData": [
-    //    "firstName": "Brian",
-    //    "lastName": "Hamm",
-    //    "age": 47
-    //  ]]
-
     //  payload = ["fieldData": []]    <-- creates an empty record
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
@@ -499,6 +493,7 @@ class func findRequest(token: String,
 ### Example
 
 ```swift
+// find Brian or Geoff
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
