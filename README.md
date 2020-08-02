@@ -366,7 +366,7 @@ class func duplicateRecordWith(id: Int,
 ### Example
 
 ```swift
-let recid  = "12345"
+let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
@@ -570,7 +570,7 @@ class func getRecordWith(id: Int,
 ### Example
 
 ```swift
-let recid  = "12345"
+let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
