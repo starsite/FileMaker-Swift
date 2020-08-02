@@ -69,7 +69,7 @@ class DataAPI {
     
                     /* Wrapping calls with validateSession() */
 
-/* When making DAPI calls in your app, validate the token or fetch one if neccessary. */
+/* When making calls in your app, validate the token and fetch a new one if neccessary. */
     
     
 //      let auth  = UserDefaults.standard.string(forKey: "fm-auth") ?? ""
@@ -79,7 +79,8 @@ class DataAPI {
 //
 //          switch success {
 //          case true:
-//                // api call using 'token'
+//              // do stuff with 'token'
+//              self.myFunction(token: token)    
 //
 //          case false:
 //              DataAPI.refreshToken(auth: auth, completion: { token, _, message in
@@ -87,7 +88,8 @@ class DataAPI {
 //                      print(message)
 //                      return
 //                  }
-//                  // api call using 'token'
+//                  // do stuff with 'newToken'
+//                  self.myFunction(token: newToken)                    
 //              })
 //          }
 //      })
