@@ -454,11 +454,6 @@ class func findRequest(token: String,
                        payload: [String: Any],
                        completion: @escaping ([[String: Any]]?, String, String) -> Void) {
 
-    //  payload = ["query": [             payload = ["query": [
-    //    ["firstName": "Brian"],           ["firstName": "Brian",
-    //    ["firstName": "Geoff"]             "lastName": "Hamm"]
-    //  ]]                                ]]
-
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
             let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/_find"),
