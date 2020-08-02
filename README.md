@@ -35,7 +35,7 @@ I updated the repo this week to include the new `validateSession()` method. With
 
 A `let` is a constant, in Swift.
 
-Set your `host`, `db`, and `auth` values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For testing, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
+Set your `host`, `db`, and `auth` values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
 
 ```swift
 import UIKit
@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(db, forKey: "fm-db")
         UserDefaults.standard.set(auth, forKey: "fm-auth")
     }
+    
+    // ...
 }
 ```
 
@@ -62,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 ### Validate Session (function)
-Data API v19 or later. Prior to the 19 API, we had to either attempt (and retry) calls that failed, or set an expiry `Date()` and track it. Neither of those options were great. Now we can quickly validate a session token. Hooray!
+Data API v19 or later. Prior to the 19 API, we had to either attempt (and retry) calls that failed, or set an expiry `Date()` and track it. Neither of those options were great. Now we can quickly validate a session token. 🎉
 
 ```swift
 // MARK: - validate session -> (bool, message)
@@ -106,7 +108,7 @@ DataAPI.validateSession(token: token, completion: { success, _ in
 
     switch success {
     case true:
-          // api call using 'token'
+        self.fetchUpdates()
 
     case false:
         DataAPI.refreshToken(auth: auth, completion: { token, _, message in
@@ -114,7 +116,7 @@ DataAPI.validateSession(token: token, completion: { success, _ in
                 print(message)
                 return
             }
-            // api call using 'token'
+            self.fetchUpdates()
         })
     }
 })
@@ -125,7 +127,7 @@ DataAPI.validateSession(token: token, completion: { success, _ in
 
 ### Refresh Token (function)
 
-Returns an optional token. The `@escaping` marker allows the `token?`, `code`, and `message` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+Returns an optional token. The `@escaping` marker allows the `token?`, `code`, and `message` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift. All of the functions in this repo use `@escaping`.
 
 ```swift
 // MARK: - refresh token -> (token?, code, message)
@@ -287,7 +289,16 @@ class func createRecord(token: String,
 ### Example
 
 ```swift
-createRecord(token: token, layout: myLayout, payload: myPayload, completion: { recordId, code, message in
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+let payload = ["fieldData": [
+  "firstName": "Brian",
+  "lastName": "Hamm",
+  "email": "hello@starsite.co"
+]]
+
+createRecord(token: token, layout: layout, payload: payload, completion: { recordId, code, message in
 
     guard let recordId = recordId else { 
         print(message)
@@ -345,14 +356,18 @@ class func duplicateRecordWith(id: Int,
 ### Example
 
 ```swift
-duplicateRecordWith(id: recordId, token: token, layout: myLayout, completion: { code, message in
+let recid  = "12345"
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+duplicateRecordWith(id: recid, token: token, layout: layout, completion: { code, message in
 
     guard code == "0" else { 
         print(message)
         return 
     }
     
-    // new duplicate record!
+    // duplicated record!
 }
 ```
 
@@ -404,8 +419,11 @@ class func getRecords(token: String,
 ### Example
 
 ```swift
-// get the first 20 records
-getRecords(token: token, layout: myLayout, offset: 1, limit: 20, completion: { records, code, message in
+// get first 20 records
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+getRecords(token: token, layout: layout, offset: 1, limit: 20, completion: { records, code, message in
 
     guard let records = records else { 
         print(message)
@@ -473,7 +491,15 @@ class func findRequest(token: String,
 ### Example
 
 ```swift
-findRequest(token: token, layout: myLayout, payload: myPayload, completion: { records, code, message in
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+payload = ["query": [
+  ["firstName": "Brian"],
+  ["firstName": "Geoff"]
+]]
+
+findRequest(token: token, layout: layout, payload: payload, completion: { records, code, message in
 
     guard let records = records else { 
         print(message)
@@ -534,7 +560,11 @@ class func getRecordWith(id: Int,
 ### Example
 
 ```swift
-getRecordWith(id: recordId, token: token, layout: myLayout, completion: { record, code, message in
+let recid  = "12345"
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+getRecordWith(id: recid, token: token, layout: layout, completion: { record, code, message in
 
     guard let record = record else { 
         print(message)
@@ -592,7 +622,11 @@ class func deleteRecordWith(id: Int,
 ### Example
 
 ```swift
-deleteRecordWith(id: recordId, token: token, layout: myLayout, completion: { code, message in
+let recid  = 12345
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+deleteRecordWith(id: recid, token: token, layout: layout, completion: { code, message in
     
     guard code == "0" else { 
         print(message)  // optionally handle non-zero errors
@@ -661,7 +695,16 @@ class func editRecordWith(id: Int,
 ### Example
 
 ```swift
-editRecordWith(id: recordId, token: token, layout: myLayout, payload: myPayload, modId: nil, completion: { code, message in
+let recid  = 12345
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+let layout = "Customers"
+
+payload = ["query": [
+  "firstName": "Brian",
+  "lastName": "Hamm"
+]]
+
+editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil, completion: { code, message in
 
     guard code == "0" else {
         print(message)
@@ -725,7 +768,14 @@ class func setGlobalFields(token: String,
 ### Example
 
 ```swift
-setGlobalFields(token: token, payload: myPayload, completion: { code, message in
+let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
+
+payload = ["globalFields": [
+  "gField": "value",
+  "gField": "value"
+]]
+
+setGlobalFields(token: token, payload: payload, completion: { code, message in
 
     guard code == "0" else {
         print(message)
