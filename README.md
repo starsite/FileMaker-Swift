@@ -493,10 +493,10 @@ class func findRequest(token: String,
 ### Example
 
 ```swift
-// find Brian or Geoff
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
+// find customers named Brian or Geoff
 payload = ["query": [
   ["firstName": "Brian"],
   ["firstName": "Geoff"]
