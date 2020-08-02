@@ -298,8 +298,8 @@ let payload = ["fieldData": [
   "email": "hello@starsite.co"
 ]]
 
-// to create a new empty record, pass an empty dict object as the payload
-let payload = ["fieldData": []]
+// to create a new empty record, pass an empty dict object for 'fieldData'.
+// let payload = ["fieldData": []]
 
 
 createRecord(token: token, layout: layout, payload: payload, completion: { recordId, code, message in
