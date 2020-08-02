@@ -1,6 +1,6 @@
 # SwiftFM
 
-SwiftFM is a Swift wrapper for the FileMaker Data API. Xcode 11+ and Swift 4+ required.
+SwiftFM is a Swift wrapper for the FileMaker Data API. Xcode 11 and Swift 4 (or later) required.
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of the `DataAPI.swift` class, in this repo.
 
@@ -8,7 +8,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ### 🚨 FileMaker v19 
 
-I updated SwiftFM this weekend to include the new `validateSession()` method. We no longer need to create and track expiry values with `isActiveToken()`. 🎉 However, Claris is using a slightly different URL path for validations, so I also went ahead and refactored all `URLSession` calls to use `host`, `db`, and `auth` environment values. That's a better way to do it anyway.
+I updated SwiftFM this weekend to include the new `validateSession()` method. We no longer need to create and track expiry values with `isActiveToken()`. 🎉 However, since Claris is using a slightly different URL path for validations, I went ahead and refactored all `URLSession` calls to use `host`, `db`, and `auth` environment values. That's a better way to do it anyway.
 
 Also moved the Data API `message` response into the completion block. So now you can access the server `message` in the closure, where it's more helpful. 😘
 
