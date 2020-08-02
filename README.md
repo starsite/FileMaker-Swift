@@ -8,9 +8,9 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ### 🚨 FileMaker v19 
 
-I updated SwiftFM this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris decided to use a different URL path/syntax for `validateSession()`, so I went ahead and refactored all of the calls to use `host`, `db`, and `auth` environment values.
+I updated SwiftFM this weekend to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris is using a slightly different URL path validations, so I went ahead and refactored all of the calls to use `host`, `db`, and `auth` environment values. That's a better way to do it, anyway.
 
-While I was at it, I moved the Data API `message` response to the completion block. So now you can access `message` in the closure, where it's more helpful. 😘
+I also moved the Data API `message` response into the completion block. So now you can access `message` in the closure, where it's more helpful. 😘
 
 ---
 
