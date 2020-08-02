@@ -22,7 +22,7 @@ I also moved the Data API `message` response into the completion block. So now y
 * [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17+
-* ~`isActiveToken()`~ (deprecated)
+* ~`isActiveToken()`~
 * [`refreshToken(auth:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
