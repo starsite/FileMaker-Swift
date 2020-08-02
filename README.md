@@ -8,7 +8,9 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ### 🚨 FileMaker v19 
 
-I updated the repo this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris chose to use a different URL path for `validateSession()`, so I refactored everything to require `host`, `db`, and `auth` environment values. 😅
+I updated the repo this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris chose to use a different URL path for `validateSession()`, so I refactored everything to use `host`, `db`, and `auth` environment values. 😅
+
+While I was at it, I moved the Data API `message` response into the completion block. So now you can access `message` in the closure, where it's more helpful.
 
 ---
 
@@ -19,8 +21,8 @@ I updated the repo this week to include the new `validateSession()` method. With
 #### v18+
 * [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
-#### v17
-* ~[`isActiveToken()`](#active-token-function)~ (deprecated)
+#### v17+
+* ~`isActiveToken()`~ (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
@@ -35,7 +37,7 @@ I updated the repo this week to include the new `validateSession()` method. With
 
 A `let` is a constant, in Swift.
 
-Set your `host`, `db`, and `auth` values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
+Set your host, db, and auth values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
 
 ```swift
 import UIKit
@@ -116,6 +118,7 @@ DataAPI.validateSession(token: token, completion: { success, _ in
                 print(message)
                 return
             }
+            
             // do stuff with 'token'
             self.fetchUpdates(token: token)
         })
@@ -175,6 +178,8 @@ if let auth = UserDefaults.standard.string(forKey: "fm-auth") {
             print(message)
             return
         }
+        
+        // new token!
         print("new token: \(token)")
     })
 }
@@ -229,6 +234,8 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
             print(message)
             return
         }
+        
+        // deleted token!
     })
 }
 ```
@@ -306,7 +313,7 @@ createRecord(token: token, layout: layout, payload: payload, completion: { recor
         return 
     }
     
-    // record!
+    // new record!
     print("new recordId: \(recordId)")
 }
 ```
