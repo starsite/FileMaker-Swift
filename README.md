@@ -661,11 +661,6 @@ class func editRecordWith(id: Int,
                           modId: Int?,
                           completion: @escaping (String, String) -> Void) {
 
-    //  payload = ["fieldData": [
-    //    "firstName": "newValue",
-    //    "lastName": "newValue"
-    //  ]]
-
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
             let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records/\(id)"),
@@ -733,11 +728,6 @@ Data API v18 or later. Only an error code and message is returned with this func
 class func setGlobalFields(token: String,
                            payload: [String: Any],
                            completion: @escaping (String, String) -> Void) {
-
-    //  payload = ["globalFields": [
-    //    "fieldName": "value",
-    //    "fieldName": "value"
-    //  ]]
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
