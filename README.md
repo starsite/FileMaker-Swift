@@ -6,21 +6,21 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 ---
 
-### 🚨 FileMaker v19
+### 🚨 FileMaker v19 
 
-I'll update the repo this weekend to include the new, wicked fast `validateSession()` method. With this, we no longer need to create and track `expiry` values with `isActiveToken()`. So that's good. However, Claris chose to use a different baseURL for `validateSession()`, requiring `appendingPathComponent` changes to everything else in the framework. 😅
+I updated the repo this week to include the new `validateSession()` method. With this, we no longer need to create and track expiry values with `isActiveToken()`. So that's good. However, Claris chose to use a different URL path for `validateSession()`, so I refactored everything to require `host`, `db`, and `auth` environment values. 😅
 
 ---
 
 ### Table of Contents
 
-#### v19 only
-* `validateSession()` (coming soon)
+#### v19
+* [`validateSession(token:)`](#validate-session-function)
 #### v18+
 * [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-with-id-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17
-* [`isActiveToken()`](#active-token-function) (deprecated)
+* ~[`isActiveToken()`](#active-token-function)~ (deprecated)
 * [`refreshToken(for:)`](#refresh-token-function)
 * [`deleteToken(_:)`](#delete-token-function)
 * [`createRecord(token:layout:payload:)`](#create-record-function)
@@ -35,110 +35,63 @@ I'll update the repo this weekend to include the new, wicked fast `validateSessi
 
 A `let` is a constant, in Swift.
 
-During testing it may be easier to hardcode `path` and `auth` values, but best practice is to fetch that information from elsewhere and (optionally) park it in `UserDefaults`. Do not deploy apps with tokens or credentials visible in code.
-
-I like to fetch my environment settings from CloudKit, in `application(_:didFinishLaunchingWithOptions)` or `applicationWillEnterForeground(_:)`. Doing it this way also provides an optional remote kill-switch.
+Set your `host`, `db`, and `auth` values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For testing, you can set these values with string literals. For PRODUCTION, you should be fetching these values from elsewhere. DO NOT deploy apps with these values visible in code.
 
 ```swift
 import UIKit
  
-class ViewController: UIViewController {
- 
-//  let path   = "https://<hostName>/fmi/data/v1/databases/<databaseName>"
-//  let auth   = "xxxxxxxabcdefg1234567"  // base64 "user:pass"
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let path   = UserDefaults.standard.string(forKey: "fm-db-path")  // better
-    let auth   = UserDefaults.standard.string(forKey: "fm-auth")     //
- 
-    var token  = UserDefaults.standard.string(forKey: "fm-token")
-    var expiry = UserDefaults.standard.object(forKey: "fm-token-expiry") as? Date ?? Date(timeIntervalSince1970: 0)
     // ...
-}
-```
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+       
+        let host = "my.server.com"
+        let db   = "my_database"
+        let auth = "xxxxxabcde12345"   // base64 -> "user:pass"
 
----
-
-
-### Active Token (function)
-A simple `bool` check to see if there's an existing token and whether or not it's expired. The `_` means we aren't using (don't care about) the token value right now, we only care that there /is/ one.
-
-```swift
-// swift bools return 'true' or 'false'
-func isActiveToken() -> Bool {
-        
-    if let _ = self.token, self.expiry > Date() {
-        return true
-    } else {
-        return false
+        UserDefaults.standard.set(host, forKey: "fm-host")
+        UserDefaults.standard.set(db, forKey: "fm-db")
+        UserDefaults.standard.set(auth, forKey: "fm-auth")
     }
 }
 ```
 
-### Example
-
-```swift
-switch isActiveToken() {  
-
-case true:
-    print("token \(self.token) - expiry \(self.expiry)")  
-    // do stuff with self.token
- 
-case false:
-    refreshToken(for: self.auth, completion: { token, expiry, code in
-    
-        guard let token = token, let expiry = expiry else {
-            print("refresh token sad.")  // optionally handle non-zero errors
-            return
-        }
-        
-        print("token \(token) - expiry \(expiry)")  
-        // do stuff with updated token
-    })
-}    
-```
-
 ---
 
 
-### Refresh Token (function)
-
-Returns an optional token and expiry. The `@escaping` marker allows the `token?`, `expiry?`, and error `code` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+### Validate Session (function)
+Data API v19 or later. Prior to the 19 API, we had to either attempt (and retry) calls that failed, or set an expiry `Date()` and track it. Neither of those options were great. Now we can quickly validate a session token. Hooray!
 
 ```swift
-// returns -> (token?, expiry?, error code)
-func refreshToken(for auth: String, completion: @escaping (String?, Date?, String) -> Void) {
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
-    
-    let url = baseURL.appendingPathComponent("/sessions")
-    let expiry = Date(timeIntervalSinceNow: 900)   // 15 minutes
+// MARK: - validate session -> (bool, message)
+
+class func validateSession(token: String, completion: @escaping (Bool, String) -> Void) {
+            
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/validateSession") else { return }
     
     var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("Basic \(auth)", forHTTPHeaderField: "Authorization")
+    request.httpMethod = "GET"
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
-    URLSession.shared.dataTask(with: request) { data, _, error in
+    URLSession.shared.dataTask(with: request) { data, resp, error in
         
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
-                let response = json["response"] as? [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
         
-        guard let token = response["token"] as? String else {
-            print(message)  // optionally pass message to UIAlertController
-            completion(nil, nil, code)
+        guard code == "0" else {
+            completion(false, message)
             return
         }
         
-        UserDefaults.standard.set(token, forKey: "fm-token")
-        UserDefaults.standard.set(expiry, forKey: "fm-token-expiry")
-        
-        completion(token, expiry, code)
-        
+        completion(true, message)
+    
     }.resume()
 }
 ```
@@ -146,16 +99,82 @@ func refreshToken(for auth: String, completion: @escaping (String?, Date?, Strin
 ### Example
 
 ```swift
-refreshToken(for: self.auth, completion: { token, expiry, code in
+let auth  = UserDefaults.standard.string(forKey: "fm-auth") ?? ""
+let token = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 
-    guard let token = token, let expiry = expiry else { 
-        print("refresh token sad.")  // optionally handle non-zero errors
-        return 
+DataAPI.validateSession(token: token, completion: { success, _ in
+
+    switch success {
+    case true:
+          // api call using 'token'
+
+    case false:
+        DataAPI.refreshToken(auth: auth, completion: { token, _, message in
+            guard let token = token else {
+                print(message)
+                return
+            }
+            // api call using 'token'
+        })
     }
-
-    print("token \(token) - expiry \(expiry)")
-    // do stuff with updated token
 })
+```
+
+---
+
+
+### Refresh Token (function)
+
+Returns an optional token. The `@escaping` marker allows the `token?`, `code`, and `message` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift.
+
+```swift
+// MARK: - refresh token -> (token?, code, message)
+
+class func refreshToken(auth: String, completion: @escaping (String?, String, String) -> Void) {
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/sessions") else { return }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("Basic \(auth)", forHTTPHeaderField: "Authorization")
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
+        guard   let data     = data, error == nil,
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let response = json["response"] as? [String: Any],
+                let messages = json["messages"] as? [[String: Any]],
+                let code     = messages[0]["code"] as? String,
+                let message  = messages[0]["message"] as? String else { return }
+
+        guard let token = response["token"] as? String else {
+            completion(nil, code, message)
+            return
+        }
+
+        UserDefaults.standard.set(token, forKey: "fm-token")
+        completion(token, code, message)
+
+    }.resume()
+}
+```
+
+### Example
+
+```swift
+if let auth = UserDefaults.standard.string(forKey: "fm-auth") {
+
+    DataAPI.refreshToken(auth: auth, completion: { token, _, message in
+        guard let token = token else {
+            print(message)
+            return
+        }
+        print("new token: \(token)")
+    })
+}
 ```
 
 ---
@@ -163,20 +182,21 @@ refreshToken(for: self.auth, completion: { token, expiry, code in
 
 ### Delete Token (function)
 
-End a user session. Only an error `code` is returned with this function. For iOS apps, you might elect to call this in `applicationDidEnterBackground(_:)`. There is reportedly a 500-session limit in FMS 18, so this may be useful for larger deployments. If you don't delete a session token, it will expire 15 minutes after the last API call.
+Ends a user session. Only an error code and message is returned with this function. For iOS apps, a good place to put this would be `applicationDidEnterBackground(_:)`. Note: There is a 500-session limit with the Data API, so managing this is important for larger deployments. If you don't delete your session token, it ~will~ should expire 15 minutes after the last API call. You should clean up after yourself and not assume this will happen.
+
 ```swift
-// returns -> (code)
-func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
+// MARK: - delete token -> (code, message)
 
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
+class func deleteToken(_ token: String, completion: @escaping (String, String) -> Void) {
 
-    let url = baseURL.appendingPathComponent("/sessions/\(token)")
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/sessions/\(token)") else { return }
 
     var request = URLRequest(url: url)
     request.httpMethod = "DELETE"
 
-    URLSession.shared.dataTask(with: request) { data, _, error in
+    URLSession.shared.dataTask(with: request) { data, resp, error in
 
         guard   let data     = data, error == nil,
                 let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -185,15 +205,12 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
                 let message  = messages[0]["message"] as? String else { return }
 
         guard code == "0" else {
-            print(message)
-            completion(code)
+            completion(code, message)
             return
         }
-        
+
         UserDefaults.standard.set(nil, forKey: "fm-token")
-        UserDefaults.standard.set(0, forKey: "fm-token-expiry")
-        
-        completion(code)
+        completion(code, message)
 
     }.resume()
 }
@@ -202,15 +219,15 @@ func deleteToken(_ token: String, completion: @escaping (String) -> Void) {
 ### Example
 
 ```swift
-deleteToken(self.token, completion: { code in
+if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
-    guard code == "0" else {
-        print("delete token sad.")  // optionally handle non-zero errors
-        return
-    }
-    
-    // logged out!
-})
+    DataAPI.deleteToken(token, completion: { code, message in
+        guard code == "0" else {
+            print(message)
+            return
+        }
+    })
+}
 ```
 
 ---
@@ -218,47 +235,51 @@ deleteToken(self.token, completion: { code in
 
 ### Create Record (function)
 
-Creates a new record with a payload. Pass an empty `fieldData` object to create an empty record.
+Creates a new record with a payload. Returns an optional recordId. If you want to create a new empty record, pass in an empty `fieldData` object.
 
 ```swift
-// returns -> (recordId?, code)
-func createRecord(token: String, layout: String, payload: [String: Any], completion: @escaping (String?, String) -> Void ) {
-             
+// MARK: - create record -> (recordId?, code, message)
+
+class func createRecord(token: String,
+                        layout: String,
+                        payload: [String: Any],
+                        completion: @escaping (String?, String, String) -> Void ) {
+
     //  payload = ["fieldData": [
     //    "firstName": "Brian",
     //    "lastName": "Hamm",
     //    "age": 47
     //  ]]
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path),
+
+    //  payload = ["fieldData": []]    <-- creates an empty record
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records"),
             let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
 
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records")
-        
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = body
 
-    URLSession.shared.dataTask(with: request) { data, _, error in
-            
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let response = json["response"] as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-                                               
+
         guard let recordId = response["recordId"] as? String else {
-            print(message)
-            completion(nil, code)
+            completion(nil, code, message)
             return
         }
-  
-        completion(recordId, code)
-            
+
+        completion(recordId, code, message)
+
     }.resume()
 }
 ```
@@ -266,10 +287,10 @@ func createRecord(token: String, layout: String, payload: [String: Any], complet
 ### Example
 
 ```swift
-createRecord(token: self.token, layout: myLayout, payload: myPayload, completion: { recordId, code in
+createRecord(token: token, layout: myLayout, payload: myPayload, completion: { recordId, code, message in
 
     guard let recordId = recordId else { 
-        print("create record sad.")  // optionally handle non-zero errors
+        print(message)
         return 
     }
     
@@ -283,38 +304,40 @@ createRecord(token: self.token, layout: myLayout, payload: myPayload, completion
 
 ### Duplicate Record With ID (function)
 
-Data API v18 or later. Only an error `code` is returned with this function. Note: this function is very similar to `getRecordWith(id:)`. Both require the `recordId`. The primary difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 or later. Only an error code and message is returned with this function. This function is very similar to `getRecordWith(id:)`. Both require a `recordId`. The main difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 
 ```swift
-// returns -> (code)
-func duplicateRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
-    
+// MARK: - duplicate record with id -> (code, message)
+
+class func duplicateRecordWith(id: Int,
+                               token: String,
+                               layout: String,
+                               completion: @escaping (String, String) -> Void) {
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records/\(id)") else { return }
+
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
                 let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-        
+
         guard code == "0" else {
-            print(message)
-            completion(code)
+            completion(code, message)
             return
         }
-        
-        completion(code)
-        
+
+        completion(code, message)
+
     }.resume()
 }
 ```
@@ -322,10 +345,10 @@ func duplicateRecordWith(id: Int, token: String, layout: String, completion: @es
 ### Example
 
 ```swift
-duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
+duplicateRecordWith(id: recordId, token: token, layout: myLayout, completion: { code, message in
 
     guard code == "0" else { 
-        print("duplicate record sad.")  // optionally handle non-zero errors
+        print(message)
         return 
     }
     
@@ -341,36 +364,39 @@ duplicateRecordWith(id: recordId, token: self.token, layout: myLayout, completio
 Returns an optional array of records with an offset and limit.
 
 ```swift
-// returns -> ([records]?, code)
-func getRecords(token: String, layout: String, offset: Int, limit: Int, completion: @escaping ([[String: Any]]?, String) -> Void) {
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records?_offset=\(offset)&_limit=\(limit)")
-    
+// MARK: - get records -> ([records]?, code, message)
+
+class func getRecords(token: String,
+                      layout: String,
+                      offset: Int,
+                      limit: Int,
+                      completion: @escaping ([[String: Any]]?, String, String) -> Void) {
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records?_offset=\(offset)&_limit=\(limit)") else { return }
+
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let response = json["response"] as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-        
+
         guard let records = response["data"] as? [[String: Any]] else {
-            print(message)  // optionally pass message to UIAlertController
-            completion(nil, code)
+            completion(nil, code, message)
             return
         }
-        
-        completion(records, code)
-        
+
+        completion(records, code, message)
+
     }.resume()
 }
 ```
@@ -379,15 +405,15 @@ func getRecords(token: String, layout: String, offset: Int, limit: Int, completi
 
 ```swift
 // get the first 20 records
-getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion: { records, code in
+getRecords(token: token, layout: myLayout, offset: 1, limit: 20, completion: { records, code, message in
 
     guard let records = records else { 
-        print("get records sad.")  // optionally handle non-zero errors
+        print(message)
         return 
     }
     
     // array!
-    for record in records {
+    records.forEach { record in
         // deserialize with Codable, append object array, refresh UI
     }
 }
@@ -398,46 +424,48 @@ getRecords(token: self.token, layout: myLayout, offset: 1, limit: 20, completion
 
 ### Find Request (function)
 
-Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass your payload as a parameter.
+Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass the payload as a parameter.
 
 ```swift
-// returns -> ([records]?, error code)
-func findRequest(token: String, layout: String, payload: [String: Any], completion: @escaping ([[String: Any]]?, String) -> Void) {
-    
-    //  payload = ["query": [           payload = ["query": [
-    //    ["firstName": "Brian"],         ["firstName": "Brian",
-    //    ["firstName": "Geoff"]          "lastName": "Hamm"]
-    //  ]]                              ]]
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path),
+// MARK: - find request -> ([records]?, code, message)
+
+class func findRequest(token: String,
+                       layout: String,
+                       payload: [String: Any],
+                       completion: @escaping ([[String: Any]]?, String, String) -> Void) {
+
+    //  payload = ["query": [             payload = ["query": [
+    //    ["firstName": "Brian"],           ["firstName": "Brian",
+    //    ["firstName": "Geoff"]             "lastName": "Hamm"]
+    //  ]]                                ]]
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/_find"),
             let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/_find")
-    
+
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = body
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let response = json["response"] as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-        
+
         guard let records = response["data"] as? [[String: Any]] else {
-            print(message)  // optionally pass message to UIAlertController
-            completion(nil, code)
+            completion(nil, code, message)
             return
         }
-        
-        completion(records, code)
-        
+
+        completion(records, code, message)
+
     }.resume()
 }
 ```
@@ -445,15 +473,15 @@ func findRequest(token: String, layout: String, payload: [String: Any], completi
 ### Example
 
 ```swift
-findRequest(token: self.token, layout: myLayout, payload: myPayload, completion: { records, code in
+findRequest(token: token, layout: myLayout, payload: myPayload, completion: { records, code, message in
 
     guard let records = records else { 
-        print("find request sad.")  // optionally handle non-zero errors
+        print(message)
         return 
     }
     
     // array!
-    for record in records {
+    records.forEach { record in
         // deserialize with Codable, append object array, refresh UI
     }
 }
@@ -463,38 +491,42 @@ findRequest(token: self.token, layout: myLayout, payload: myPayload, completion:
 
 
 ### Get Record With ID (function)
+
 Get a single record with `recordId`. Returns an optional record.
+
 ```swift
-// returns -> (record?, code)
-func getRecordWith(id: Int, token: String, layout: String, completion: @escaping ([String: Any]?, String) -> Void) {
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
-    
+// MARK: - get record with id -> (record?, code, message)
+
+class func getRecordWith(id: Int,
+                         token: String,
+                         layout: String,
+                         completion: @escaping ([String: Any]?, String, String) -> Void) {
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records/\(id)") else { return }
+
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let response = json["response"] as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-        
+
         guard let records = response["data"] as? [[String: Any]] else {
-            print(message)  // optionally pass message to UIAlertController
-            completion(nil, code)
+            completion(nil, code, message)
             return
         }
-        
-        completion(records[0], code)
-        
+
+        completion(records[0], code, message)
+
     }.resume()
 }
 ```
@@ -502,10 +534,10 @@ func getRecordWith(id: Int, token: String, layout: String, completion: @escaping
 ### Example
 
 ```swift
-getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { record, code in
+getRecordWith(id: recordId, token: token, layout: myLayout, completion: { record, code, message in
 
     guard let record = record else { 
-        print("get record sad.")  // optionally handle non-zero errors
+        print(message)
         return 
     }
     
@@ -518,37 +550,41 @@ getRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { r
 
 
 ### Delete Record With ID (function)
-Delete record with `recordId`. Only an error code is returned with this function.
+
+Delete record with `recordId`. Only an error code and message is returned with this function.
+
 ```swift
-// returns -> (code)
-func deleteRecordWith(id: Int, token: String, layout: String, completion: @escaping (String) -> Void) {
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
-    
+// MARK: - delete record with id -> (code, message)
+
+class func deleteRecordWith(id: Int,
+                            token: String,
+                            layout: String,
+                            completion: @escaping (String, String) -> Void) {
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records/\(id)") else { return }
+
     var request = URLRequest(url: url)
     request.httpMethod = "DELETE"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-                
+
         guard code == "0" else {
-            print(message)
-            completion(code)
+            completion(code, message)
             return
         }
-                        
-        completion(code)
-        
+
+        completion(code, message)
+
     }.resume()
 }
 ```
@@ -556,14 +592,14 @@ func deleteRecordWith(id: Int, token: String, layout: String, completion: @escap
 ### Example
 
 ```swift
-deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: { code in
+deleteRecordWith(id: recordId, token: token, layout: myLayout, completion: { code, message in
     
     guard code == "0" else { 
-        print("delete record sad.")  // optionally handle non-zero errors
+        print(message)  // optionally handle non-zero errors
         return 
     }
     
-    // deleted!
+    // record deleted!
     // remove object from local array, refresh UI
 }
 ```
@@ -575,45 +611,49 @@ deleteRecordWith(id: recordId, token: self.token, layout: myLayout, completion: 
 
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
-Only an error code is returned with this function. The Data API does not currently pass back a modified record object for you to use. Because of this, you may want to refetch the record afterward.
+Only an error code and message is returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecordWith(id:)`.
 
 ```swift
-// returns -> (code)
-func editRecordWith(id: Int, token: String, layout: String, payload: [String: Any], modId: Int?, completion: @escaping (String) -> Void) {
-    
+// MARK: - edit record with id -> (code, message)
+
+class func editRecordWith(id: Int,
+                          token: String,
+                          layout: String,
+                          payload: [String: Any],
+                          modId: Int?,
+                          completion: @escaping (String, String) -> Void) {
+
     //  payload = ["fieldData": [
     //    "firstName": "newValue",
     //    "lastName": "newValue"
     //  ]]
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path),
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/layouts/\(layout)/records/\(id)"),
             let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
-    
-    let url = baseURL.appendingPathComponent("/layouts/\(layout)/records/\(id)")
-    
+
     var request = URLRequest(url: url)
     request.httpMethod = "PATCH"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = body
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
-                let json     = try? JSONSerialization.jsonObject(with: data) as! [String: Any],
+                let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-                
+
         guard code == "0" else {
-            print(message)
-            completion(code)
+            completion(code, message)
             return
         }
-                                
-        completion(code)
-        
+
+        completion(code, message)
+
     }.resume()
 }
 ```
@@ -621,10 +661,10 @@ func editRecordWith(id: Int, token: String, layout: String, payload: [String: An
 ### Example
 
 ```swift
-editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPayload, modId: nil, completion: { code in
+editRecordWith(id: recordId, token: token, layout: myLayout, payload: myPayload, modId: nil, completion: { code, message in
 
     guard code == "0" else {
-        print("edit record sad.")  // optionally handle non-zero errors
+        print(message)
         return
     }
     
@@ -638,45 +678,46 @@ editRecordWith(id: recordId, token: self.token, layout: myLayout, payload: myPay
 
 ### Set Global Fields (function)
 
-Data API v18 or later. Only an error `code` is returned with this function. Note: this function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs, and they're both PATCH methods. The main difference is the payload key and the `/globals` endpoint.
+Data API v18 or later. Only an error code and message is returned with this function. This function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs _and_ they're both PATCH methods. The main difference is the `globalFields` payload key and the `/globals` endpoint.
 
 ```swift
-// set global fields -> (code)
-func setGlobalFields(token: String, payload: [String: Any], completion: @escaping (String) -> Void) {
-    
+// MARK: - set global fields -> (code, message)
+
+class func setGlobalFields(token: String,
+                           payload: [String: Any],
+                           completion: @escaping (String, String) -> Void) {
+
     //  payload = ["globalFields": [
     //    "fieldName": "value",
     //    "fieldName": "value"
     //  ]]
-    
-    guard   let path = UserDefaults.standard.string(forKey: "fm-db-path"),
-            let baseURL = URL(string: path),
+
+    guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
+            let db   = UserDefaults.standard.string(forKey: "fm-db"),
+            let url  = URL(string: "https://\(host)/fmi/data/vLatest/databases/\(db)/globals"),
             let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
-    
-    let url = baseURL.appendingPathComponent("/globals")
-    
+
     var request = URLRequest(url: url)
     request.httpMethod = "PATCH"
     request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = body
-    
-    URLSession.shared.dataTask(with: request) { data, _, error in
-        
+
+    URLSession.shared.dataTask(with: request) { data, resp, error in
+
         guard   let data     = data, error == nil,
                 let json     = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let messages = json["messages"] as? [[String: Any]],
                 let code     = messages[0]["code"] as? String,
                 let message  = messages[0]["message"] as? String else { return }
-        
+
         guard code == "0" else {
-            print(message)
-            completion(code)
+            completion(code, message)
             return
         }
-        
-        completion(code)
-        
+
+        completion(code, message)
+
     }.resume()
 }
 ```
@@ -684,10 +725,10 @@ func setGlobalFields(token: String, payload: [String: Any], completion: @escapin
 ### Example
 
 ```swift
-setGlobalFields(token: self.token, payload: myPayload, completion: { code in
+setGlobalFields(token: token, payload: myPayload, completion: { code, message in
 
     guard code == "0" else {
-        print("set globals sad.")  // optionally handle non-zero errors
+        print(message)
         return
     }
     
