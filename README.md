@@ -634,8 +634,8 @@ let layout = "Customers"
 
 deleteRecordWith(id: recid, token: token, layout: layout, completion: { code, message in
     
-    guard code == "0" else { 
-        print(message)  // optionally handle non-zero errors
+    guard code == "0" else {
+        print(message)
         return 
     }
     
@@ -705,7 +705,7 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-payload = ["query": [
+payload = ["fieldData": [
   "firstName": "Brian",
   "lastName": "Hamm"
 ]]
