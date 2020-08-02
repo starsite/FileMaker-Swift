@@ -35,8 +35,6 @@ I also moved the Data API `message` response into the completion block. So now y
 
 ### Environment
 
-A `let` is a constant, in Swift.
-
 Set your host, db, and auth values in the AppDelegate, in `applicationWillEnterForeground(_:)`. For TESTING, you can set these with string literals. For PRODUCTION, you should be fetching these values from elsewhere.
 
 DO NOT deploy apps with credentials visible in code. 😵
