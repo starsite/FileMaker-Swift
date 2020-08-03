@@ -10,7 +10,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 
 I updated SwiftFM this weekend to include the new `validateSession()` method. Meaning, we no longer need to track expiry values with `isActiveToken()`. 🎉 Because Claris is using a slightly different URL path for validations, I also refactored all `URLSession` calls to use `host` and `db` environment values. That's a better way to do it anyway.
 
-Lastly, I moved the Data API `message` response into the completion block. So now you can access the server `message` in the closure, where it's more helpful. 😘
+Lastly, I moved the Data API `message` response into the completion block. So now you can access the server message in the closure, where it's more helpful. 😘
 
 ---
 
@@ -245,7 +245,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 Creates a new record with a payload. Returns an optional recordId.
 
-💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're great. Functions are still defined with a `completion:` parameter. You can opt for a trailing closure _when you make the call_ by double-clicking the `completion:` placeholder. Or you can tab to it and hit `Return`.
+💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are everywhere in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're great. Functions are still defined with a `completion:` parameter. You can opt for a trailing closure _when you make the call_ by double-clicking the `completion:` placeholder. Or you can tab to it and hit `Return`.
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
