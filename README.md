@@ -188,7 +188,7 @@ if let auth = UserDefaults.standard.string(forKey: "fm-auth") {
 
 ### Delete Token (function)
 
-Ends a user session. Only an error code and message are returned with this function. For iOS apps, a great place to put this would be `applicationDidEnterBackground(_:)`. Note: There is a 500-session limit with the Data API, so managing tokens is important for larger deployments. If you don't delete your session token, it ~will~ should expire 15 minutes after the last API call. Probably. But you should clean up after yourself and not assume this will happen.
+Ends a user session. Only an error code and message are returned with this function. For iOS apps, a good place to call this would be `applicationDidEnterBackground(_:)`. Note: There is a 500-session limit with the Data API, so managing tokens is important for larger deployments. If you don't delete your session token, it ~will~ should expire 15 minutes after the last API call. Probably. But you should clean up after yourself and not assume this will happen. 🙂
 
 ```swift
 // MARK: - delete token -> (code, message)
