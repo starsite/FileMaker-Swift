@@ -243,7 +243,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 ### Create Record (function)
 
-Creates a new record with a payload. Returns an optional recordId. If you want to create a new empty record, pass in an empty `fieldData` object.
+Creates a new record with a payload. Returns an optional recordId. If you want to create a new empty record, pass in an empty `fieldData` object. The example also includes an example of a trailing closure. 
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
@@ -299,8 +299,8 @@ let payload = ["fieldData": [
 // to create a new empty record, pass an empty dict object for 'fieldData'.
 // let payload = ["fieldData": []]
 
-
-createRecord(token: token, layout: layout, payload: payload, completion: { recordId, code, message in
+// when a completion block is the final parameter, you can write it (more concisely) as a trailing closure 😉
+createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
 
     guard let recordId = recordId else { 
         print(message)
@@ -362,7 +362,8 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-duplicateRecordWith(id: recid, token: token, layout: layout, completion: { code, message in
+// trailing closure
+duplicateRecordWith(id: recid, token: token, layout: layout) { code, message in
 
     guard code == "0" else { 
         print(message)
@@ -425,7 +426,8 @@ class func getRecords(token: String,
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-getRecords(token: token, layout: layout, offset: 1, limit: 20, completion: { records, code, message in
+// trailing closure
+getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, code, message in
 
     guard let records = records else { 
         print(message)
@@ -503,7 +505,8 @@ payload = ["query": [
   "city": "Dallas"]
 ]]
 
-findRequest(token: token, layout: layout, payload: payload, completion: { records, code, message in
+// trailing closure
+findRequest(token: token, layout: layout, payload: payload) { records, code, message in
 
     guard let records = records else { 
         print(message)
@@ -568,7 +571,8 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-getRecordWith(id: recid, token: token, layout: layout, completion: { record, code, message in
+// trailing closure
+getRecordWith(id: recid, token: token, layout: layout) { record, code, message in
 
     guard let record = record else { 
         print(message)
@@ -630,7 +634,8 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-deleteRecordWith(id: recid, token: token, layout: layout, completion: { code, message in
+// trailing closure
+deleteRecordWith(id: recid, token: token, layout: layout) { code, message in
     
     guard code == "0" else {
         print(message)
@@ -703,7 +708,8 @@ payload = ["fieldData": [
   "lastName": "Hamm"
 ]]
 
-editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil, completion: { code, message in
+// trailing closure, especially good for long signatures like this one
+editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil) { code, message in
 
     guard code == "0" else {
         print(message)
@@ -769,7 +775,8 @@ payload = ["globalFields": [
   "gField": "value"
 ]]
 
-setGlobalFields(token: token, payload: payload, completion: { code, message in
+// trailing closure
+setGlobalFields(token: token, payload: payload) { code, message in
 
     guard code == "0" else {
         print(message)
