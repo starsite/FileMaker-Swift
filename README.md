@@ -188,7 +188,7 @@ if let auth = UserDefaults.standard.string(forKey: "fm-auth") {
 
 ### Delete Token (function)
 
-Ends a user session. Only an error code and message is returned with this function. For iOS apps, a good place to put this would be `applicationDidEnterBackground(_:)`. Note: There is a 500-session limit with the Data API, so managing this is important for larger deployments. If you don't delete your session token, it ~will~ should expire 15 minutes after the last API call. You should clean up after yourself and not assume this will happen.
+Ends a user session. Only an error code and message are returned with this function. For iOS apps, a great place to put this would be `applicationDidEnterBackground(_:)`. Note: There is a 500-session limit with the Data API, so managing tokens is important for larger deployments. If you don't delete your session token, it ~will~ should expire 15 minutes after the last API call. Probably. But you should clean up after yourself and not assume this will happen.
 
 ```swift
 // MARK: - delete token -> (code, message)
@@ -319,7 +319,7 @@ createRecord(token: token, layout: layout, payload: payload) { recordId, code, m
 
 ### Duplicate Record With ID (function)
 
-Data API v18 or later. Only an error code and message is returned with this function. This function is very similar to `getRecordWith(id:)`. Both require a `recordId`. The main difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 or later. Only an error code and message are returned with this function. This function is very similar to `getRecordWith(id:)`. Both require a `recordId`. The main difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
 
 ```swift
 // MARK: - duplicate record with id -> (code, message)
@@ -591,7 +591,7 @@ getRecordWith(id: recid, token: token, layout: layout) { record, code, message i
 
 ### Delete Record With ID (function)
 
-Delete record with `recordId`. Only an error code and message is returned with this function.
+Delete record with `recordId`. Only an error code and message are returned with this function.
 
 ```swift
 // MARK: - delete record with id -> (code, message)
@@ -656,7 +656,7 @@ deleteRecordWith(id: recid, token: token, layout: layout) { code, message in
 
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
-Only an error code and message is returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecordWith(id:)`.
+Only an error code and message are returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecordWith(id:)`.
 
 ```swift
 // MARK: - edit record with id -> (code, message)
@@ -728,7 +728,7 @@ editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId:
 
 ### Set Global Fields (function)
 
-Data API v18 or later. Only an error code and message is returned with this function. This function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs _and_ they're both PATCH methods. The main difference is the `globalFields` payload key and the `/globals` endpoint.
+Data API v18 or later. Only an error code and message are returned with this function. This function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs _and_ they're both PATCH methods. The main difference is the `globalFields` payload key and the `/globals` endpoint.
 
 ```swift
 // MARK: - set global fields -> (code, message)
