@@ -245,7 +245,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 Creates a new record with a payload. Returns an optional recordId.
 
-I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them. And writing them. They're pretty great. Functions are still defined with the `completion:` parameter. You can opt to write a trailing closure when you make the call (see example).
+💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them. And writing them. They're great. Functions are still defined with a `completion:` parameter. You can opt to write a trailing closure when you make the call (see example).
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
@@ -254,6 +254,9 @@ class func createRecord(token: String,
                         layout: String,
                         payload: [String: Any],
                         completion: @escaping (String?, String, String) -> Void ) {
+                        
+// to create a new empty record, pass an empty dict object for 'fieldData'.
+// let payload = ["fieldData": []]
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -297,9 +300,6 @@ let payload = ["fieldData": [
   "lastName": "Hamm",
   "email": "hello@starsite.co"
 ]]
-
-// to create a new empty record, pass an empty dict object for 'fieldData'.
-// let payload = ["fieldData": []]
 
 // when a completion block is the final parameter, you can write it more concisely as a trailing closure. 😉
 createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
@@ -710,7 +710,7 @@ payload = ["fieldData": [
   "lastName": "Hamm"
 ]]
 
-// trailing closures are _especially_ good for long signatures, like this one
+// trailing closures are _especially_ great for long signatures, like this one
 editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil) { code, message in
 
     guard code == "0" else {
