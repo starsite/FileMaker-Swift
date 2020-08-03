@@ -245,18 +245,18 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 Creates a new record with a payload. Returns an optional recordId.
 
-💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them. And writing them. They're great. Functions are still defined with a `completion:` parameter. You can opt to write a trailing closure when you make the call (see example).
+💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're pretty great. Functions are still defined with a `completion:` parameter. You can opt to write a trailing closure when you make the call (see example).
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
 
+// to create a new empty record, pass an empty dict object for 'fieldData'.
+// let payload = ["fieldData": []]
+
 class func createRecord(token: String,
                         layout: String,
                         payload: [String: Any],
-                        completion: @escaping (String?, String, String) -> Void ) {
-                        
-// to create a new empty record, pass an empty dict object for 'fieldData'.
-// let payload = ["fieldData": []]
+                        completion: @escaping (String?, String, String) -> Void ) {                       
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -364,7 +364,7 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-// trailing closure, aren't they great?
+// another trailing closure, aren't they great?
 duplicateRecordWith(id: recid, token: token, layout: layout) { code, message in
 
     guard code == "0" else { 
@@ -428,7 +428,7 @@ class func getRecords(token: String,
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-// another trailing closure
+// trailing closure
 getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, code, message in
 
     guard let records = records else { 
