@@ -243,7 +243,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 ### Create Record (function)
 
-Creates a new record with a payload. Returns an optional recordId. If you want to create a new empty record, pass in an empty `fieldData` object. The example also includes an example of a trailing closure. 
+Creates a new record with a payload. Returns an optional recordId. The example also includes an example of a Swift trailing closure. 😉
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
@@ -299,7 +299,7 @@ let payload = ["fieldData": [
 // to create a new empty record, pass an empty dict object for 'fieldData'.
 // let payload = ["fieldData": []]
 
-// when a completion block is the final parameter, you can write it (more concisely) as a trailing closure 😉
+// when a completion block is the final parameter, you can write it (more concisely) as a trailing closure. 😉
 createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
 
     guard let recordId = recordId else { 
@@ -362,7 +362,7 @@ let recid  = 12345
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-// trailing closure
+// trailing closure, aren't they great?
 duplicateRecordWith(id: recid, token: token, layout: layout) { code, message in
 
     guard code == "0" else { 
@@ -426,7 +426,7 @@ class func getRecords(token: String,
 let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
-// trailing closure
+// another trailing closure
 getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, code, message in
 
     guard let records = records else { 
@@ -708,7 +708,7 @@ payload = ["fieldData": [
   "lastName": "Hamm"
 ]]
 
-// trailing closure, especially good for long signatures like this one
+// trailing closures are _especially_ good for long signatures, like this one
 editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil) { code, message in
 
     guard code == "0" else {
