@@ -243,7 +243,9 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 ### Create Record (function)
 
-Creates a new record with a payload. Returns an optional recordId. The example also includes an example of a Swift trailing closure. 😉
+Creates a new record with a payload. Returns an optional recordId.
+
+I've included an example of a Swift "trailing closure" in the code example. Trailing closures are _everywhere_ in Swift and SwiftUI, so you should get used to seeing them. And writing them. They're pretty great. Functions are still defined with the `completion:` parameter. You can opt to write a trailing closure when you make the call (see example).
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
@@ -299,7 +301,7 @@ let payload = ["fieldData": [
 // to create a new empty record, pass an empty dict object for 'fieldData'.
 // let payload = ["fieldData": []]
 
-// when a completion block is the final parameter, you can write it (more concisely) as a trailing closure. 😉
+// when a completion block is the final parameter, you can write it more concisely as a trailing closure. 😉
 createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
 
     guard let recordId = recordId else { 
