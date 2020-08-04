@@ -245,7 +245,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 Creates a new record with a payload. Returns an optional recordId.
 
-💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are everywhere in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're great. You can opt for a trailing closure _when you write the call_ by double-clicking the `completion:` placeholder. Or you can tab to it and hit `Return`.
+💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are everywhere in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're pretty great. You can opt for a trailing closure _when you write the call_ by double-clicking the `completion:` placeholder. Or you can tab to it and hit `Return`.
 
 ```swift
 // MARK: - create record -> (recordId?, code, message)
