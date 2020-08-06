@@ -17,7 +17,7 @@ If you already use SwiftFM or want to support the project, you can:
 
 I updated SwiftFM this weekend to include the new `validateSession()` method. Meaning, we no longer need to track expiry values with `isActiveToken()`. 🎉 Because Claris is using a different URL path for validations, I went ahead and refactored all `URLSession` calls to use `host` and `db` environment values. That's a better way to do it anyway.
 
-Lastly, I moved the Data API `message` response into the completion block. So now you can access the server message in the closure, where it's more helpful. 😘
+Lastly, I moved the Data API `message` response into the completion block. So now you can access the server message in the closure, where it's more helpful.
 
 ---
 
