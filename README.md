@@ -2,7 +2,7 @@
 
 SwiftFM is a Swift wrapper for the FileMaker Data API. Xcode 11 and Swift 4 (or later) required.
 
-This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything shown below is part of `DataAPI.swift`, in this repo.
+This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything in this readme is part of `DataAPI.swift`, in this repo.
 
 If you already use SwiftFM or just want to support the project, you can:
 
