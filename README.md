@@ -4,12 +4,12 @@ SwiftFM is a Swift wrapper for the FileMaker Data API. Xcode 11 and Swift 4 (or 
 
 This `README.md` is aimed at FileMaker devs who want to integrate the Data API into their Xcode projects. Each function is paired with an example. Everything in this readme is part of `DataAPI.swift`, in this repo.
 
-If you already use SwiftFM or just want to support the project, you can:
+If you'd like to support this project, you can:
 
 * Contribute socially, by giving SwiftFM a ⭐️ on GitHub or telling other people about it
 * Contribute financially, by clicking the `Sponsor` on the top right of this page 😘
 * Hire me to build an iOS app for your company 🥰
-* Hire me to build an iOS app for one of your FileMaker clients (if something like this is out of reach for your agency)
+* Hire me to build an iOS app for one of your FileMaker clients (if something like this is out of reach for you)
 
 ---
 
