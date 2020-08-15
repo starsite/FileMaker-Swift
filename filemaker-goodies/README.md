@@ -1,6 +1,6 @@
 # UTC Conversion
 
-FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble syncing against timeStamps on your workstation. You may also need to work with FileMaker timeStamp values in Xcode. In either case, you should find these calcs handy. :)
+FileMaker Cloud timeStamps are UTC, not local time. Because of this, you may have trouble syncing against timeStamps on your workstation. You may also need to work with FileMaker timeStamp values in Xcode. In either case, you should find these calcs handy. 🙂
 
 #### FileMaker » UTC
 
@@ -29,7 +29,7 @@ let dateInt = Int( Date().timeIntervalSince1970 )
 - - -
 # URL schemes for Go, App SDK, and Swift
 
-I've tested all of the Apple and FileMaker URL schemes, and most of the third-party app schemes (for the apps/services I have). URL schemes can/and sometimes do change, so this list will be updated as needed. If you see something wrong, send me a message. This isn't meant to be an exhaustive list. The aim is to maintain a list of widely used/common apps for reference, for Go and FIAS developers.
+I've tested all of the Apple and FileMaker URL schemes, and most of the third-party app schemes (for the apps/services I have). URL schemes can, and sometimes do, change, so this list will be updated as needed. If you see something wrong, send me a message. This isn't meant to be an exhaustive list. The aim is to maintain a list of widely used/common apps for reference, for Go and FIAS developers.
 
 How to use: In any FileMaker Go or FIAS app, add a URL scheme to a simple `Open URL []` script step. The corresponding app, if present on device, will launch. All of these will work with no parameters if you simply want to open an app to no particular destination. Others can take a variety of parameters. I've included a few that I use regularly.
 
