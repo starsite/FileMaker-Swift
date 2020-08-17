@@ -26,7 +26,7 @@ Lastly, I moved the Data API `message` response into the completion block. So no
 #### v19
 * [`validateSession(token:)`](#validate-session-function)
 #### v18+
-* [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-function)
+* [`duplicateRecord(id:token:layout:)`](#duplicate-record-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17+
 * ~`isActiveToken()`~
