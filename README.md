@@ -26,7 +26,7 @@ Lastly, I moved the Data API `message` response into the completion block. So no
 #### v19
 * [`validateSession(token:)`](#validate-session-function)
 #### v18+
-* [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-with-id-function)
+* [`duplicateRecordWith(id:token:layout:)`](#duplicate-record-function)
 * [`setGlobalFields(token:payload:)`](#set-global-fields-function)
 #### v17+
 * ~`isActiveToken()`~
@@ -35,8 +35,9 @@ Lastly, I moved the Data API `message` response into the completion block. So no
 * [`createRecord(token:layout:payload:)`](#create-record-function)
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
-* [`deleteRecordWith(id:token:layout:)`](#delete-record-with-id-function)
-* [`editRecordWith(id:token:layout:payload:modId:)`](#edit-record-with-id-function)
+* [`getRecord(id:token:layout:`](#get-record-function)
+* [`deleteRecord(id:token:layout:)`](#delete-record-function)
+* [`editRecord(id:token:layout:payload:modId:)`](#edit-record-function)
 
 ---
 
@@ -136,7 +137,7 @@ DataAPI.validateSession(token: token, completion: { success, _ in
 
 ### Refresh Token (function)
 
-Returns an optional token. The `@escaping` marker allows the `token?`, `code`, and `message` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift. All of the functions in this repo use `@escaping`.
+Returns an optional `token`. The `@escaping` marker allows the `token?`, `code`, and `message` types to be used later (they're permitted to "escape" or outlive the function). That's typical for async calls in Swift. All of the functions in this repo use `@escaping`.
 
 ```swift
 // MARK: - refresh token -> (token?, code, message)
@@ -195,7 +196,7 @@ if let auth = UserDefaults.standard.string(forKey: "fm-auth") {
 
 ### Delete Token (function)
 
-Ends a user session. Only an error code and message are returned with this function. For iOS apps, a good place to call this would be `applicationDidEnterBackground(_:)`. The Data API has a 500-session limit, so managing tokens is extra important for large deployments. If you don't delete your session token, it ~will~ _should_ expire 15 minutes after the last API call. Probably. But you should clean up after yourself and not assume this will happen. 🙂
+Ends a user session. Only an error `code` and `message` are returned with this function. For iOS apps, a good place to call this would be `applicationDidEnterBackground(_:)`. The Data API has a 500-session limit, so managing tokens is extra important for large deployments. If you don't delete your session token, it ~will~ _should_ expire 15 minutes after the last API call. Probably. But you should clean up after yourself and not assume this will happen. 🙂
 
 ```swift
 // MARK: - delete token -> (code, message)
@@ -250,7 +251,7 @@ if let token = UserDefaults.standard.string(forKey: "fm-token") {
 
 ### Create Record (function)
 
-Creates a new record with a payload. Returns an optional recordId.
+Creates a new record with a payload. Returns an optional `recordId`.
 
 💡 I've included an example of a Swift "trailing closure" in the code example. Trailing closures are everywhere in Swift and SwiftUI, so you should get used to seeing them, and writing them. They're pretty great. You can opt for a trailing closure _as you're writing the call_ by double-clicking the `completion:` placeholder. Or you can tab to the placeholder and hit `Return`.
 
@@ -308,7 +309,7 @@ let payload = ["fieldData": [
   "email": "hello@starsite.co"
 ]]
 
-// when a completion block is the final parameter, you can write it more concisely as a trailing closure. 😉
+// when a completion block is the final parameter, you can write it as a trailing closure. 😉
 createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
 
     guard let recordId = recordId else { 
@@ -324,17 +325,17 @@ createRecord(token: token, layout: layout, payload: payload) { recordId, code, m
 ---
 
 
-### Duplicate Record With ID (function)
+### Duplicate Record (function)
 
-Data API v18 or later. Only an error code and message are returned with this function. This function is very similar to `getRecordWith(id:)`. Both require a `recordId`. The main difference is `getRecordWith(id:)` is a GET, and `duplicateRecordWith(id:)` is a POST.
+Data API v18 or later. Only an error `code` and `message` are returned with this function. This function is very similar to `getRecord(id:)`. Both require a `recordId`. The main difference is `getRecord(id:)` is a GET, and `duplicateRecord(id:)` is a POST.
 
 ```swift
-// MARK: - duplicate record with id -> (code, message)
+// MARK: - duplicate record -> (code, message)
 
-class func duplicateRecordWith(id: Int,
-                               token: String,
-                               layout: String,
-                               completion: @escaping (String, String) -> Void) {
+class func duplicateRecord(id: Int,
+                           token: String,
+                           layout: String,
+                           completion: @escaping (String, String) -> Void) {
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -372,7 +373,7 @@ let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
 // another trailing closure, aren't they great?
-duplicateRecordWith(id: recid, token: token, layout: layout) { code, message in
+duplicateRecord(id: recid, token: token, layout: layout) { code, message in
 
     guard code == "0" else { 
         print(message)
@@ -388,7 +389,7 @@ duplicateRecordWith(id: recid, token: token, layout: layout) { code, message in
 
 ### Get Records (function)
 
-Returns an optional array of records with an offset and limit.
+Returns an optional array of `records` with an `offset` and `limit`.
 
 ```swift
 // MARK: - get records -> ([records]?, code, message)
@@ -455,7 +456,7 @@ getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, code, 
 
 ### Find Request (function)
 
-Returns an optional array of records. Note the difference in payload between an "or" request vs. an "and" request. You can set your payload from the UI, or hardcode a query (like this). Then pass the payload as a parameter.
+Returns an optional array of `records`. Note the difference in payload between an "or" request vs. an "and" request. Set your payload from the UI, or hardcode a query. Then pass `payload` as a parameter.
 
 ```swift
 // MARK: - find request -> ([records]?, code, message)
@@ -532,17 +533,17 @@ findRequest(token: token, layout: layout, payload: payload) { records, code, mes
 ---
 
 
-### Get Record With ID (function)
+### Get Record (function)
 
-Get a single record with `recordId`. Returns an optional record.
+Get a single record with `recordId`. Returns an optional `record`.
 
 ```swift
 // MARK: - get record with id -> (record?, code, message)
 
-class func getRecordWith(id: Int,
-                         token: String,
-                         layout: String,
-                         completion: @escaping ([String: Any]?, String, String) -> Void) {
+class func getRecord(id: Int,
+                     token: String,
+                     layout: String,
+                     completion: @escaping ([String: Any]?, String, String) -> Void) {
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -581,7 +582,7 @@ let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
 // trailing closure
-getRecordWith(id: recid, token: token, layout: layout) { record, code, message in
+getRecord(id: recid, token: token, layout: layout) { record, code, message in
 
     guard let record = record else { 
         print(message)
@@ -596,17 +597,17 @@ getRecordWith(id: recid, token: token, layout: layout) { record, code, message i
 - - -
 
 
-### Delete Record With ID (function)
+### Delete Record (function)
 
-Delete record with `recordId`. Only an error code and message are returned with this function.
+Delete record with `recordId`. Only an error `code` and `message` are returned with this function.
 
 ```swift
-// MARK: - delete record with id -> (code, message)
+// MARK: - delete record -> (code, message)
 
-class func deleteRecordWith(id: Int,
-                            token: String,
-                            layout: String,
-                            completion: @escaping (String, String) -> Void) {
+class func deleteRecord(id: Int,
+                        token: String,
+                        layout: String,
+                        completion: @escaping (String, String) -> Void) {
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -644,7 +645,7 @@ let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
 // trailing closure
-deleteRecordWith(id: recid, token: token, layout: layout) { code, message in
+deleteRecord(id: recid, token: token, layout: layout) { code, message in
     
     guard code == "0" else {
         print(message)
@@ -659,21 +660,21 @@ deleteRecordWith(id: recid, token: token, layout: layout) { code, message in
 - - -
 
 
-### Edit Record With ID (function)
+### Edit Record (function)
 
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
-Only an error code and message are returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecordWith(id:)`.
+Only an error `code` and `message` are returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecord(id:)`.
 
 ```swift
-// MARK: - edit record with id -> (code, message)
+// MARK: - edit record -> (code, message)
 
-class func editRecordWith(id: Int,
-                          token: String,
-                          layout: String,
-                          payload: [String: Any],
-                          modId: Int?,
-                          completion: @escaping (String, String) -> Void) {
+class func editRecord(id: Int,
+                      token: String,
+                      layout: String,
+                      payload: [String: Any],
+                      modId: Int?,
+                      completion: @escaping (String, String) -> Void) {
 
     guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
             let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -718,7 +719,7 @@ payload = ["fieldData": [
 ]]
 
 // trailing closures are _especially_ great for long signatures, like this one
-editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId: nil) { code, message in
+editRecord(id: recid, token: token, layout: layout, payload: payload, modId: nil) { code, message in
 
     guard code == "0" else {
         print(message)
@@ -735,7 +736,7 @@ editRecordWith(id: recid, token: token, layout: layout, payload: payload, modId:
 
 ### Set Global Fields (function)
 
-Data API v18 or later. Only an error code and message are returned with this function. This function is very similar to `editRecordWith(id:)`. Both accept a simple set of key-value pairs _and_ they're both PATCH methods. The main difference is the `globalFields` payload key and the `/globals` endpoint.
+Data API v18 or later. Only an error `code` and `message` are returned with this function. This function is very similar to `editRecord(id:)`. Both accept a simple set of key-value pairs _and_ they're both PATCH methods. The main difference is the `globalFields` payload key and the `/globals` endpoint.
 
 ```swift
 // MARK: - set global fields -> (code, message)
