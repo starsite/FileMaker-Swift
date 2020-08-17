@@ -35,7 +35,7 @@ Lastly, I moved the Data API `message` response into the completion block. So no
 * [`createRecord(token:layout:payload:)`](#create-record-function)
 * [`getRecords(token:layout:offset:limit:)`](#get-records-function)
 * [`findRequest(token:layout:payload:)`](#find-request-function)
-* [`getRecord(id:token:layout:`](#get-record-function)
+* [`getRecord(id:token:layout:)`](#get-record-function)
 * [`deleteRecord(id:token:layout:)`](#delete-record-function)
 * [`editRecord(id:token:layout:payload:modId:)`](#edit-record-function)
 
