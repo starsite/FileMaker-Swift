@@ -253,10 +253,10 @@ class DataAPI {
     
     // MARK: - duplicate record with id -> (code, message)
     
-    class func duplicateRecordWith(id: Int,
-                                   token: String,
-                                   layout: String,
-                                   completion: @escaping (String, String) -> Void) {
+    class func duplicateRecord(id: Int,
+                               token: String,
+                               layout: String,
+                               completion: @escaping (String, String) -> Void) {
         
         guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
                 let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -377,10 +377,10 @@ class DataAPI {
     
     // MARK: - get record with id -> (record?, code, message)
     
-    class func getRecordWith(id: Int,
-                             token: String,
-                             layout: String,
-                             completion: @escaping ([String: Any]?, String, String) -> Void) {
+    class func getRecord(id: Int,
+                         token: String,
+                         layout: String,
+                         completion: @escaping ([String: Any]?, String, String) -> Void) {
         
         guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
                 let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -416,10 +416,10 @@ class DataAPI {
     
     // MARK: - delete record with id -> (code, message)
     
-    class func deleteRecordWith(id: Int,
-                                token: String,
-                                layout: String,
-                                completion: @escaping (String, String) -> Void) {
+    class func deleteRecord(id: Int,
+                            token: String,
+                            layout: String,
+                            completion: @escaping (String, String) -> Void) {
         
         guard   let host = UserDefaults.standard.string(forKey: "fm-host"),
                 let db   = UserDefaults.standard.string(forKey: "fm-db"),
@@ -454,12 +454,12 @@ class DataAPI {
         
     // MARK: - edit record with id -> (code, message)
     
-    class func editRecordWith(id: Int,
-                              token: String,
-                              layout: String,
-                              payload: [String: Any],
-                              modId: Int?,
-                              completion: @escaping (String, String) -> Void) {
+    class func editRecord(id: Int,
+                          token: String,
+                          layout: String,
+                          payload: [String: Any],
+                          modId: Int?,
+                          completion: @escaping (String, String) -> Void) {
         
         //  payload = ["fieldData": [
         //    "firstName": "newValue",
