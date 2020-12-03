@@ -7,7 +7,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 #### If you'd like to support this project, you can:
 
 * Contribute socially, by giving SwiftFM a ⭐️ on GitHub or telling other people about it
-* Contribute financially, by clicking the `Sponsor` on the top right of this page 😘
+* Contribute financially, by clicking `Sponsor` over in the sidebar 👉
 * Hire me to build an iOS app for your company 🥰
 * Hire me to build an iOS app for one of your FileMaker clients (if something like this is out of reach for you)
 
@@ -310,7 +310,7 @@ let payload = ["fieldData": [
 ]]
 
 // when a completion block is the final parameter, you can write it as a trailing closure. 😉
-createRecord(token: token, layout: layout, payload: payload) { recordId, code, message in
+createRecord(token: token, layout: layout, payload: payload) { recordId, _, message in
 
     guard let recordId = recordId else { 
         print(message)
@@ -437,7 +437,7 @@ let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
 // trailing closure
-getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, code, message in
+getRecords(token: token, layout: layout, offset: 1, limit: 20) { records, _, message in
 
     guard let records = records else { 
         print(message)
@@ -511,12 +511,11 @@ payload = ["query": [
 
 // find customers named Brian in Dallas
 payload = ["query": [
-  ["firstName": "Brian",
-  "city": "Dallas"]
+  ["firstName": "Brian", "city": "Dallas"]
 ]]
 
 // trailing closure
-findRequest(token: token, layout: layout, payload: payload) { records, code, message in
+findRequest(token: token, layout: layout, payload: payload) { records, _, message in
 
     guard let records = records else { 
         print(message)
@@ -582,7 +581,7 @@ let token  = UserDefaults.standard.string(forKey: "fm-token") ?? ""
 let layout = "Customers"
 
 // trailing closure
-getRecord(id: recid, token: token, layout: layout) { record, code, message in
+getRecord(id: recid, token: token, layout: layout) { record, _, message in
 
     guard let record = record else { 
         print(message)
@@ -664,7 +663,7 @@ deleteRecord(id: recid, token: token, layout: layout) { code, message in
 
 Edit record with `recordId`. Pass values for the fields you want to modify. Optionally, you can include the `modId` from a previous fetch, to ensure the server record isn't newer than the one you're editing. If you pass `modId`, a record will be edited only when the `modId` matches.
 
-Only an error `code` and `message` are returned with this function. The Data API does not pass back a modified record object for you to use. Boo. You may want to refetch the record afterward with `getRecord(id:)`.
+Only an error `code` and `message` are returned with this function. The Data API does not pass back a modified record object for you to use. Boo 👎. You may want to refetch the record afterward with `getRecord(id:)`.
 
 ```swift
 // MARK: - edit record -> (code, message)
