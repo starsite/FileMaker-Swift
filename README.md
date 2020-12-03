@@ -7,7 +7,7 @@ This `README.md` is aimed at FileMaker devs who want to integrate the Data API i
 #### If you'd like to support this project, you can:
 
 * Contribute socially, by giving SwiftFM a ⭐️ on GitHub or telling other people about it
-* Contribute financially, by clicking `Sponsor` over in the sidebar 👉
+* Contribute financially, by [sponsoring](https://paypal.me/starsite) this project
 * Hire me to build an iOS app for your company 🥰
 * Hire me to build an iOS app for one of your FileMaker clients (if something like this is out of reach for you)
 
